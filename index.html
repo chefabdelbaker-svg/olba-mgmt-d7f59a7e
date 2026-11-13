@@ -70,6 +70,21 @@ input.c{width:100%;min-width:150px}
 .gms{position:absolute;top:8px;width:14px;height:14px;background:var(--gold);transform:rotate(45deg);border-radius:2px}
 .gbl{position:absolute;top:7px;font-size:11px;color:var(--mut);white-space:nowrap;line-height:16px}
 .leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin:0 0 10px;align-items:center}.leg i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:middle}
+
+.gate{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:10px}
+.gcard{width:100%;max-width:520px;background:radial-gradient(ellipse at 85% 0%,rgba(217,168,91,.35),transparent 55%),linear-gradient(135deg,#2b2118,#4a3624);color:#fff;border-radius:22px;padding:42px 34px;box-shadow:0 20px 50px rgba(43,33,24,.25)}
+.gcard .k{color:var(--gold2);letter-spacing:3px;font-size:12px;text-transform:uppercase}
+.gcard h1{font-family:Georgia,"Noto Naskh Arabic",serif;font-weight:400;font-size:clamp(28px,5vw,40px);margin:10px 0 6px;line-height:1.1}
+.gcard p{color:#e7dac8;margin:0 0 22px;font-size:15px;line-height:1.5}
+.gcard select,.gcard input{width:100%;padding:13px;font:inherit;font-size:16px;border:0;border-radius:10px;margin:0 0 12px;background:#fff;color:var(--ink)}
+.gcard .err{color:#ffb4ab}
+.alert{background:#fff7e8;border:1px solid #ecd3a3;border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.alert b{color:#8a5a00}.alert ul{margin:8px 0 0;padding-inline-start:20px;font-size:14px;line-height:1.55}
+.cohg{margin-bottom:16px}.cohg h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cohg .btns button{background:#fff;border:1px solid #cbbfb0;border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer;margin-inline-end:6px}
+.cohg .btns button:hover{border-color:var(--gold)}
+.badge{background:var(--red);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-inline-start:5px}
+.sev{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin-inline-end:6px;background:#fde5e3;color:var(--red)}.sev.w{background:#fff1d6;color:#8a5a00}
 footer{text-align:center;color:#9a8b78;font-size:12px;padding:24px}
 @media(max-width:700px){td.dep,th.dep{display:none}.hero{padding:32px 22px}main{padding:14px}.gl{width:170px;min-width:170px}}
 </style></head><body>
@@ -83,7 +98,7 @@ const STAT=['À faire','En cours','Terminé','Bloqué'],PC={'À faire':'p-af','E
 const PEOPLE=['Rima','Chef Omar','Sayed','Hafiz','Consultant pizza','Direction'];
 const I={
 fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'ensemble",tab_gantt:'Calendrier Gantt',tab_plan:'Planning directeur',change:'Changer',
- login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Choisis ton nom et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
+ tab_coh:'Cohérence',gate_t:'Bienvenue chez OLBA Management',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Cohérence.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Choisis ton nom et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
  k:'Pilotage des lancements',h_t:'Management',h_s:'{p} projets, {n} actions, un seul tableau de bord partagé par toute l\'équipe.',
  c_me:'Ma page',c_med:'Mes actions, mes deadlines : je mets à jour mon avancement.',c_all:"Vue d'ensemble",c_alld:'Tous les projets, leur avancement et les points de blocage.',c_g:'Calendrier Gantt',c_gd:'Qui fait quoi, quand : tous les projets sur une frise.',
  k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Sans deadline',k_bl:'Bloquées',
@@ -96,7 +111,7 @@ fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'e
  l_af:'À faire',l_ec:'En cours',l_t:'Terminé',l_b:'Bloqué',l_ms:'Ouverture',plan_err:'Impossible d\'ouvrir le planning directeur. Réessaie dans un instant.',l_lt:'En retard',tr:'Traduction indisponible',ft:'OLBA Bakehouse · Riyadh · données partagées en direct',
  s:{'À faire':'À faire','En cours':'En cours','Terminé':'Terminé','Bloqué':'Bloqué'},pp:{'Direction':'Direction'}},
 en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',tab_gantt:'Gantt calendar',tab_plan:'Planning director',change:'Switch',
- login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
+ tab_coh:'Consistency',gate_t:'Welcome to OLBA Management',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
  k:'Launch control',h_t:'Management',h_s:'{p} projects, {n} actions, one dashboard shared by the whole team.',
  c_me:'My page',c_med:'My actions and deadlines: I update my own progress.',c_all:'Overview',c_alld:'All projects, their progress and blockers.',c_g:'Gantt calendar',c_gd:'Who does what, and when: every project on one timeline.',
  k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'No deadline',k_bl:'Blocked',
@@ -109,7 +124,7 @@ en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',
  l_af:'To do',l_ec:'In progress',l_t:'Done',l_b:'Blocked',l_ms:'Opening',plan_err:'Could not open the planning director. Please retry shortly.',l_lt:'Late',tr:'Translation unavailable',ft:'OLBA Bakehouse · Riyadh · live shared data',
  s:{'À faire':'To do','En cours':'In progress','Terminé':'Done','Bloqué':'Blocked'},pp:{'Direction':'Management','Consultant pizza':'Pizza consultant'}},
 ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_all:'نظرة عامة',tab_gantt:'جدول غانت',tab_plan:'مخطط المدير',change:'تغيير',
- login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
+ tab_coh:'الاتساق',gate_t:'مرحبًا بكم في إدارة OLBA',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
  k:'متابعة الإطلاقات',h_t:'الإدارة',h_s:'{p} مشاريع، {n} مهمة، ولوحة متابعة واحدة يشاركها الفريق كله.',
  c_me:'صفحتي',c_med:'مهامي ومواعيدي: أحدّث تقدّمي بنفسي.',c_all:'نظرة عامة',c_alld:'كل المشاريع وتقدّمها ونقاط التعثّر.',c_g:'جدول غانت',c_gd:'من يفعل ماذا ومتى: كل المشاريع على خط زمني واحد.',
  k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'بلا موعد',k_bl:'متعثّرة',
@@ -170,9 +185,44 @@ async function openPlan(){const pl=document.getElementById('pl');if(planLoaded||
   f.srcdoc=html.replace('<body>','<body>'+inj);pl.innerHTML='';pl.appendChild(f);planLoaded=true}
  catch(e){pl.innerHTML='<div class="card login"><h2 class="serif">'+L('plan_err')+'</h2><p class="hint">'+esc(String(e.message||e)).slice(0,200)+'</p></div>'}
  planBusy=false}
+
+/* ===== Cohérence : incohérences de dates et de statuts ===== */
+const CM={
+fr:{nodl:p=>`${p.t} : indique ta deadline (démarrage prévu le ${p.s}).`,before:p=>`${p.t} : ta deadline (${p.d}) est avant la fin de ${p.q} « ${p.qn} » (${p.qe}), dont cette action dépend.`,open:p=>`${p.t} : ta deadline (${p.d}) est après l'ouverture du projet (${p.o}).`,late:p=>`${p.t} : deadline dépassée (${p.d}) et action non terminée.`,donep:p=>`${p.t} est marquée terminée alors que ${p.q} « ${p.qn} » ne l'est pas.`,
+ hi:w=>`Bonjour ${w}, merci de vérifier ces points dans OLBA Management :`,bye:u=>`Merci de corriger ta deadline ou ton statut ici : ${u}`},
+en:{nodl:p=>`${p.t}: please enter your deadline (planned start ${p.s}).`,before:p=>`${p.t}: your deadline (${p.d}) is before the end of ${p.q} "${p.qn}" (${p.qe}), which this action depends on.`,open:p=>`${p.t}: your deadline (${p.d}) is after the project opening (${p.o}).`,late:p=>`${p.t}: deadline passed (${p.d}) and the action is not done.`,donep:p=>`${p.t} is marked done while ${p.q} "${p.qn}" is not.`,
+ hi:w=>`Hello ${w}, please check these points in OLBA Management:`,bye:u=>`Please fix your deadline or status here: ${u}`},
+ar:{nodl:p=>`${p.t}: يرجى إدخال الموعد النهائي (البدء المخطط ${p.s}).`,before:p=>`${p.t}: موعدك (${p.d}) قبل انتهاء ${p.q} «${p.qn}» (${p.qe}) التي تعتمد عليها هذه المهمة.`,open:p=>`${p.t}: موعدك (${p.d}) بعد افتتاح المشروع (${p.o}).`,late:p=>`${p.t}: تجاوزت المهمة موعدها (${p.d}) ولم تكتمل.`,donep:p=>`${p.t} مسجّلة كمنجزة بينما ${p.q} «${p.qn}» لم تكتمل.`,
+ hi:w=>`مرحبًا ${w}، يرجى مراجعة هذه النقاط في إدارة OLBA:`,bye:u=>`يرجى تصحيح الموعد أو الحالة هنا: ${u}`}};
+let _coh=null,_cohKey='';
+function COH(){const key=today()+'|'+T.length+'|'+Object.keys(S).length+'|'+Object.values(S).map(x=>(x.deadline||'')+x.status).join('').length+'|'+(S.__v||0);
+ const sig=T.map(t=>t.id+(st(t.id).deadline||'')+st(t.id).status+t.e).join('');if(_coh&&_cohKey===sig)return _coh;
+ const td=today(),by=new Map(T.map(t=>[t.id,t])),out=[];
+ const eEnd=t=>st(t.id).deadline||t.e,dn=t=>st(t.id).status==='Terminé';
+ const opn={};T.forEach(t=>{if(/OP$/.test(t.id))opn[t.p]=eEnd(t)});
+ const addDays=(d,n)=>{const x=new Date(U(d)+n*864e5);return x.getUTCFullYear()+'-'+pad(x.getUTCMonth()+1)+'-'+pad(x.getUTCDate())};
+ T.forEach(t=>{const x=st(t.id),d=x.deadline;if(dn(t))return;
+  const base={id:t.id,o:t.o,t:t.id+' '+'§'};const P=o=>Object.assign({tid:t.id,t:t.id,s:fd(t.s),d:fd(d)},o);
+  if(!d&&t.s<=addDays(td,7))out.push({id:t.id,o:t.o,kind:'nodl',sev:'w',p:{t:t.id,s:fd(t.s)}});
+  if(d&&d<td)out.push({id:t.id,o:t.o,kind:'late',sev:'e',p:{t:t.id,d:fd(d)}});
+  if(d)(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).forEach(q=>{const pq=by.get(q);if(!pq||dn(pq))return;const pe=eEnd(pq);if(pe>d)out.push({id:t.id,o:t.o,kind:'before',sev:'e',p:{t:t.id,d:fd(d),q:q,qn:pq,qe:fd(pe)}})});
+  if(d&&opn[t.p]&&!/(OP|PO)$/.test(t.id)&&d>opn[t.p])out.push({id:t.id,o:t.o,kind:'open',sev:'e',p:{t:t.id,d:fd(d),o:fd(opn[t.p])}})});
+ out.sort((a,b)=>(a.sev==='e'?0:1)-(b.sev==='e'?0:1));_coh=out;_cohKey=sig;return out}
+function cohText(i,l){const p=Object.assign({},i.p);if(p.qn&&typeof p.qn==='object')p.qn=l==='fr'?p.qn.n:(p.qn[l]||p.qn.n);const tk=T.find(z=>z.id===i.id);if(tk)p.t=i.id+' '+(l==='fr'?tk.n:(tk[l]||tk.n));return CM[l][i.kind](p)}
+function cohMsg(w,l){const L2=COH().filter(i=>i.o===w);const u=location.origin+location.pathname;return CM[l].hi(l==='fr'?w:pnm(w))+'\n\n'+L2.map((i,k)=>(k+1)+') '+cohText(i,l)).join('\n')+'\n\n'+CM[l].bye(u)}
+async function cohCopy(w,l){try{await navigator.clipboard.writeText(cohMsg(w,l))}catch(e){const a=document.createElement('textarea');a.value=cohMsg(w,l);document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}const b=event&&event.target;if(b){const o=b.textContent;b.textContent=L('coh_copied');setTimeout(()=>b.textContent=o,1800)}}
+function cohWa(w,l){window.open('https://wa.me/?text='+encodeURIComponent(cohMsg(w,l)),'_blank')}
+function cohList(L2){return `<ul>${L2.map(i=>`<li><span class="sev ${i.sev==='w'?'w':''}">${L(i.sev==='w'?'sev_w':'sev_e')}</span>${esc(cohText(i,lang))}</li>`).join('')}</ul>`}
+function cohView(){const all=COH();const ow=[...new Set(all.map(i=>i.o))];
+ let h=`<div class="card"><h2 class="serif">${L('coh_t')} (${all.filter(i=>i.sev==='e').length} + ${all.filter(i=>i.sev!=='e').length})</h2><p class="hint">${L('coh_h')}</p></div>`;
+ if(!all.length)return h+`<div class="card empty">${L('coh_none')}</div>`;
+ ow.forEach(w=>{const q=all.filter(i=>i.o===w);const ne=q.filter(i=>i.sev==='e').length;h+=`<div class="card cohg"><h2>${esc(pnm(w))} <span class="badge">${ne}</span> <small style="font-weight:400;color:var(--mut)">${L('sev_e')} · ${q.length-ne} ${L('sev_w')}</small></h2>${cohList(q)}${w!=='Direction'?`<div class="btns" style="margin-top:10px">${['fr','en','ar'].map(l=>`<button onclick="cohCopy('${w}','${l}')">${L('coh_copy')} · ${l.toUpperCase()}</button>`).join('')}${['fr','en','ar'].map(l=>`<button onclick="cohWa('${w}','${l}')">${L('coh_wa')} · ${l.toUpperCase()}</button>`).join('')}</div>`:''}</div>`});
+ return h}
+function cohAlert(){if(!me)return '';const q=COH().filter(i=>isAdmin()?true:i.o===me.who);if(!q.filter(i=>i.sev==='e').length&&isAdmin())return '';if(!q.length)return '';
+ return isAdmin()?`<div class="alert"><b>⚠ ${L('coh_all',{n:q.filter(i=>i.sev==='e').length})}</b> <a href="#" onclick="go('coh');return false">→</a></div>`:`<div class="alert"><b>⚠ ${L('coh_my',{n:q.length})}</b>${cohList(q)}</div>`}
 /* chrome */
-function head(){const tabs=[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt']];if(isAdmin())tabs.push(['plan','tab_plan']);
- document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}</button>`).join('');
+function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt']]:[];if(isAdmin()){tabs.push(['plan','tab_plan']);tabs.push(['coh','tab_coh']);}
+ document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}${k==='coh'&&COH().filter(i=>i.sev==='e').length?`<span class="badge">${COH().filter(i=>i.sev==='e').length}</span>`:''}</button>`).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="out()">${L('change')}</button>`:'';
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
@@ -185,11 +235,11 @@ document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dat
 async function login(){const w=document.getElementById('lw').value,p=document.getElementById('lp').value.trim().toUpperCase();
  const e=document.getElementById('le');e.textContent='';if(!w||!p){e.textContent=L('need');return}
  try{const ok=await rpc('mgmt_check',{p_who:w,p_pin:p});if(!ok){e.textContent=L('bad_pin');return}
- me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));render()}catch(x){e.textContent=L('conn')}}
-function loginView(){return `<div class="card login"><h2 class="serif">${L('login_t')}</h2><p class="hint">${L('login_h')}</p>
+ me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));tab='home';render();window.scrollTo(0,0)}catch(x){e.textContent=L('conn')}}
+function loginView(){return `<div class="gate"><div class="gcard"><div class="k">OLBA Bakehouse</div><h1>${L('gate_t')}</h1><p>${L('gate_s')}</p>
 <select id="lw"><option value="">${L('my_name')}</option>${PEOPLE.map(p=>`<option value="${p}">${esc(pnm(p))}</option>`).join('')}</select>
 <input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><div class="err" id="le"></div>
-<button class="b" onclick="login()">${L('enter')}</button><p class="hint" style="margin-top:16px"><a href="#" onclick="go('all');return false">${L('noLogin')}</a></p></div>`}
+<button class="b" style="width:100%" onclick="login()">${L('enter')}</button></div></div>`}
 /* save */
 async function save(id,el){const row=el.closest('tr');const g=c=>row.querySelector('.'+c);
  const dl=g('i-dl').value||null,s=g('i-st').value,c=g('i-c').value.slice(0,500);const ok=row.querySelector('.ok');
@@ -209,7 +259,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const ops=T.filter(t=>/OP$/.test(t.id)&&st(t.id).status!=='Terminé').map(t=>({t,d:endOf(t)})).sort((a,b)=>a.d<b.d?-1:1);
  const nxt=open.filter(t=>st(t.id).deadline&&st(t.id).deadline>=td&&dd(st(t.id).deadline,td)<=7).sort((a,b)=>st(a.id).deadline<st(b.id).deadline?-1:1);
  const li=(t,d,c)=>`<div class="li"><span>${esc(tn(t))}<br><small>${esc(pj(t.p))} · ${esc(pnm(t.o))}</small></span><span class="d ${c||''}">${fd(d)}</span></div>`;
- return `<div class="hero"><div class="k">OLBA Bakehouse · ${L('k')}</div><h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p></div>
+ return cohAlert()+`<div class="hero"><div class="k">OLBA Bakehouse · ${L('k')}</div><h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p></div>
  <div class="nav">${[['me','c_me','c_med','01'],['all','c_all','c_alld','02'],['gantt','c_g','c_gd','03']].map(([k,a,b,no])=>`<button class="nc" onclick="go('${k}')"><div class="no">${no}</div><b>${L(a)}</b><span>${L(b)}</span></button>`).join('')}</div>
  <div class="kpis">${[[n,'k_tot',''],[done,'k_done','grn'],[doing,'k_doing',''],[late.length,'k_late',late.length?'red':''],[nodl,'k_nodl',nodl?'amb':''],[bl,'k_bl',bl?'red':'']].map(([v,l,c])=>`<div class="kp"><b class="${c}">${v}</b><small>${L(l)}</small></div>`).join('')}</div>
  <div class="two"><div class="card"><h3>${L('s_open')}</h3>${ops.map(o=>{const k=dd(o.d,td);return `<div class="li"><span>${esc(pj(o.t.p))}</span><span class="d">${fd(o.d)} <small>${k>=0?L('left',{n:k}):L('past')}</small></span></div>`}).join('')||`<div class="empty">${L('none')}</div>`}</div>
@@ -219,7 +269,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
 function meView(){if(!me)return loginView();
  const mine=T.filter(t=>t.o===me.who),ps=[...new Set(mine.map(t=>t.p))];
  const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>!st(t.id).deadline&&st(t.id).status!=='Terminé').length;
- let h=`<div class="card"><h2 class="serif">${L('hello',{w:esc(pnm(me.who))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>`;
+ let h=cohAlert()+`<div class="card"><h2 class="serif">${L('hello',{w:esc(pnm(me.who))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>`;
  ps.forEach(p=>{h+=`<div class="card"><h2>${esc(pj(p))}</h2><div class="scroll"><table>${thead()}<tbody>${mine.filter(t=>t.p===p).map(t=>rowEdit(t,true)).join('')}</tbody></table></div></div>`});return h}
 /* overview */
 function allView(){const projs=[...new Set(T.map(t=>t.p))];
@@ -270,10 +320,11 @@ const projs_=[...new Set(T.map(t=>t.p))];
 function render(){head();const m=document.getElementById('m');const pl=document.getElementById('pl');
  if(tab==='plan'&&isAdmin()){m.style.display='none';pl.style.display='block';openPlan();return}
  m.style.display='';pl.style.display='none';
+ if(!me){m.innerHTML=loginView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():ganttView();
+ m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&isAdmin()?cohView():ganttView();
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();await load();render();
- setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if(tab==='plan')return;if(await load())render()},30000)})();
+ setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if(tab==='plan'||!me)return;if(await load())render()},30000)})();
 </script></body></html>
