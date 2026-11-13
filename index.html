@@ -87,6 +87,21 @@ body.cvr header,body.cvr footer{display:none}body.cvr main{padding:0;max-width:n
 .pv:hover{transform:translateY(-3px)}.pv:hover svg{box-shadow:0 0 0 3px #F7AA54}
 .pv.on svg{box-shadow:0 0 0 4px #F7AA54,0 8px 24px rgba(0,0,0,.35)}.pv.on{background:rgba(247,170,84,.12)}
 .pv.dim{opacity:.45}
+.pv{position:relative;-webkit-tap-highlight-color:transparent;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .2s,opacity .25s}
+.pv svg{transform:perspective(520px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .25s;will-change:transform}
+.pv svg image{transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.pv:hover,.pv:focus-visible{transform:none;--s:1.09}
+.pv:hover svg,.pv:focus-visible svg{box-shadow:0 0 0 3px #F7AA54,0 14px 34px rgba(0,0,0,.5),0 0 30px rgba(247,170,84,.35)}
+.pv:hover svg image,.pv:focus-visible svg image{transform:scale(1.1)}
+.pv:active{--s:.95}.pv:active svg{transition-duration:.08s}
+.pv:focus-visible{outline:2px solid #F7AA54;outline-offset:2px}
+.pv span{transition:color .2s,letter-spacing .2s}.pv:hover span{color:#F7AA54}
+.pv.on{--s:1.1}.pv.on svg{animation:pvglow 2.4s ease-in-out infinite}.pv.on span{color:#F7AA54}.pv.on em{opacity:1}
+@keyframes pvglow{0%,100%{box-shadow:0 0 0 4px #F7AA54,0 0 18px rgba(247,170,84,.35)}50%{box-shadow:0 0 0 4px #F7AA54,0 0 38px rgba(247,170,84,.75)}}
+@keyframes pvin{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+.cvp.an .pv{animation:pvin .6s cubic-bezier(.2,.8,.2,1) both}
+.cvp.an .pv:nth-child(2){animation-delay:.07s}.cvp.an .pv:nth-child(3){animation-delay:.14s}.cvp.an .pv:nth-child(4){animation-delay:.21s}.cvp.an .pv:nth-child(5){animation-delay:.28s}.cvp.an .pv:nth-child(6){animation-delay:.35s}
+@media(prefers-reduced-motion:reduce){.pv,.pv svg,.pv svg image{transition:none!important}.pv.on svg,.cvp.an .pv{animation:none!important}}
 .pin{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:18px}
 .pin input{padding:13px 18px;border:0;border-radius:999px;font:600 18px Inter,sans-serif;letter-spacing:.18em;text-align:center;width:210px;background:#F8DAB8;color:#3E211B}
 .pin .cv-b{margin:0}.pe{color:#ffb4ab;min-height:20px;margin-top:8px;font-size:14px}
@@ -396,7 +411,10 @@ async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
 if(savedMe&&savedMe.who)selP=savedMe.who;
 async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab='home';render();window.scrollTo(0,0);loadPh();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
-function pickP(p){selP=p;render();setTimeout(()=>{const i=document.getElementById('lp');if(i)i.focus()},30)}
+document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('.pv');if(!b||e.pointerType==='touch')return;const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.setProperty('--ry',(x*16).toFixed(1)+'deg');b.style.setProperty('--rx',(-y*16).toFixed(1)+'deg')});
+document.addEventListener('pointerout',e=>{const b=e.target.closest&&e.target.closest('.pv');if(b&&!b.contains(e.relatedTarget)){b.style.removeProperty('--rx');b.style.removeProperty('--ry')}});
+let cvAn=true;
+function pickP(p){cvAn=false;selP=p;render();setTimeout(()=>{const i=document.getElementById('lp');if(i)i.focus()},30)}
 
 
 let apSty='m7',apSk=1,apPh=undefined;
@@ -426,7 +444,7 @@ async function pinSave(tg){const e=document.getElementById('pe'),nw=document.get
    document.querySelector('#mdl .mc').innerHTML=`<h3>${L('pin_rdone',{w:esc(pnm(tg))})}</h3><div class="code">${esc(nw.toUpperCase())}</div><div class="pr"><button class="b" onclick="navigator.clipboard&&navigator.clipboard.writeText('${nw.toUpperCase()}');this.textContent='✓'">${L('coh_copy')}</button><button class="b" style="background:#eee;color:#333" onclick="pinClose()">OK</button></div>`}}
  catch(x){e.textContent=/denied/.test(String(x.message))?L('pin_bad'):/weak/.test(String(x.message))?L('pin_weak'):/function|404|PGRST/.test(String(x.message))?L('pin_nodb'):L('conn')}}
 function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA — Baked En Harmonie" src="${LOGO}"><div class="cv-rule"></div><h1 class="cv-t">${L('gate_t')}</h1><p class="cv-s">${L('who_s')}</p>
-<div class="cvp">${LOGIN.map(p=>`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>
+<div class="cvp${cvAn?' an':''}">${LOGIN.map(p=>`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
 function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);
