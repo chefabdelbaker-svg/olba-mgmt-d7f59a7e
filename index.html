@@ -85,6 +85,11 @@ input.c{width:100%;min-width:150px}
 .cohg .btns button:hover{border-color:var(--gold)}
 .badge{background:var(--red);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-inline-start:5px}
 .sev{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin-inline-end:6px;background:#fde5e3;color:var(--red)}.sev.w{background:#fff1d6;color:#8a5a00}
+
+.bgt input,.bgt select{font:inherit;font-size:13px;padding:6px;border:1px solid #cbbfb0;border-radius:6px;background:#fff;max-width:100%}
+.bgt td{padding:5px 5px}.bgt input.n{width:90px}.bgt input.w{width:150px}.bgt input.t{width:190px}
+.bgs td.r,.bgs th.r{text-align:end;white-space:nowrap}.bgs tr.tot td{font-weight:700;background:var(--sand)}
+.x{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px}
 footer{text-align:center;color:#9a8b78;font-size:12px;padding:24px}
 @media(max-width:700px){td.dep,th.dep{display:none}.hero{padding:32px 22px}main{padding:14px}.gl{width:170px;min-width:170px}}
 </style></head><body>
@@ -98,7 +103,7 @@ const STAT=['À faire','En cours','Terminé','Bloqué'],PC={'À faire':'p-af','E
 const PEOPLE=['Rima','Chef Omar','Sayed','Hafiz','Consultant pizza','Direction'];
 const I={
 fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'ensemble",tab_gantt:'Calendrier Gantt',tab_plan:'Planning directeur',change:'Changer',
- tab_coh:'Cohérence',gate_t:'Bienvenue chez OLBA Management',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Cohérence.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Choisis ton nom et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
+ tab_coh:'Cohérence',tab_bg:'Budget',gate_t:'Bienvenue chez OLBA Management',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Cohérence.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Choisis ton nom et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
  k:'Pilotage des lancements',h_t:'Management',h_s:'{p} projets, {n} actions, un seul tableau de bord partagé par toute l\'équipe.',
  c_me:'Ma page',c_med:'Mes actions, mes deadlines : je mets à jour mon avancement.',c_all:"Vue d'ensemble",c_alld:'Tous les projets, leur avancement et les points de blocage.',c_g:'Calendrier Gantt',c_gd:'Qui fait quoi, quand : tous les projets sur une frise.',
  k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Sans deadline',k_bl:'Bloquées',
@@ -111,7 +116,7 @@ fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'e
  l_af:'À faire',l_ec:'En cours',l_t:'Terminé',l_b:'Bloqué',l_ms:'Ouverture',plan_err:'Impossible d\'ouvrir le planning directeur. Réessaie dans un instant.',l_lt:'En retard',tr:'Traduction indisponible',ft:'OLBA Bakehouse · Riyadh · données partagées en direct',
  s:{'À faire':'À faire','En cours':'En cours','Terminé':'Terminé','Bloqué':'Bloqué'},pp:{'Direction':'Direction'}},
 en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',tab_gantt:'Gantt calendar',tab_plan:'Planning director',change:'Switch',
- tab_coh:'Consistency',gate_t:'Welcome to OLBA Management',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
+ tab_coh:'Consistency',tab_bg:'Budget',gate_t:'Welcome to OLBA Management',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
  k:'Launch control',h_t:'Management',h_s:'{p} projects, {n} actions, one dashboard shared by the whole team.',
  c_me:'My page',c_med:'My actions and deadlines: I update my own progress.',c_all:'Overview',c_alld:'All projects, their progress and blockers.',c_g:'Gantt calendar',c_gd:'Who does what, and when: every project on one timeline.',
  k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'No deadline',k_bl:'Blocked',
@@ -124,7 +129,7 @@ en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',
  l_af:'To do',l_ec:'In progress',l_t:'Done',l_b:'Blocked',l_ms:'Opening',plan_err:'Could not open the planning director. Please retry shortly.',l_lt:'Late',tr:'Translation unavailable',ft:'OLBA Bakehouse · Riyadh · live shared data',
  s:{'À faire':'To do','En cours':'In progress','Terminé':'Done','Bloqué':'Blocked'},pp:{'Direction':'Management','Consultant pizza':'Pizza consultant'}},
 ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_all:'نظرة عامة',tab_gantt:'جدول غانت',tab_plan:'مخطط المدير',change:'تغيير',
- tab_coh:'الاتساق',gate_t:'مرحبًا بكم في إدارة OLBA',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
+ tab_coh:'الاتساق',tab_bg:'الميزانية',gate_t:'مرحبًا بكم في إدارة OLBA',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
  k:'متابعة الإطلاقات',h_t:'الإدارة',h_s:'{p} مشاريع، {n} مهمة، ولوحة متابعة واحدة يشاركها الفريق كله.',
  c_me:'صفحتي',c_med:'مهامي ومواعيدي: أحدّث تقدّمي بنفسي.',c_all:'نظرة عامة',c_alld:'كل المشاريع وتقدّمها ونقاط التعثّر.',c_g:'جدول غانت',c_gd:'من يفعل ماذا ومتى: كل المشاريع على خط زمني واحد.',
  k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'بلا موعد',k_bl:'متعثّرة',
@@ -220,8 +225,61 @@ function cohView(){const all=COH();const ow=[...new Set(all.map(i=>i.o))];
  return h}
 function cohAlert(){if(!me)return '';const q=COH().filter(i=>isAdmin()?true:i.o===me.who);if(!q.filter(i=>i.sev==='e').length&&isAdmin())return '';if(!q.length)return '';
  return isAdmin()?`<div class="alert"><b>⚠ ${L('coh_all',{n:q.filter(i=>i.sev==='e').length})}</b> <a href="#" onclick="go('coh');return false">→</a></div>`:`<div class="alert"><b>⚠ ${L('coh_my',{n:q.length})}</b>${cohList(q)}</div>`}
+
+/* ===== Budget : lignes de devis et paiements ===== */
+const FAM={equip:['Équipements & machines','Equipment & machines','المعدات والآلات'],kiosk:['Kiosque / bus','Kiosk / bus','الكشك / الحافلة'],pack:['Packaging','Packaging','التغليف'],mat:['Matériel & décors','Tools & decorations','الأدوات والزينة'],secu:['Sécurité','Security','الأمن'],comm:['Design, shooting & communication','Design, shoots & communication','التصميم والتصوير والتواصل'],cons:['Consulting & formation','Consulting & training','الاستشارات والتدريب'],prod:['Ingrédients & production','Ingredients & production','المكونات والإنتاج'],inst:['Installation & raccordements','Installation & connections','التركيب والوصلات'],oth:['Autres','Other','أخرى']};
+const BST={a_demander:['Devis à demander','Quote to request','عرض سعر مطلوب'],piste:['Piste (pas de devis)','Lead (no quote yet)','احتمال (بلا عرض)'],recu:['Devis reçu','Quote received','عرض مستلم'],retenu:['Retenu','Selected','معتمد'],commande:['Commandé','Ordered','تم الطلب'],ecarte:['Écarté','Rejected','مستبعد']};
+const BPY={non:['Non payé','Unpaid','غير مدفوع'],acompte:['Acompte versé','Deposit paid','دفعة مقدّمة'],paye:['Payé','Paid','مدفوع']};
+const BL={fr:{t:'Budget',hm:'Saisis ici tes devis, tes achats et leurs paiements. Tu ne vois que tes propres lignes ; la Direction voit le total.',ha:'Résumé par famille et par projet. HT converti en TTC à 15 %. Les lignes écartées ne comptent pas.',add:'+ Ajouter une ligne',proj:'Projet',fam:'Famille',item:'À quoi ça correspond',sup:'Fournisseur',amt:'Montant (SAR)',vat:'HT / TTC',bst:'Devis',pay:'Paiement',paid:'Déjà payé',note:'Note',own:'Resp.',kq:'Devis reçus',ke:'Engagé',kp:'Payé',kr:'Reste à payer',kt:'À demander / pistes',byf:'Par famille',byp:'Par projet',lines:'Toutes les lignes',tot:'Total',n:'Lignes',empty:'Aucune ligne pour le moment.',allp:'Tous les projets',allf:'Toutes les familles',alls:'Tous les statuts',allo:'Tous les responsables',del:'Supprimer cette ligne ?'},
+en:{t:'Budget',hm:'Enter your quotes, purchases and payments here. You only see your own lines; Management sees the total.',ha:'Summary by family and by project. Excl.-VAT amounts converted to incl.-VAT at 15%. Rejected lines are not counted.',add:'+ Add a line',proj:'Project',fam:'Family',item:'What it is for',sup:'Supplier',amt:'Amount (SAR)',vat:'Excl./Incl. VAT',bst:'Quote',pay:'Payment',paid:'Already paid',note:'Note',own:'Owner',kq:'Quotes received',ke:'Committed',kp:'Paid',kr:'Left to pay',kt:'To request / leads',byf:'By family',byp:'By project',lines:'All lines',tot:'Total',n:'Lines',empty:'No lines yet.',allp:'All projects',allf:'All families',alls:'All statuses',allo:'All owners',del:'Delete this line?'},
+ar:{t:'الميزانية',hm:'أدخل هنا عروض الأسعار والمشتريات والمدفوعات. ترى سطورك فقط، وترى الإدارة المجموع.',ha:'ملخص حسب الفئة وحسب المشروع. المبالغ قبل الضريبة تُحوَّل إلى شاملة الضريبة بنسبة 15٪. السطور المستبعدة لا تُحتسب.',add:'+ إضافة سطر',proj:'المشروع',fam:'الفئة',item:'ما الغرض',sup:'المورّد',amt:'المبلغ (ريال)',vat:'قبل/بعد الضريبة',bst:'عرض السعر',pay:'الدفع',paid:'المدفوع',note:'ملاحظة',own:'المسؤول',kq:'عروض مستلمة',ke:'ملتزم به',kp:'مدفوع',kr:'المتبقي للدفع',kt:'مطلوب / احتمالات',byf:'حسب الفئة',byp:'حسب المشروع',lines:'كل السطور',tot:'المجموع',n:'السطور',empty:'لا توجد سطور بعد.',allp:'كل المشاريع',allf:'كل الفئات',alls:'كل الحالات',allo:'كل المسؤولين',del:'حذف هذا السطر؟'}};
+const B=k=>BL[lang][k]||BL.fr[k]||k;const LIi=()=>({fr:0,en:1,ar:2}[lang]);
+let BG=[],bgl=false,bf={p:'',f:'',s:'',o:''};
+let bgErr=false;async function loadBudget(){if(!me)return false;try{BG=await rpc('mgmt_budget_list',{p_who:me.who,p_pin:me.pin});bgl=true;bgErr=false;return true}catch(e){bgErr=true;bgl=true;return false}}
+const ttc=l=>{const a=+l.amount||0;return l.vat==='HT'?a*1.15:a};
+const bgPaid=l=>l.pay==='paye'?ttc(l):l.pay==='acompte'?(+l.paid_amount||0):0;
+const bgIsQ=l=>['recu','retenu','commande'].includes(l.status);
+const bgEng=l=>l.status!=='ecarte'&&(['retenu','commande'].includes(l.status)||l.pay!=='non');
+const mny=n=>Math.round(n).toLocaleString('en-US');
+function bgAgg(L2){const a={n:L2.length,q:0,e:0,p:0,r:0,t:0};L2.forEach(l=>{if(l.status==='ecarte')return;if(bgIsQ(l))a.q+=ttc(l);const e=bgEng(l)?ttc(l):0;a.e+=e;a.p+=bgPaid(l);if(['a_demander','piste'].includes(l.status))a.t++});a.r=Math.max(0,a.e-a.p);return a}
+const opt=(m,v,lab)=>Object.keys(m).map(k=>`<option value="${k}"${k===v?' selected':''}>${esc(lab(k))}</option>`).join('');
+async function bgSave(id,el){const row=el.closest('tr'),g=c=>row.querySelector('.'+c);
+ const line={id,proj:g('b-proj').value,family:g('b-fam').value,item:g('b-item').value,supplier:g('b-sup').value,amount:g('b-amt').value,vat:g('b-vat').value,status:g('b-st').value,pay:g('b-pay').value,paid_amount:g('b-paid').value,note:g('b-note').value};
+ if(g('b-own'))line.owner=g('b-own').value;const ok=row.querySelector('.ok');
+ try{const r=await rpc('mgmt_budget_save',{p_who:me.who,p_pin:me.pin,p_line:line});const i=BG.findIndex(x=>x.id===id);if(i>=0)BG[i]=r;ok.textContent=L('saved');ok.style.color='';ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),1500);
+  if(['b-amt','b-vat','b-st','b-pay','b-paid','b-proj','b-fam'].some(c=>el.classList.contains(c)))render()}
+ catch(e){ok.textContent=L('err');ok.style.color='#b3261e';ok.classList.add('show')}}
+async function bgAdd(){try{const r=await rpc('mgmt_budget_save',{p_who:me.who,p_pin:me.pin,p_line:{proj:bf.p||'W',family:bf.f||'oth'}});BG.push(r);render()}catch(e){}}
+async function bgDel(id){if(!confirm(B('del')))return;try{await rpc('mgmt_budget_del',{p_who:me.who,p_pin:me.pin,p_id:id});BG=BG.filter(x=>x.id!==id);render()}catch(e){}}
+function bgRow(l){const ad=isAdmin();
+ return `<tr><td><select class="b-proj" onchange="bgSave('${l.id}',this)">${opt(PIDS,l.proj,k=>pj(PIDS[k]))}</select></td>
+ <td><select class="b-fam" onchange="bgSave('${l.id}',this)">${opt(FAM,l.family,k=>FAM[k][LIi()])}</select></td>
+ <td><input class="t b-item" value="${esc(l.item)}" maxlength="200" onchange="bgSave('${l.id}',this)"></td>
+ <td><input class="w b-sup" value="${esc(l.supplier)}" maxlength="120" onchange="bgSave('${l.id}',this)"></td>
+ <td><input class="n b-amt" type="number" step="0.01" value="${l.amount==null?'':l.amount}" onchange="bgSave('${l.id}',this)"></td>
+ <td><select class="b-vat" onchange="bgSave('${l.id}',this)">${['','HT','TTC'].map(v=>`<option value="${v}"${v===l.vat?' selected':''}>${v||'—'}</option>`).join('')}</select></td>
+ <td><select class="b-st" onchange="bgSave('${l.id}',this)">${opt(BST,l.status,k=>BST[k][LIi()])}</select></td>
+ <td><select class="b-pay" onchange="bgSave('${l.id}',this)">${opt(BPY,l.pay,k=>BPY[k][LIi()])}</select></td>
+ <td><input class="n b-paid" type="number" step="0.01" value="${l.paid_amount==null?'':l.paid_amount}" onchange="bgSave('${l.id}',this)"></td>
+ <td><input class="w b-note" value="${esc(l.note)}" maxlength="500" onchange="bgSave('${l.id}',this)"></td>
+ ${ad?`<td><select class="b-own" onchange="bgSave('${l.id}',this)">${PEOPLE.map(p=>`<option value="${p}"${p===l.owner?' selected':''}>${esc(pnm(p))}</option>`).join('')}</select></td>`:''}
+ <td><span class="ok"></span><button class="x" onclick="bgDel('${l.id}')">✕</button></td></tr>`}
+const bgHead=()=>`<thead><tr><th>${B('proj')}</th><th>${B('fam')}</th><th>${B('item')}</th><th>${B('sup')}</th><th>${B('amt')}</th><th>${B('vat')}</th><th>${B('bst')}</th><th>${B('pay')}</th><th>${B('paid')}</th><th>${B('note')}</th>${isAdmin()?`<th>${B('own')}</th>`:''}<th></th></tr></thead>`;
+function bgSum(keys,nm,pick){const rows=keys.map(k=>{const a=bgAgg(BG.filter(l=>pick(l)===k));return a.n?`<tr><td>${esc(nm(k))}</td><td class="r">${a.n}</td><td class="r">${mny(a.q)}</td><td class="r">${mny(a.e)}</td><td class="r">${mny(a.p)}</td><td class="r"><b>${mny(a.r)}</b></td><td class="r">${a.t||''}</td></tr>`:''}).join('');
+ const t=bgAgg(BG);return `<div class="scroll"><table class="bgs"><thead><tr><th></th><th class="r">${B('n')}</th><th class="r">${B('kq')}</th><th class="r">${B('ke')}</th><th class="r">${B('kp')}</th><th class="r">${B('kr')}</th><th class="r">${B('kt')}</th></tr></thead><tbody>${rows}<tr class="tot"><td>${B('tot')}</td><td class="r">${t.n}</td><td class="r">${mny(t.q)}</td><td class="r">${mny(t.e)}</td><td class="r">${mny(t.p)}</td><td class="r">${mny(t.r)}</td><td class="r">${t.t||''}</td></tr></tbody></table></div>`}
+function budgetView(){if(!me)return loginView();if(!bgl){loadBudget().then(render);return `<div class="card">…</div>`}
+ if(bgErr)return `<div class="card"><h2 class="serif">${B('t')}</h2><p class="hint">${lang==='ar'?'الميزانية غير متاحة حاليًا. أعد المحاولة بعد قليل.':lang==='en'?'Budget is not available right now. Please retry shortly.':'Le budget n\'est pas disponible pour le moment. Réessaie dans un instant.'}</p></div>`;
+ const ad=isAdmin();let h='';
+ if(ad){const t=bgAgg(BG);
+  h+=`<div class="card"><h2 class="serif">${B('t')}</h2><p class="hint">${B('ha')}</p></div><div class="kpis">${[['kq',t.q,''],['ke',t.e,''],['kp',t.p,'grn'],['kr',t.r,t.r?'amb':''],['kt',t.t,'']].map(([k,v,c])=>`<div class="kp"><b class="${c}">${k==='kt'?v:mny(v)}</b><small>${B(k)}${k==='kt'?'':' · SAR'}</small></div>`).join('')}</div>
+  <div class="two"><div class="card"><h3>${B('byf')}</h3>${bgSum(Object.keys(FAM),k=>FAM[k][LIi()],l=>l.family)}</div><div class="card"><h3>${B('byp')}</h3>${bgSum(Object.keys(PIDS),k=>pj(PIDS[k]),l=>l.proj)}</div></div>`}
+ else h+=`<div class="card"><h2 class="serif">${B('t')}</h2><p class="hint">${B('hm')}</p></div>`;
+ const sel=(k,m,lab,nm)=>`<select onchange="bf.${k}=this.value;render()"><option value="">${lab}</option>${Object.keys(m).map(a=>`<option value="${a}"${bf[k]===a?' selected':''}>${esc(nm(a))}</option>`).join('')}</select>`;
+ const Q=BG.filter(l=>(!bf.p||l.proj===bf.p)&&(!bf.f||l.family===bf.f)&&(!bf.s||l.status===bf.s)&&(!bf.o||l.owner===bf.o));
+ h+=`<div class="card"><h2>${B('lines')} (${Q.length})</h2><div class="filters">${sel('p',PIDS,B('allp'),k=>pj(PIDS[k]))}${sel('f',FAM,B('allf'),k=>FAM[k][LIi()])}${sel('s',BST,B('alls'),k=>BST[k][LIi()])}${ad?sel('o',Object.fromEntries(PEOPLE.map(p=>[p,1])),B('allo'),pnm):''}<button class="b" style="padding:7px 14px;font-size:14px" onclick="bgAdd()">${B('add')}</button></div>
+ ${Q.length?`<div class="scroll"><table class="bgt">${bgHead()}<tbody>${Q.map(bgRow).join('')}</tbody></table></div>`:`<p class="empty">${B('empty')}</p>`}</div>`;return h}
 /* chrome */
-function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt']]:[];if(isAdmin()){tabs.push(['plan','tab_plan']);tabs.push(['coh','tab_coh']);}
+function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin()){tabs.push(['plan','tab_plan']);tabs.push(['coh','tab_coh']);}
  document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}${k==='coh'&&COH().filter(i=>i.sev==='e').length?`<span class="badge">${COH().filter(i=>i.sev==='e').length}</span>`:''}</button>`).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="out()">${L('change')}</button>`:'';
@@ -322,9 +380,9 @@ function render(){head();const m=document.getElementById('m');const pl=document.
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=loginView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&isAdmin()?cohView():ganttView();
+ m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&isAdmin()?cohView():tab==='budget'?budgetView():ganttView();
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();await load();render();
- setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if(tab==='plan'||!me)return;if(await load())render()},30000)})();
+ setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if(tab==='plan'||!me)return;if(tab==='budget'){await loadBudget();render();return}if(await load())render()},30000)})();
 </script></body></html>
