@@ -87,6 +87,9 @@ body.cvr header,body.cvr footer{display:none}body.cvr main{padding:0;max-width:n
 .pv:hover{transform:translateY(-3px)}.pv:hover svg{box-shadow:0 0 0 3px #F7AA54}
 .pv.on svg{box-shadow:0 0 0 4px #F7AA54,0 8px 24px rgba(0,0,0,.35)}.pv.on{background:rgba(247,170,84,.12)}
 .pv.dim{opacity:.45}
+.cvp.g4{grid-template-columns:repeat(4,1fr);width:min(760px,94vw)}.cvp.g3{grid-template-columns:repeat(3,1fr);width:min(620px,94vw)}
+@media(max-width:700px){.cvp.g4{grid-template-columns:repeat(2,1fr);width:min(340px,94vw)}.cvp.g3{grid-template-columns:repeat(3,1fr)}}
+.cv-back{background:transparent;border:1px solid rgba(247,170,84,.5);color:#F8DAB8;border-radius:999px;padding:7px 18px;margin-top:10px;font:600 13px Inter,sans-serif;cursor:pointer;transition:background .2s,color .2s}.cv-back:hover{background:rgba(247,170,84,.18);color:#F7AA54}
 .pv{position:relative;-webkit-tap-highlight-color:transparent;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .2s,opacity .25s}
 .pv svg{transform:perspective(520px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .25s;will-change:transform}
 .pv svg image{transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
@@ -157,6 +160,7 @@ const URL_='https://qpyjoieakvlbvybohrgq.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsI
 const PIDS={W:'Winter Booth',P:'Pizzeria / Pizza Terrace',B:'Breakfast New Items',E:'Early Morning Opening',H:'24/24 Operations',R:'Ramadan Campaign',G:'Ramadan Gift Boxes',C:'Celebration Cakes'};
 const STAT=['À faire','En cours','Terminé','Bloqué'],PC={'À faire':'p-af','En cours':'p-ec','Terminé':'p-t','Bloqué':'p-b'},GC={'À faire':'af','En cours':'ec','Terminé':'t','Bloqué':'b'};
 const PEOPLE=['Rima','Chef Omar','Sayed','Hafiz','Consultant pizza','Direction','Ahmed'];
+const DIRSET=['Direction','Ahmed','Sayed'];
 const LOGIN=['Rima','Chef Omar','Sayed','Hafiz','Direction','Ahmed'];
 const ROLES={'Rima':['Marketing','Marketing','التسويق'],'Chef Omar':['Kitchen','Kitchen','المطبخ'],'Sayed':['Shop manager','Shop manager','مدير المتجر'],'Hafiz':['Purchasing','Purchasing','المشتريات'],'Direction':['COO','COO','COO'],'Ahmed':['CEO','CEO','CEO']};
 const rl=p=>{const r=ROLES[p];return r?r[lang==='en'?1:lang==='ar'?2:0]:''};
@@ -410,10 +414,16 @@ async function loadAv(){try{const r=await rpc('mgmt_avatars',{});if(r&&typeof r=
 async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who:me.who,p_pin:me.pin});if(r&&typeof r==='object'&&!Array.isArray(r)){PH=r;if(PH[me.who])try{localStorage.setItem('olba-photo-'+me.who,PH[me.who])}catch(_){}else try{localStorage.removeItem('olba-photo-'+me.who)}catch(_){}render()}}catch(e){}}
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
 if(savedMe&&savedMe.who)selP=savedMe.who;
+let grp=DIRSET.includes(selP);
 async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab='home';render();window.scrollTo(0,0);loadPh();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
 document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('.pv');if(!b||e.pointerType==='touch')return;const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.setProperty('--ry',(x*16).toFixed(1)+'deg');b.style.setProperty('--rx',(-y*16).toFixed(1)+'deg')});
 document.addEventListener('pointerout',e=>{const b=e.target.closest&&e.target.closest('.pv');if(b&&!b.contains(e.relatedTarget)){b.style.removeProperty('--rx');b.style.removeProperty('--ry')}});
 let cvAn=true;
+function pickG(){cvAn=true;grp=true;selP='';render()}
+function backG(){cvAn=true;grp=false;selP='';render()}
+function grpAv(){const I=['a4','a5','a2'],P=[[60,36],[37,78],[83,78]];const id='g'+(++avN);
+ return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="59"/></clipPath>${P.map((p,i)=>`<clipPath id="${id}${i}"><circle cx="${p[0]}" cy="${p[1]}" r="25"/></clipPath>`).join('')}</defs><g clip-path="url(#${id})"><rect width="120" height="120" fill="#25140E"/>${P.map((p,i)=>`<image href="avatars/${I[i]}.jpg" x="${p[0]-30}" y="${p[1]-30}" width="60" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#${id}${i})"/><circle cx="${p[0]}" cy="${p[1]}" r="25" fill="none" stroke="#E6C477" stroke-width="1.6"/>`).join('')}</g><circle cx="60" cy="60" r="58.6" fill="none" stroke="#E6C477" stroke-width="1.2" opacity=".85"/></svg>`}
+const bk=()=>lang==='en'?'Back':lang==='ar'?'رجوع':'Retour';
 function pickP(p){cvAn=false;selP=p;render();setTimeout(()=>{const i=document.getElementById('lp');if(i)i.focus()},30)}
 
 
@@ -444,7 +454,7 @@ async function pinSave(tg){const e=document.getElementById('pe'),nw=document.get
    document.querySelector('#mdl .mc').innerHTML=`<h3>${L('pin_rdone',{w:esc(pnm(tg))})}</h3><div class="code">${esc(nw.toUpperCase())}</div><div class="pr"><button class="b" onclick="navigator.clipboard&&navigator.clipboard.writeText('${nw.toUpperCase()}');this.textContent='✓'">${L('coh_copy')}</button><button class="b" style="background:#eee;color:#333" onclick="pinClose()">OK</button></div>`}}
  catch(x){e.textContent=/denied/.test(String(x.message))?L('pin_bad'):/weak/.test(String(x.message))?L('pin_weak'):/function|404|PGRST/.test(String(x.message))?L('pin_nodb'):L('conn')}}
 function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA — Baked En Harmonie" src="${LOGO}"><div class="cv-rule"></div><h1 class="cv-t">${L('gate_t')}</h1><p class="cv-s">${L('who_s')}</p>
-<div class="cvp${cvAn?' an':''}">${LOGIN.map(p=>`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>
+<div class="cvp ${grp?'g3':'g4'}${cvAn?' an':''}">${(grp?DIRSET:['Rima','Chef Omar','Hafiz','__DIR']).map(p=>p==='__DIR'?`<button class="pv" onclick="pickG()">${grpAv()}<span>${esc(pnm('Direction'))}</span><em>COO · CEO · Shop manager</em></button>`:`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>${grp?`<button class="cv-back" onclick="backG()">← ${bk()}</button>`:''}
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
 function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);
@@ -454,7 +464,7 @@ function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_a
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 function go(t){tab=t;render();window.scrollTo(0,0)}
-function out(){localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* login */
