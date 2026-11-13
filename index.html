@@ -165,7 +165,7 @@ footer{text-align:center;color:#9a8b78;font-size:12px;padding:24px}
 .b2tp{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:6px;background:#fff}.b2tp summary{cursor:pointer}.b2r{margin:6px 0;font-size:13.5px}.b2r span{font-size:11px;text-transform:uppercase;color:var(--mut);margin-inline-end:6px}
 .b2hero{border-radius:14px;padding:16px;margin:10px 0;background:#fff;border:2px solid var(--line)}.b2hero.r{border-color:#c0392b;background:#fff4f2}.b2hero.o{border-color:#d68910;background:#fff8ec}.b2hero.g{border-color:#2f6b4f;background:#f0f8f3}.b2big{font-size:15px}.b2big b{font-size:34px}.b2z2{font-weight:700;font-size:12px;border-radius:99px;padding:2px 10px;color:#fff}.b2z2.r{background:#c0392b}.b2z2.o{background:#d68910}.b2z2.g{background:#2f6b4f}.b2goal.cur{outline:2px solid var(--gold)}.b2k span.b2z2{color:#fff;font-size:12px;text-transform:none;letter-spacing:0}
 @media(max-width:700px){.b2g{grid-template-columns:1fr}}
-.hchips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.hchip{color:#fff;border-radius:99px;padding:3px 11px;font-size:12.5px;font-weight:600}.hdep{margin:14px 0;padding-inline-start:10px}.hdep h3 small{color:var(--mut);font-weight:400}
+.onode{margin:8px 0}.obox{color:#fff;border-radius:8px;padding:8px 12px;font-weight:600;font-size:14px;display:inline-block}.oteam{font-size:12px;color:#7a6a58;margin:3px 0 0 4px}.okids{margin-inline-start:14px;padding-inline-start:12px;border-inline-start:2px solid #d9cdb8}.okids.top{margin-top:14px}.otop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0 4px}.oext{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}.hchips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.hchip{color:#fff;border-radius:99px;padding:3px 11px;font-size:12.5px;font-weight:600}.hdep{margin:14px 0;padding-inline-start:10px}.hdep h3 small{color:var(--mut);font-weight:400}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span class="who" id="who"></span></header>
@@ -221,7 +221,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
  s:{'À faire':'للتنفيذ','En cours':'قيد التنفيذ','Terminé':'منجزة','Bloqué':'متعثّرة'},pp:{'Direction':'الإدارة','Consultant pizza':'مستشار البيتزا','Chef Omar':'الشيف عمر'}}};
 let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
-I.fr.tab_olba='Vision OLBA';I.en.tab_olba='OLBA overview';I.ar.tab_olba='نظرة OLBA';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
+I.fr.tab_olba='Vision OLBA';I.fr.tab_staff='Staffing';I.en.tab_staff='Staffing';I.ar.tab_staff='الموظفون';I.fr.tab_org='Organigramme';I.en.tab_org='Org chart';I.ar.tab_org='الهيكل';I.en.tab_olba='OLBA overview';I.ar.tab_olba='نظرة OLBA';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||p;
 const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
 const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
@@ -475,7 +475,7 @@ function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA �
 <div class="cvp ${grp?'g3':'g5'}${cvAn?' an':''}">${(grp?DIRSET:['Rima','Chef Omar','Hafiz','Ossama','__DIR']).map(p=>p==='__DIR'?`<button class="pv" onclick="pickG()">${grpAv()}<span>${esc(pnm('Direction'))}</span><em>COO · CEO · Shop manager</em></button>`:`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>${grp?`<button class="cv-back" onclick="backG()">← ${bk()}</button>`:''}
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
-function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);if(me&&b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(me&&me.who==='Direction')tabs.push(['olba','tab_olba']);
+function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);if(me&&b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(me&&me.who==='Direction')tabs.push(['olba','tab_olba'],['staffing','tab_staff'],['org','tab_org']);
  document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}${k==='coh'&&COH().filter(i=>i.sev==='e').length?`<span class="badge">${COH().filter(i=>i.sev==='e').length}</span>`:''}</button>`).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="avOpen()">${L('av_btn')}</button> <button class="l" onclick="pinOpen()">${L('pin_btn')}</button> <button class="l" onclick="out()">${L('change')}</button>`:'';
@@ -650,7 +650,7 @@ const HC={'Management':'#a87433','Kitchen':'#c8643b','Bar':'#2e6f6a','FOH / Shop
 const hn=n=>Math.round(+n||0).toLocaleString('en-US');
 async function loadHR(){if(!me||me.who!=='Direction'||HR.busy)return false;HR.busy=true;
  try{const d=await rpc('hr_list',{p_who:me.who,p_pin:me.pin});HR.s=d.staff||[];HR.f=d.fin||[];HR.ok=true;HR.err=false}catch(e){HR.err=true;HR.ok=true}HR.busy=false;return true}
-function hrView(){if(!me||me.who!=='Direction')return '';
+function hrView(m){if(!me||me.who!=='Direction')return '';if(m==='org')return orgView();
  if(!HR.ok){loadHR().then(()=>{if(!B2.ok&&b2bAcc!=='none')loadB2B().then(render);render()});return `<div class="card">…</div>`}
  if(HR.err)return `<div class="card"><div class="err">${ht('conn')}</div><button class="b" onclick="HR.ok=false;render()">↻</button></div>`;
  const F=HR.f,last=F[F.length-1]||{},sum=HR.s.reduce((a,x)=>a+(+x.salary||0),0),pay=HR.s.length?sum:+last.payroll||0,hc=HR.s.length||+last.hc||0;
@@ -671,7 +671,21 @@ function hrView(){if(!me||me.who!=='Direction')return '';
  const team=`<div class="card"><h2>${ht('team')} (${HR.s.length})</h2><p class="b2z">${ht('priv')}</p><div class="hchips">${chips}</div><button class="b2o" onclick="HR.ed='new';render()">${ht('add')}</button>
   ${HR.ed==='new'?`<div class="b2tw"><table class="b2t" style="min-width:560px"><tbody>${hrForm({})}</tbody></table></div>`:''}${blocks||`<p class="empty">${ht('empty')}</p>`}
   ${HR.s.length?`<p><b>${ht('tot')} : ${HR.s.length} · ${hn(sum)} SAR</b></p><p class="b2z">${ht('gap')} : ${hn(sum)} / ${hn(last.payroll)} SAR</p>`:''}</div>`;
- return `<div class="card"><h2>${ht('t')}</h2><div class="b2kp">${kp}</div></div><div class="card"><h3>${ht('hist')}</h3><div class="b2tw">${hist}</div></div><div class="card"><h3>${ht('proj')}</h3>${pr}</div>${b2}${team}`}
+ if(m==='staff')return team;
+ return `<div class="card"><h2>${ht('t')}</h2><div class="b2kp">${kp}</div></div><div class="card"><h3>${ht('hist')}</h3><div class="b2tw">${hist}</div></div><div class="card"><h3>${ht('proj')}</h3>${pr}</div>${b2}`}
+
+const OT={fr:{h:'Organigramme',sub:'Postes de management uniquement. Les équipes (service, bar, production, nettoyage…) dépendent du manager de leur département.',team:'Équipe',lvl:'Même niveau',ext:'Lié au CEO (lien fonctionnel avec le COO)'},en:{h:'Organization chart',sub:'Management positions only. Teams (service, bar, production, cleaning…) report to their department manager.',team:'Team',lvl:'Same level',ext:'Linked to CEO (functional link with COO)'},ar:{h:'الهيكل التنظيمي',sub:'مناصب الإدارة فقط. الفرق (الخدمة، البار، الإنتاج، النظافة…) تتبع مدير القسم.',team:'الفريق',lvl:'نفس المستوى',ext:'مرتبط بالرئيس التنفيذي (ورابط وظيفي مع COO)'}};
+const ot=k=>(OT[lang]||OT.fr)[k]||OT.fr[k];
+function orgView(){
+ const nd=(t,c,tm,ch)=>`<div class="onode" style="border-color:${c}"><div class="obox" style="background:${c}">${t}</div>${tm?`<div class="oteam">${ot('team')} : ${tm}</div>`:''}${ch?`<div class="okids">${ch}</div>`:''}</div>`;
+ const D='#a87433',O='#2e6f6a',P='#c8643b',S='#7a6a58';
+ const ops=nd('Operations Manager',O,'',nd('FOH Supervisor',O,'Service · Cashier · Runner')+nd('Bar Supervisor',O,'Barista')+nd('Shift Leader',O,''));
+ const prod=nd('Head of Production',P,'',nd('Bakery Head',P,'Bakery team')+nd('Pastry Head',P,'Pastry team')+nd('Kitchen Head',P,'Kitchen team'));
+ const kids=ops+prod+nd('HR / People',S,'')+nd('QA / Food Safety',S,'')+nd('Purchasing & Cost Control',S,'Storekeeper')+nd('Marketing Manager',S,'');
+ return `<div class="card"><h2>${ot('h')}</h2><p class="b2z">${ot('sub')}</p>
+ <div class="otop"><div class="obox" style="background:${D}">CEO</div><span class="b2z">${ot('lvl')}</span><div class="obox" style="background:${D}">Executive Director / COO</div></div>
+ <div class="oext"><div class="obox" style="background:#8a7a68">External Accounting Company</div><span class="b2z">${ot('ext')}</span></div>
+ <div class="okids top">${kids}</div></div>`}
 function hrForm(x){const v=k=>esc(x[k]==null?'':x[k]);return `<tr><td><input id="hf-name" value="${v('name')}"></td><td><input id="hf-position" value="${v('position')}"></td><td><input id="hf-dept" value="${v('dept')}"></td><td><input id="hf-salary" type="number" min="0" value="${v('salary')}"></td><td><input id="hf-start" type="date" value="${v('start_date')}"></td><td><button class="b2o" onclick="hrSave(${x.id||'null'})">${ht('save')}</button> <button class="b2o" onclick="HR.ed=null;render()">${ht('cancel')}</button></td></tr>`}
 async function hrSave(id){const g=k=>document.getElementById('hf-'+k).value.trim();if(!g('name'))return;
  try{await rpc('hr_save',{p_who:me.who,p_pin:me.pin,p:{id:id,name:g('name'),position:g('position'),dept:g('dept'),salary:g('salary'),start_date:g('start'),note:''}});HR.ed=null;HR.ok=false}catch(e){alert(ht('conn'))}render()}
@@ -768,7 +782,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='olba'&&me&&me.who==='Direction'?hrView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
+ m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='olba'&&me&&me.who==='Direction'?hrView():(tab==='staffing'||tab==='org')&&me&&me.who==='Direction'?hrView(tab==='org'?'org':'staff'):tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();loadAv();await load();render();
