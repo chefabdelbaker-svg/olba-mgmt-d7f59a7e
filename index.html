@@ -339,34 +339,48 @@ const STY={
  w4:{bg:'#B76E7F',x:'long',body:'#F8DAB8',hr:'#3A2A20'},
  m1:{bg:'#46739A',x:'ghutra',body:'#FFFFFF',cloth:'#F4F4F2'},
  m2:{bg:'#7A4A3A',x:'ghutra',body:'#FFFFFF',cloth:'#B3283A',stripe:1},
- m3:{bg:'#A87433',x:'kufi',body:'#3B3F46'},
+ m3:{bg:'#A87433',x:'kufi',body:'#3B3F46',beard:1},
  m4:{bg:'#5F6B7A',x:'short',body:'#2B2F36',beard:1},
  m5:{bg:'#4F7F69',x:'toque',acc:'#FFFFFF',body:'#F6F6F3'},
  m6:{bg:'#B8412C',x:'toque',acc:'#F3E2BC',body:'#F3E2BC',pizza:1},
- m7:{bg:'#2B1A14',x:'suit',body:'#1B1B1F'},
+ m7:{bg:'#C9A56B',x:'suit',body:'#1B1B1F'},
  m8:{bg:'#8A6FA8',x:'short',body:'#E9E4DA',gl:1}};
 const STYIDS=Object.keys(STY);
 const PDEF={'Ahmed':'m4.1','Rima':'w1.0','Chef Omar':'m5.2','Sayed':'m1.1','Hafiz':'m3.2','Consultant pizza':'m6.0','Direction':'m7.1'};
 let AVC={},PH={};
 function lsPh(p){try{return localStorage.getItem('olba-photo-'+p)||''}catch(e){return ''}}
-function avSvg(sid,photo){const m=String(sid||'m7.1').match(/^([wm]\d)(?:\.(\d))?$/)||['','m7','1'];const a=STY[m[1]]||STY.m7,sk=SKIN[+m[2]||0]||SKIN[1],id='cp'+(++avN),hr=a.hr||'#2A1D16';
- if(photo)return `<svg viewBox="0 0 120 120" aria-hidden="true"><image href="${photo}" x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice"/></svg>`;
- const body=`<path d="M14 124c0-28 21-42 46-42s46 14 46 42z" fill="${a.body}"/>`;
- const neck=`<rect x="52" y="68" width="16" height="18" rx="6" fill="${sk}"/>`;
- const head=`<ellipse cx="60" cy="50" rx="19" ry="22" fill="${sk}"/>`;
- const gl=a.gl?`<g fill="none" stroke="#2a1a12" stroke-width="2.4"><rect x="43" y="44" width="15" height="11" rx="4"/><rect x="62" y="44" width="15" height="11" rx="4"/><path d="M58 49h4"/></g>`:'';
- let parts='',after='';
- if(a.x==='hijab')parts=body+`<path d="M60 12c-23 0-35 17-35 39 0 13 2 20-3 30-4 8-8 14-8 43h92c0-29-4-35-8-43-5-10-3-17-3-30 0-22-12-39-35-39z" fill="${a.cl}"/><ellipse cx="60" cy="52" rx="17" ry="21" fill="${sk}"/>`;
- else if(a.x==='long')parts=`<path d="M30 74c-6-30 8-54 30-54s36 24 30 54c-1 10-4 18-8 24l-8-30H46l-8 30c-4-6-7-14-8-24z" fill="${hr}"/>`+body+neck+head+`<path d="M38 48c0-16 9-25 22-25s22 9 22 25c-6-8-12-12-22-12s-16 4-22 12z" fill="${hr}"/>`;
- else if(a.x==='ghutra')parts=body+`<path d="M60 12c-22 0-33 15-33 36 0 10-3 18-8 28-4 8-6 16-6 24 0 8 3 16 8 24h78c5-8 8-16 8-24 0-8-2-16-6-24-5-10-8-18-8-28 0-21-11-36-33-36z" fill="${a.cloth}"/><ellipse cx="60" cy="53" rx="17" ry="21" fill="${sk}"/><rect x="30" y="21" width="60" height="9" rx="4.5" fill="#1B1B1B"/>`+(a.stripe?`<path d="M33 40h10M77 40h10M30 56h8M82 56h8M29 72h10M81 72h10M28 90h12M80 90h12" stroke="#fff" stroke-width="3" opacity=".8"/>`:'');
- else if(a.x==='kufi')parts=body+neck+head+`<path d="M40 52c0 20 9 29 20 29s20-9 20-29c-4 9-9 12-20 12s-16-3-20-12z" fill="#2A1D16"/><path d="M39 40c0-15 9-24 21-24s21 9 21 24c-7-4-14-6-21-6s-14 2-21 6z" fill="#FFFFFF"/>`;
- else if(a.x==='toque')parts=body+`<path d="M60 84v40" stroke="#00000022" stroke-width="2"/><circle cx="54" cy="102" r="2" fill="#B5B5B0"/><circle cx="54" cy="112" r="2" fill="#B5B5B0"/>`+neck+head+`<path d="M38 34c-9-2-11-15-2-19 3-9 15-11 21-4 6-7 18-5 21 4 9 4 7 17-2 19z" fill="${a.acc}"/><rect x="40" y="32" width="40" height="10" rx="3" fill="${a.acc}"/>`;
- else if(a.x==='short')parts=body+neck+head+(a.beard?`<path d="M40 52c0 20 9 29 20 29s20-9 20-29c-4 9-9 12-20 12s-16-3-20-12z" fill="${hr}"/>`:'')+`<path d="M39 46c0-15 9-24 21-24s21 9 21 24c-5-6-11-9-21-9s-16 3-21 9z" fill="${hr}"/>`;
- else parts=body+`<path d="M44 84l16 16 16-16 10 4-26 36-26-36z" fill="#F4F4F2"/><path d="M56 98h8l3 26H53z" fill="#E0A94F"/>`+neck+head+`<path d="M39 46c0-15 9-24 21-24s21 9 21 24c-5-6-11-9-21-9s-16 3-21 9z" fill="${hr}"/>`;
- after+=gl;
- if(a.pizza)after+=`<g transform="translate(88 96)"><circle r="14" fill="#F7AA54"/><circle r="11" fill="#D8452B"/><circle cx="-3" cy="-3" r="2.5" fill="#F8DAB8"/><circle cx="4" cy="2" r="2.5" fill="#F8DAB8"/><circle cx="-2" cy="6" r="2" fill="#F8DAB8"/></g>`;
- if(a.x==='suit')after+=`<g transform="translate(92 26)"><path d="M0-9l9 9-9 9-9-9z" fill="#F7AA54"/></g>`;
- return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}">${parts}</clipPath></defs><circle cx="60" cy="60" r="60" fill="${a.bg}"/><g>${parts}<rect x="60" y="0" width="60" height="124" fill="#000" opacity=".12" clip-path="url(#${id})"/>${after}</g></svg>`}
+function avSvg(sid,photo){const m=String(sid||'m7.1').match(/^([wm]\d)(?:\.(\d))?$/)||['','m7','1'];const a=STY[m[1]]||STY.m7,sk=SKIN[+m[2]||0]||SKIN[1],id='cp'+(++avN);
+ if(photo)return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="60"/></clipPath></defs><image href="${photo}" x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#${id})"/></svg>`;
+ const dk=(h,f)=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.substr(i,2),16)*f).toString(16).padStart(2,'0')).join('');
+ const sd=dk(sk,.84),hr=a.hr||'#241812';
+ const shoulders=c=>`<path d="M4 124C4 99 27 85 60 85s56 14 56 39z" fill="${c}"/>`;
+ const neck=`<path d="M52 62h16v22c-3 5-13 5-16 0z" fill="${sd}"/>`;
+ const ears=`<ellipse cx="43.5" cy="52" rx="3.6" ry="5.4" fill="${sd}"/><ellipse cx="76.5" cy="52" rx="3.6" ry="5.4" fill="${sd}"/>`;
+ const head=`<ellipse cx="60" cy="50" rx="16.5" ry="20" fill="${sk}"/>`;
+ const gl=a.gl?`<g fill="none" stroke="#2a1a12" stroke-width="2.2"><rect x="46.5" y="46" width="12" height="9.5" rx="3.5"/><rect x="61.5" y="46" width="12" height="9.5" rx="3.5"/><path d="M58.5 50h3"/></g>`:'';
+ const beard=a.beard?`<path d="M43.5 50c0 18 8 27 16.5 27s16.5-9 16.5-27c-3 9-8 12-16.5 12S46.5 59 43.5 50z" fill="${hr}"/>`:'';
+ const hair=`<path d="M42.5 48C39.5 26 48.5 18 60 18s20.500 8 17.500 30c-2-9-5-14-9-17-9 4-18 4-26 0-1.500 3-2.500 8-2.500 17z" fill="${hr}"/>`;
+ let defs='',b='';
+ if(a.x==='hijab'){const c=a.cl,cd=dk(c,.78);
+  b=`<path d="M60 11C39 11 29 27 29 50c0 13-2 21-12 31C8 90 4 104 4 124h112c0-20-4-34-13-43-10-10-12-18-12-31 0-23-10-39-31-39z" fill="${c}"/><path d="M33 86Q60 108 87 86" fill="none" stroke="${cd}" stroke-width="2.4" stroke-linecap="round"/><path d="M60 100v24" stroke="${cd}" stroke-width="2" opacity=".55"/><ellipse cx="60" cy="51" rx="15.5" ry="19.5" fill="${cd}"/><ellipse cx="60" cy="52.5" rx="14.2" ry="18.2" fill="${sk}"/><path d="M46 44c3-8 8-11 14-11s11 3 14 11c-5-4-9-5-14-5s-9 1-14 5z" fill="${cd}" opacity=".32"/><ellipse cx="60" cy="72" rx="9" ry="3" fill="${cd}" opacity=".35"/>`}
+ else if(a.x==='long'){
+  b=`<path d="M27 62C25 30 40 13 60 13s35 17 33 49c-1 14 3 26 8 38H19c5-12 9-24 8-38z" fill="${hr}"/>`+shoulders(a.body)+`<path d="M46 84Q60 101 74 84z" fill="${sk}"/>`+neck.replace('h16v22c-3 5-13 5-16 0z','h16v19H52z')+ears+head+`<path d="M42.5 50C39 27 49 18 61 18c12 0 21 8 17.5 33-1-10-4-16-9-20-6 5-18 6-27 4-1 4-1 9 0 15z" fill="${hr}"/>`}
+ else if(a.x==='ghutra'){const c=a.cloth,cd=dk(c,.86);
+  if(a.stripe)defs=`<pattern id="${id}p" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="${c}"/><path d="M0 9L9 0M-2 2L2-2M7 11L11 7" stroke="#fff" stroke-width="1.6"/></pattern>`;
+  const fill=a.stripe?`url(#${id}p)`:c;
+  b=shoulders(a.body)+`<path d="M60 12C40 12 30 28 30 49c0 12-3 22-12 32-9 10-13 24-13 43h110c0-19-4-33-13-43-9-10-12-20-12-32 0-21-10-37-30-37z" fill="${fill}"/><path d="M30 49c0 12-3 22-12 32M90 49c0 12 3 22 12 32" fill="none" stroke="${cd}" stroke-width="2" opacity=".6"/>`+`<path d="M53 64h14v20H53z" fill="${sd}"/><path d="M45 83Q60 98 75 83L81 124H39z" fill="${a.body}"/><path d="M51 82L60 94 69 82" fill="none" stroke="#c9c9c4" stroke-width="2.2" stroke-linecap="round"/><circle cx="60" cy="102" r="1.6" fill="#c9c9c4"/><ellipse cx="60" cy="52" rx="14.5" ry="18.5" fill="${sk}"/><path d="M30 29Q60 41 90 29" fill="none" stroke="#1b1b1b" stroke-width="6.5" stroke-linecap="round"/><path d="M33 22Q60 32 87 22" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round" opacity=".85"/>`}
+ else if(a.x==='kufi'){
+  b=shoulders(a.body)+`<path d="M47 84L60 97 73 84" fill="none" stroke="#2a2d33" stroke-width="3" stroke-linecap="round"/>`+neck+ears+head+beard+`<path d="M41.5 40C41 25 49 17.5 60 17.5S79 25 78.5 40z" fill="#fff"/><path d="M41.5 40h37" stroke="#d8d8d3" stroke-width="3"/><path d="M47 33c4-3 9-4 13-4" stroke="#e4e4df" stroke-width="2" fill="none"/>`}
+ else if(a.x==='short'){
+  b=shoulders(a.body)+(a.gl?`<path d="M46 85Q60 97 74 85" fill="none" stroke="${dk(a.body,.8)}" stroke-width="3"/>`:`<path d="M46 85L60 100 74 85" fill="#fff" opacity=".9"/><path d="M46 85L52 92 44 96z M74 85L68 92 76 96z" fill="${dk(a.body,1.5)}"/>`)+neck+ears+head+beard+hair+gl}
+ else if(a.x==='toque'){
+  b=shoulders(a.body)+`<path d="M60 86v38M52 90v34M68 90v34" stroke="${dk(a.body,.88)}" stroke-width="1.6" opacity=".7"/><circle cx="55" cy="104" r="1.8" fill="#aaa"/><circle cx="55" cy="114" r="1.8" fill="#aaa"/><circle cx="65" cy="104" r="1.8" fill="#aaa"/><circle cx="65" cy="114" r="1.8" fill="#aaa"/>`+neck+`<path d="M49 84L60 98 71 84" fill="none" stroke="${dk(a.body,.8)}" stroke-width="3" stroke-linecap="round"/>`+(a.pizza?`<path d="M51 84Q60 100 69 84L60 96z" fill="#2C3E5C"/>`:'')+ears+head+`<g fill="${a.acc}"><circle cx="46" cy="25" r="10"/><circle cx="60" cy="17" r="12"/><circle cx="74" cy="25" r="10"/><rect x="43.5" y="25" width="33" height="14" rx="2.5"/></g><rect x="43.5" y="33" width="33" height="5" rx="1.5" fill="${dk(a.acc,.9)}"/>`}
+ else{
+  b=shoulders(a.body)+`<path d="M49 84L60 108 71 84z" fill="#fff"/><path d="M43 84L58 112 46 124H24L30 98z M77 84L62 112 74 124H96L90 98z" fill="${dk(a.body,1.6)}"/><path d="M57 92h6l-1 6h-4z M57.5 98h5l3 26h-11z" fill="#E0A94F"/>`+neck+ears+head+hair+`<path d="M44 40c6-6 14-8 22-6" stroke="${dk(hr,1.8)}" stroke-width="1.6" fill="none" opacity=".6"/>`}
+ let after=gl;
+ if(a.x==='hijab')after=gl.replace(/<rect x="46.5" y="46"/,'<rect x="46.5" y="47"').replace(/<rect x="61.5" y="46"/,'<rect x="61.5" y="47"');
+ if(a.pizza)after+=`<g transform="translate(94 98)"><circle r="14" fill="#F7AA54"/><circle r="11" fill="#D8452B"/><circle cx="-3" cy="-3" r="2.5" fill="#F8DAB8"/><circle cx="4" cy="2" r="2.5" fill="#F8DAB8"/><circle cx="-2" cy="6" r="2" fill="#F8DAB8"/></g>`;
+ return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="60"/></clipPath>${defs}</defs><g clip-path="url(#${id})"><rect width="120" height="120" fill="${a.bg}"/>${b}${after}<rect x="60" y="0" width="60" height="120" fill="#000" opacity=".08"/></g></svg>`}
 function avatar(p){const ph=(me&&PH[p])||lsPh(p);return avSvg(AVC[p]||PDEF[p]||'m7.1',ph)}
 async function loadAv(){try{const r=await rpc('mgmt_avatars',{});if(r&&typeof r==='object'&&!Array.isArray(r)){AVC=r;const a=document.activeElement;if(!me&&!(a&&a.id==='lp'))render()}}catch(e){}}
 async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who:me.who,p_pin:me.pin});if(r&&typeof r==='object'&&!Array.isArray(r)){PH=r;if(PH[me.who])try{localStorage.setItem('olba-photo-'+me.who,PH[me.who])}catch(_){}else try{localStorage.removeItem('olba-photo-'+me.who)}catch(_){}render()}}catch(e){}}
