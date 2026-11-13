@@ -1,0 +1,28 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OLBA — choix des avatars</title>
+<style>body{margin:0;background:#3a2018;color:#f8dab8;font-family:Georgia,'Times New Roman',serif;padding:22px 14px 60px}
+h1{font-weight:400;text-align:center;letter-spacing:.14em;font-size:20px;margin:6px 0 4px}p.s{text-align:center;opacity:.7;font:14px system-ui,sans-serif;margin:0 0 22px}
+.v{max-width:760px;margin:0 auto 34px;padding:22px 10px 26px;border:1px solid #c9a24e55;border-radius:20px;background:linear-gradient(160deg,#4a2a1e,#2b1610)}
+.v h2{font-weight:400;font-size:17px;margin:0 0 4px;text-align:center;color:#e6c477;letter-spacing:.08em}.v p{margin:0 0 18px;text-align:center;font:13px system-ui,sans-serif;opacity:.75}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 8px;justify-items:center}.g div{text-align:center;font:600 14px system-ui,sans-serif}.g svg{width:92px;height:92px;display:block;margin:0 auto 8px}.g em{display:block;font-style:normal;font-weight:400;font-size:12px;opacity:.7;margin-top:2px}
+@media(min-width:640px){.g{grid-template-columns:repeat(6,1fr)}}</style></head><body>
+<h1>OLBA · MANAGEMENT</h1><p class="s">Trois styles d'avatars pour la page d'accueil. Dis-moi A, B ou C.</p>
+<script>function iconSvg(n){const G='#E6C477',S=`fill="none" stroke="${G}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"`,F=`fill="${G}" opacity=".14"`;let g='';
+ if(n===0)g=`<path d="M38 53L76 38V82L38 67z" ${F}/><path d="M38 53L76 38V82L38 67z" ${S}/><path d="M30 53h8v14h-8z" ${S}/><path d="M42 69l5 17h9l-4-15" ${S}/><path d="M85 52q7 8 0 16" ${S}/><path d="M92 44q13 16 0 32" ${S} opacity=".6"/>`;
+ else if(n===1)g=`<path d="M44 63V51C34 49 33 36 43 33c2-9 15-11 19-3 8-5 20 1 17 10 7 5 4 13-3 11v12z" ${F}/><path d="M44 63V51C34 49 33 36 43 33c2-9 15-11 19-3 8-5 20 1 17 10 7 5 4 13-3 11v12z" ${S}/><path d="M44 57h32M44 63h32" ${S}/><rect x="38" y="76" width="44" height="11" rx="5.500" ${S}/><path d="M30 81.500h8M82 81.500h8" ${S}/>`;
+ else if(n===2)g=`<path d="M30 46l6-16h48l6 16z" ${F}/><path d="M30 46l6-16h48l6 16" ${S}/><path d="M30 46q5 8 10 0q5 8 10 0q5 8 10 0q5 8 10 0q5 8 10 0q5 8 10 0" ${S}/><path d="M35 56v32h50V56" ${S}/><path d="M53 88V66h14v22" ${S}/><path d="M40 62h9v9h-9zM71 62h9v9h-9z" ${S} opacity=".7"/>`;
+ else if(n===3)g=`<rect x="38" y="31" width="44" height="58" rx="5" ${F}/><rect x="38" y="31" width="44" height="58" rx="5" ${S}/><path d="M51 27h18v9H51z" ${S}/>`+[0,1,2].map(i=>`<path d="M45 ${50+i*13}l4 4 7-8" ${S}/><path d="M61 ${51+i*13}h14" ${S} opacity=".7"/>`).join('');
+ else if(n===4)g=`<rect x="30" y="47" width="60" height="38" rx="6" ${F}/><rect x="30" y="47" width="60" height="38" rx="6" ${S}/><path d="M50 47v-8a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v8" ${S}/><path d="M30 64h60" ${S}/><path d="M55 60h10v9H55z" ${S}/>`;
+ else g=`<path d="M50 88V36h20v52z" ${F}/><path d="M50 88V36h20v52M34 88V62h16M70 88V54h16v34M28 88h64" ${S}/><path d="M56 46h8M56 56h8M56 66h8M56 76h8" ${S} opacity=".7"/><path d="M60 14l3 7 7.500.7-5.700 5 1.800 7.500-6.600-4-6.600 4 1.800-7.500-5.700-5 7.500-.7z" ${S}/>`;
+ const id='ic'+n+'x'+(++avN);
+ return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="${id}g" cx="35%" cy="28%" r="85%"><stop offset="0" stop-color="#5A3626"/><stop offset="1" stop-color="#25140E"/></radialGradient><clipPath id="${id}"><circle cx="60" cy="60" r="60"/></clipPath></defs><g clip-path="url(#${id})"><rect width="120" height="120" fill="url(#${id}g)"/><circle cx="60" cy="60" r="56.500" fill="none" stroke="${G}" stroke-width="1.800"/><circle cx="60" cy="60" r="52" fill="none" stroke="${G}" stroke-width=".7" opacity=".45"/>${g}</g></svg>`}
+
+let avN=0;const P=[['Rima','Marketing'],['Chef Omar','Kitchen'],['Sayed','Shop manager'],['Hafiz','Purchasing'],['Direction','COO'],['Ahmed','CEO']];
+const INI=['R','O','S','H','D','A'];
+function mono(i){const G='#E6C477';return `<svg viewBox="0 0 120 120"><defs><radialGradient id="m${i}" cx="35%" cy="28%" r="85%"><stop offset="0" stop-color="#5A3626"/><stop offset="1" stop-color="#25140E"/></radialGradient></defs><circle cx="60" cy="60" r="60" fill="url(#m${i})"/><circle cx="60" cy="60" r="56.5" fill="none" stroke="${G}" stroke-width="1.8"/><circle cx="60" cy="60" r="52" fill="none" stroke="${G}" stroke-width=".7" opacity=".45"/><text x="60" y="77" text-anchor="middle" font-family="Georgia,serif" font-size="52" fill="${G}">${INI[i]}</text><path d="M44 90h32" stroke="${G}" stroke-width="1.2" opacity=".7"/></svg>`}
+function ivory(i){let s=iconSvg(i);return s.replace(/#E6C477/g,'#6B4A2E').replace('stop-color="#5A3626"','stop-color="#FFF7E8"').replace('stop-color="#25140E"','stop-color="#EAD7B3"').replace(/stroke="#6B4A2E" stroke-width="1.800"/,'stroke="#B8924A" stroke-width="2"')}
+function box(t,d,fn){return `<div class="v"><h2>${t}</h2><p>${d}</p><div class="g">${P.map((p,i)=>`<div>${fn(i)}${p[0]}<em>${p[1]}</em></div>`).join('')}</div></div>`}
+document.body.insertAdjacentHTML('beforeend',
+ box('A · Insigne doré','Fin trait doré sur chocolat, un symbole par métier',iconSvg)+
+ box('B · Monogramme','Initiale en or, très sobre, façon maison de couture',mono)+
+ box('C · Ivoire','Fond ivoire, trait brun et filet doré, plus clair et lumineux',ivory));
+</script></body></html>
