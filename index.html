@@ -179,7 +179,7 @@ const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||p;
 const tn=t=>lang==='fr'?t.n:(t[lang]||t.n),pj=p=>lang==='fr'?p:(PJ[p]?PJ[p][lang]:p);
 let vas='',cov=true,S={},me=null,tab='home',fl={p:'',o:'',s:'',late:false,nodl:false},gf={p:'',o:''},exp={};
-try{me=JSON.parse(localStorage.getItem('olba-mgmt-me')||'null')}catch(e){}
+let savedMe=null;try{savedMe=JSON.parse(localStorage.getItem('olba-mgmt-me')||'null')}catch(e){}
 const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pad=n=>String(n).padStart(2,'0');
@@ -335,6 +335,8 @@ function avatar(p){const a=AV[p]||AV.Direction,sk='#F1DDC4',hr='#3A2A20';let h=`
  if(a.x==='suit')h+=`<g transform="translate(90 26)"><path d="M0-9l9 9-9 9-9-9z" fill="#F7AA54"/></g>`;
  return `<svg viewBox="0 0 120 120" aria-hidden="true">${h}</svg>`}
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
+if(savedMe&&savedMe.who)selP=savedMe.who;
+async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab='home';render();window.scrollTo(0,0);return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
 function pickP(p){selP=p;render();setTimeout(()=>{const i=document.getElementById('lp');if(i)i.focus()},30)}
 
 const rndPin=()=>{const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';const a=new Uint32Array(8);crypto.getRandomValues(a);a.forEach(v=>s+=c[v%c.length]);return s};
@@ -344,7 +346,7 @@ function pinOpen(tg){const self=!tg||tg===me.who;const m=document.getElementById
 async function pinSave(tg){const e=document.getElementById('pe'),nw=document.getElementById('pn').value.trim(),self=tg===me.who;e.textContent='';
  if(!/^[A-Za-z0-9]{6,20}$/.test(nw)){e.textContent=L('pin_weak');return}
  try{if(self){const o=document.getElementById('po').value.trim();if(!o){e.textContent=L('pin_old');return}
-   await rpc('mgmt_change_pin',{p_who:me.who,p_old:o,p_new:nw});me.pin=nw.toUpperCase();try{localStorage.setItem('olba-mgmt-me',JSON.stringify(me))}catch(_){}
+   await rpc('mgmt_change_pin',{p_who:me.who,p_old:o,p_new:nw});me.pin=nw.toUpperCase();savedMe=me;try{localStorage.setItem('olba-mgmt-me',JSON.stringify(me))}catch(_){}
    planLoaded=false;document.getElementById('pl').innerHTML='';
    document.querySelector('#mdl .mc').innerHTML=`<h3>${L('pin_ok')}</h3><div class="pr"><button class="b" onclick="pinClose();render()">OK</button></div>`}
   else{await rpc('mgmt_reset_pin',{p_who:me.who,p_pin:me.pin,p_target:tg,p_new:nw});
@@ -352,7 +354,7 @@ async function pinSave(tg){const e=document.getElementById('pe'),nw=document.get
  catch(x){e.textContent=/denied/.test(String(x.message))?L('pin_bad'):/weak/.test(String(x.message))?L('pin_weak'):/function|404|PGRST/.test(String(x.message))?L('pin_nodb'):L('conn')}}
 function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA — Baked En Harmonie" src="${LOGO}"><div class="cv-rule"></div><h1 class="cv-t">${L('gate_t')}</h1><p class="cv-s">${L('who_s')}</p>
 <div class="cvp">${PEOPLE.map(p=>`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span></button>`).join('')}</div>
-${selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
+${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
 function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin()){tabs.push(['plan','tab_plan']);tabs.push(['coh','tab_coh']);}
  document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}${k==='coh'&&COH().filter(i=>i.sev==='e').length?`<span class="badge">${COH().filter(i=>i.sev==='e').length}</span>`:''}</button>`).join('');
@@ -361,7 +363,7 @@ function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_a
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 function go(t){tab=t;render();window.scrollTo(0,0)}
-function out(){localStorage.removeItem('olba-mgmt-me');me=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* login */
