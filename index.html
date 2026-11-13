@@ -220,7 +220,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
  s:{'À faire':'للتنفيذ','En cours':'قيد التنفيذ','Terminé':'منجزة','Bloqué':'متعثّرة'},pp:{'Direction':'الإدارة','Consultant pizza':'مستشار البيتزا','Chef Omar':'الشيف عمر'}}};
 let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
-I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
+I.fr.tab_olba='Vision OLBA';I.en.tab_olba='OLBA overview';I.ar.tab_olba='نظرة OLBA';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||p;
 const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
 const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
@@ -474,14 +474,14 @@ function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA �
 <div class="cvp ${grp?'g3':'g5'}${cvAn?' an':''}">${(grp?DIRSET:['Rima','Chef Omar','Hafiz','Ossama','__DIR']).map(p=>p==='__DIR'?`<button class="pv" onclick="pickG()">${grpAv()}<span>${esc(pnm('Direction'))}</span><em>COO · CEO · Shop manager</em></button>`:`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>${grp?`<button class="cv-back" onclick="backG()">← ${bk()}</button>`:''}
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
-function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);if(me&&b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);
+function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_all'],['gantt','tab_gantt'],['budget','tab_bg']]:[];if(isAdmin())tabs.push(['plan','tab_plan']);if(canSeeAll())tabs.push(['coh','tab_coh']);if(me&&b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(me&&me.who==='Direction')tabs.push(['olba','tab_olba']);
  document.getElementById('tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab${tab===k?' on':''}" onclick="go('${k}')">${L(l)}${k==='coh'&&COH().filter(i=>i.sev==='e').length?`<span class="badge">${COH().filter(i=>i.sev==='e').length}</span>`:''}</button>`).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="avOpen()">${L('av_btn')}</button> <button class="l" onclick="pinOpen()">${L('pin_btn')}</button> <button class="l" onclick="out()">${L('change')}</button>`:'';
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 function go(t){tab=t;render();window.scrollTo(0,0)}
-function out(){b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){HR.ok=false;HR.s=[];HR.ed=null;b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* ===== B2B module (data lives in the protected DB; access checked server-side) ===== */
@@ -639,6 +639,40 @@ function b2Tpl(){const G={base:'Base',P1:'P1',P2:'P2 · P3',V2:'Vague 2',V3:'Vag
  <div class="card"><h2>${bt('links')}</h2><p><a href="https://chefabdelbaker-svg.github.io/olba-b2b/" target="_blank" rel="noopener">${bt('l_site')} ↗</a></p><p><a href="https://wa.me/966507881567" target="_blank" rel="noopener">${bt('l_wa')} ↗</a></p></div>`}
 function b2CopyT(id){const t=B2.t.find(x=>x.id===id);if(!t)return;const s=(t.subject?'Subject: '+t.subject+'\n\n':'')+b2Body(t,'').split('Dear [Prénom],').join('Dear [Prénom],');try{navigator.clipboard.writeText(s)}catch(e){}}
 
+/* ===== Vision OLBA + Équipe (Direction uniquement) ===== */
+let HR={ok:false,s:[],f:[],err:false,busy:false,ed:null};
+const HT={fr:{t:'Vision globale OLBA',pay:'Masse salariale / mois',hc:'Effectif',ns:'Ventes nettes (dernier mois)',pp:'Salaires ÷ ventes nettes',hist:'Historique avril → août 2026',m:'Mois',net:'Ventes nettes',pr:'Masse salariale',pct:'Salaires %',hcc:'Eff.',tgt:'Repère du document de performance : objectif de 20 à 22 % à terme. Le % monte quand les ventes baissent, même si la masse salariale ne bouge pas.',proj:'Projets de lancement',done:'terminées',b2b:'B2B · mois en cours',team:'Équipe, postes et salaires',add:'+ Personne',name:'Nom',pos:'Poste',dept:'Département',sal:'Salaire (SAR / mois)',since:'Depuis',note:'Note',save:'Enregistrer',cancel:'Annuler',del:'Supprimer',del2:'Confirmer ?',tot:'Total',byd:'Par département',empty:'Aucune personne saisie pour le moment. Ajoute-les ici : seule la Direction voit cette page.',priv:'🔒 Page visible uniquement par la Direction. Les salaires sont stockés dans la base protégée.',ref:'Repère : masse salariale brute août 2026',gap:'Saisi vs repère',edit:'Modifier',conn:'Connexion impossible.'},
+en:{t:'OLBA global view',pay:'Payroll / month',hc:'Headcount',ns:'Net sales (latest month)',pp:'Payroll ÷ net sales',hist:'History April → August 2026',m:'Month',net:'Net sales',pr:'Payroll',pct:'Payroll %',hcc:'HC',tgt:'Reference from the performance document: a 20–22% objective over time. The % rises when sales fall even if payroll does not move.',proj:'Launch projects',done:'done',b2b:'B2B · current month',team:'Team, positions and salaries',add:'+ Person',name:'Name',pos:'Position',dept:'Department',sal:'Salary (SAR / month)',since:'Since',note:'Note',save:'Save',cancel:'Cancel',del:'Delete',del2:'Confirm?',tot:'Total',byd:'By department',empty:'No one entered yet. Add them here: only Management sees this page.',priv:'🔒 Visible to Management only. Salaries are stored in the protected database.',ref:'Reference: gross payroll August 2026',gap:'Entered vs reference',edit:'Edit',conn:'Connection failed.'},
+ar:{t:'نظرة شاملة على OLBA',pay:'الرواتب / شهر',hc:'عدد الموظفين',ns:'صافي المبيعات (آخر شهر)',pp:'الرواتب ÷ صافي المبيعات',hist:'السجل أبريل ← أغسطس 2026',m:'الشهر',net:'صافي المبيعات',pr:'الرواتب',pct:'نسبة الرواتب',hcc:'العدد',tgt:'مرجع من وثيقة الأداء: هدف 20–22٪ مع الوقت. ترتفع النسبة عند انخفاض المبيعات حتى لو لم تتغير الرواتب.',proj:'مشاريع الإطلاق',done:'منجزة',b2b:'B2B · الشهر الحالي',team:'الفريق والمناصب والرواتب',add:'+ شخص',name:'الاسم',pos:'المنصب',dept:'القسم',sal:'الراتب (ريال / شهر)',since:'منذ',note:'ملاحظة',save:'حفظ',cancel:'إلغاء',del:'حذف',del2:'تأكيد؟',tot:'المجموع',byd:'حسب القسم',empty:'لم يُدخل أحد بعد. أضفهم هنا: الإدارة فقط ترى هذه الصفحة.',priv:'🔒 للإدارة فقط. الرواتب محفوظة في قاعدة بيانات محمية.',ref:'مرجع: إجمالي رواتب أغسطس 2026',gap:'المُدخل مقابل المرجع',edit:'تعديل',conn:'تعذر الاتصال.'}};
+const ht=k=>(HT[lang]||HT.fr)[k]||HT.fr[k]||k;
+const hn=n=>Math.round(+n||0).toLocaleString('en-US');
+async function loadHR(){if(!me||me.who!=='Direction'||HR.busy)return false;HR.busy=true;
+ try{const d=await rpc('hr_list',{p_who:me.who,p_pin:me.pin});HR.s=d.staff||[];HR.f=d.fin||[];HR.ok=true;HR.err=false}catch(e){HR.err=true;HR.ok=true}HR.busy=false;return true}
+function hrView(){if(!me||me.who!=='Direction')return '';
+ if(!HR.ok){loadHR().then(()=>{if(!B2.ok&&b2bAcc!=='none')loadB2B().then(render);render()});return `<div class="card">…</div>`}
+ if(HR.err)return `<div class="card"><div class="err">${ht('conn')}</div><button class="b" onclick="HR.ok=false;render()">↻</button></div>`;
+ const F=HR.f,last=F[F.length-1]||{},sum=HR.s.reduce((a,x)=>a+(+x.salary||0),0),pay=HR.s.length?sum:+last.payroll||0,hc=HR.s.length||+last.hc||0;
+ const pct=l=>l.net?Math.round(l.payroll/l.net*1000)/10:0;
+ const kp=[[hn(pay)+' SAR',HR.s.length?ht('pay'):ht('ref')],[hc,ht('hc')],[hn(last.net)+' SAR',ht('ns')+(last.label?' · '+last.label:'')],[(pct(last)||0).toFixed(1)+' %',ht('pp')]].map(([v,l])=>`<div class="b2k"><b>${v}</b><span>${esc(l)}</span></div>`).join('');
+ const mx=Math.max(1,...F.map(pct));
+ const hist=`<table class="b2t" style="min-width:0"><thead><tr><th>${ht('m')}</th><th>${ht('net')}</th><th>${ht('pr')}</th><th>${ht('hcc')}</th><th>${ht('pct')}</th></tr></thead><tbody>${F.map(l=>`<tr><td>${esc(l.label)}</td><td>${hn(l.net)}</td><td>${hn(l.payroll)}</td><td>${l.hc}</td><td><div class="b2bar" style="margin:0"><i style="width:${Math.round(pct(l)/mx*100)}%"></i></div><b>${pct(l)} %</b></td></tr>`).join('')}</tbody></table><p class="b2z">${ht('tgt')}</p>`;
+ const projs=[...new Set(T.map(t=>t.p))];
+ const pr=projs.map(p=>{const Q=T.filter(t=>t.p===p),d=Q.filter(t=>st(t.id).status==='Terminé').length,lt=Q.filter(isLate).length;return `<div class="li"><span>${esc(pj(p))}<div class="b2bar"><i style="width:${Math.round(d/Q.length*100)}%"></i></div></span><span class="d ${lt?'red':''}">${d}/${Q.length} ${ht('done')}${lt?' · ⚠ '+lt:''}</span></div>`}).join('');
+ let b2='';if(b2bAcc!=='none'&&B2.ok){const TGv=n=>+((B2.r.find(x=>x.ym==='T'+n)||{}).amount)||0,a=+((B2.r.find(x=>x.ym==='START')||{}).amount)||202610,y0=Math.floor(a/100),m0=a%100,nw=new Date(),c=Math.min(3,Math.max(1,(nw.getFullYear()-y0)*12+nw.getMonth()+1-m0+1)),ac=+((B2.r.find(x=>x.ym==='M'+c)||{}).amount)||0,tg=TGv(c),p=tg?Math.round(ac/tg*100):0,z=p>=100?'g':p>=70?'o':'r';
+  b2=`<div class="card"><h3>${ht('b2b')}</h3><div class="b2hero ${z}"><div class="b2big"><b>${hn(ac)}</b> / ${hn(tg)} SAR</div><div class="b2bar"><i style="width:${Math.min(100,p)}%"></i></div><span class="b2z">${p}%</span></div></div>`}
+ const depts={};HR.s.forEach(x=>{const k=x.dept||'—';(depts[k]=depts[k]||{n:0,s:0});depts[k].n++;depts[k].s+=+x.salary||0});
+ const dh=Object.keys(depts).sort().map(k=>`<tr><td>${esc(k)}</td><td>${depts[k].n}</td><td>${hn(depts[k].s)}</td></tr>`).join('');
+ const row=x=>HR.ed===x.id?hrForm(x):`<tr><td>${esc(x.name)}</td><td>${esc(x.position)}</td><td>${esc(x.dept)}</td><td>${x.salary==null?'—':hn(x.salary)}</td><td>${esc(x.start_date||'')}</td><td><button class="b2o" onclick="HR.ed=${x.id};render()">${ht('edit')}</button> <button class="b2o" id="hd${x.id}" onclick="hrDel(${x.id})">${ht('del')}</button></td></tr>`;
+ const team=`<div class="card"><h2>${ht('team')}</h2><p class="b2z">${ht('priv')}</p><button class="b2o" onclick="HR.ed='new';render()">${ht('add')}</button>
+  <div class="b2tw"><table class="b2t" style="min-width:640px"><thead><tr><th>${ht('name')}</th><th>${ht('pos')}</th><th>${ht('dept')}</th><th>${ht('sal')}</th><th>${ht('since')}</th><th></th></tr></thead><tbody>${HR.ed==='new'?hrForm({}):''}${HR.s.map(row).join('')||(HR.ed==='new'?'':`<tr><td colspan="6" class="empty">${ht('empty')}</td></tr>`)}</tbody></table></div>
+  ${HR.s.length?`<h3>${ht('byd')}</h3><table class="b2t" style="min-width:0"><tbody>${dh}<tr><td><b>${ht('tot')}</b></td><td><b>${HR.s.length}</b></td><td><b>${hn(sum)}</b></td></tr></tbody></table><p class="b2z">${ht('gap')} : ${hn(sum)} / ${hn(last.payroll)} SAR</p>`:''}</div>`;
+ return `<div class="card"><h2>${ht('t')}</h2><div class="b2kp">${kp}</div></div><div class="card"><h3>${ht('hist')}</h3><div class="b2tw">${hist}</div></div><div class="card"><h3>${ht('proj')}</h3>${pr}</div>${b2}${team}`}
+function hrForm(x){const v=k=>esc(x[k]==null?'':x[k]);return `<tr><td><input id="hf-name" value="${v('name')}"></td><td><input id="hf-position" value="${v('position')}"></td><td><input id="hf-dept" value="${v('dept')}"></td><td><input id="hf-salary" type="number" min="0" value="${v('salary')}"></td><td><input id="hf-start" type="date" value="${v('start_date')}"></td><td><button class="b2o" onclick="hrSave(${x.id||'null'})">${ht('save')}</button> <button class="b2o" onclick="HR.ed=null;render()">${ht('cancel')}</button></td></tr>`}
+async function hrSave(id){const g=k=>document.getElementById('hf-'+k).value.trim();if(!g('name'))return;
+ try{await rpc('hr_save',{p_who:me.who,p_pin:me.pin,p:{id:id,name:g('name'),position:g('position'),dept:g('dept'),salary:g('salary'),start_date:g('start'),note:''}});HR.ed=null;HR.ok=false}catch(e){alert(ht('conn'))}render()}
+async function hrDel(id){const b=document.getElementById('hd'+id);if(b&&b.dataset.c!=='1'){b.dataset.c='1';b.textContent=ht('del2');return}
+ try{await rpc('hr_del',{p_who:me.who,p_pin:me.pin,p_id:id});HR.ok=false}catch(e){alert(ht('conn'))}render()}
+
 /* login */
 async function login(){const w=(document.getElementById('lw')||{}).value||'',p=document.getElementById('lp').value.trim().toUpperCase();
  const e=document.getElementById('le');e.textContent='';if(!w||!p){e.textContent=L('need');return}
@@ -729,7 +763,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
+ m.innerHTML=tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='olba'&&me&&me.who==='Direction'?hrView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();loadAv();await load();render();
