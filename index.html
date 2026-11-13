@@ -90,6 +90,11 @@ body.cvr header,body.cvr footer{display:none}body.cvr main{padding:0;max-width:n
 .pin input{padding:13px 18px;border:0;border-radius:999px;font:600 18px Inter,sans-serif;letter-spacing:.18em;text-align:center;width:210px;background:#F8DAB8;color:#3E211B}
 .pin .cv-b{margin:0}.pe{color:#ffb4ab;min-height:20px;margin-top:8px;font-size:14px}
 @media(max-width:700px){.cvp{grid-template-columns:repeat(3,1fr)}.cv-logo{width:min(300px,70vw)}}
+.vs{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:0 0 14px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.vs small{width:100%;color:var(--mut);font-size:12.5px}
+.vs button{background:transparent;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font:600 12px inherit;color:var(--ink);padding:5px 7px;border-radius:12px;opacity:.7}
+.vs button svg{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 2px transparent}
+.vs button.on{opacity:1;background:#fdf1de}.vs button.on svg{box-shadow:0 0 0 3px #d9a85b}.vs button:hover{opacity:1}
 .cvl{display:flex;border:1px solid #F7AA54;border-radius:999px;overflow:hidden;margin-top:26px}.cvl button{background:transparent;border:0;padding:5px 13px;font:600 11px Inter,sans-serif;letter-spacing:.08em;color:#F8DAB8;cursor:pointer}.cvl button.on{background:#F7AA54;color:#3E211B}
 .gate{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:10px}
 .gcard{width:100%;max-width:520px;background:radial-gradient(ellipse at 85% 0%,rgba(217,168,91,.35),transparent 55%),linear-gradient(135deg,#2b2118,#4a3624);color:#fff;border-radius:22px;padding:42px 34px;box-shadow:0 20px 50px rgba(43,33,24,.25)}
@@ -123,7 +128,7 @@ const STAT=['À faire','En cours','Terminé','Bloqué'],PC={'À faire':'p-af','E
 const PEOPLE=['Rima','Chef Omar','Sayed','Hafiz','Consultant pizza','Direction'];
 const I={
 fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'ensemble",tab_gantt:'Calendrier Gantt',tab_plan:'Planning directeur',change:'Changer',
- tab_coh:'Cohérence',tab_bg:'Budget',gate_t:'Bienvenue chez OLBA Management',who_s:'Qui es-tu ? Touche ton avatar, puis entre ton code.',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Cohérence.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Touche ton avatar et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
+ tab_coh:'Cohérence',tab_bg:'Budget',gate_t:'Bienvenue chez OLBA Management',vas_t:'Voir la page de… (tes modifications sont enregistrées au nom de la Direction)',who_s:'Qui es-tu ? Touche ton avatar, puis entre ton code.',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Cohérence.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Touche ton avatar et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
  k:'Pilotage des lancements',h_t:'Management',h_s:'{p} projets, {n} actions, un seul tableau de bord partagé par toute l\'équipe.',
  c_me:'Ma page',c_med:'Mes actions, mes deadlines : je mets à jour mon avancement.',c_all:"Vue d'ensemble",c_alld:'Tous les projets, leur avancement et les points de blocage.',c_g:'Calendrier Gantt',c_gd:'Qui fait quoi, quand : tous les projets sur une frise.',
  k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Sans deadline',k_bl:'Bloquées',
@@ -136,7 +141,7 @@ fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'e
  l_af:'À faire',l_ec:'En cours',l_t:'Terminé',l_b:'Bloqué',l_ms:'Ouverture',plan_err:'Impossible d\'ouvrir le planning directeur. Réessaie dans un instant.',l_lt:'En retard',tr:'Traduction indisponible',ft:'OLBA Bakehouse · Riyadh · données partagées en direct',
  s:{'À faire':'À faire','En cours':'En cours','Terminé':'Terminé','Bloqué':'Bloqué'},pp:{'Direction':'Direction'}},
 en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',tab_gantt:'Gantt calendar',tab_plan:'Planning director',change:'Switch',
- tab_coh:'Consistency',tab_bg:'Budget',gate_t:'Welcome to OLBA Management',who_s:'Who are you? Tap your avatar, then enter your code.',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
+ tab_coh:'Consistency',tab_bg:'Budget',gate_t:'Welcome to OLBA Management',vas_t:'View the page of… (your edits are saved on behalf of Management)',who_s:'Who are you? Tap your avatar, then enter your code.',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
  k:'Launch control',h_t:'Management',h_s:'{p} projects, {n} actions, one dashboard shared by the whole team.',
  c_me:'My page',c_med:'My actions and deadlines: I update my own progress.',c_all:'Overview',c_alld:'All projects, their progress and blockers.',c_g:'Gantt calendar',c_gd:'Who does what, and when: every project on one timeline.',
  k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'No deadline',k_bl:'Blocked',
@@ -149,7 +154,7 @@ en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',
  l_af:'To do',l_ec:'In progress',l_t:'Done',l_b:'Blocked',l_ms:'Opening',plan_err:'Could not open the planning director. Please retry shortly.',l_lt:'Late',tr:'Translation unavailable',ft:'OLBA Bakehouse · Riyadh · live shared data',
  s:{'À faire':'To do','En cours':'In progress','Terminé':'Done','Bloqué':'Blocked'},pp:{'Direction':'Management','Consultant pizza':'Pizza consultant'}},
 ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_all:'نظرة عامة',tab_gantt:'جدول غانت',tab_plan:'مخطط المدير',change:'تغيير',
- tab_coh:'الاتساق',tab_bg:'الميزانية',gate_t:'مرحبًا بكم في إدارة OLBA',who_s:'من أنت؟ اختر صورتك ثم أدخل رمزك.',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
+ tab_coh:'الاتساق',tab_bg:'الميزانية',gate_t:'مرحبًا بكم في إدارة OLBA',vas_t:'عرض صفحة… (تُحفظ تعديلاتك باسم الإدارة)',who_s:'من أنت؟ اختر صورتك ثم أدخل رمزك.',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
  k:'متابعة الإطلاقات',h_t:'الإدارة',h_s:'{p} مشاريع، {n} مهمة، ولوحة متابعة واحدة يشاركها الفريق كله.',
  c_me:'صفحتي',c_med:'مهامي ومواعيدي: أحدّث تقدّمي بنفسي.',c_all:'نظرة عامة',c_alld:'كل المشاريع وتقدّمها ونقاط التعثّر.',c_g:'جدول غانت',c_gd:'من يفعل ماذا ومتى: كل المشاريع على خط زمني واحد.',
  k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'بلا موعد',k_bl:'متعثّرة',
@@ -165,7 +170,7 @@ let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||p;
 const tn=t=>lang==='fr'?t.n:(t[lang]||t.n),pj=p=>lang==='fr'?p:(PJ[p]?PJ[p][lang]:p);
-let cov=true,S={},me=null,tab='home',fl={p:'',o:'',s:'',late:false,nodl:false},gf={p:'',o:''},exp={};
+let vas='',cov=true,S={},me=null,tab='home',fl={p:'',o:'',s:'',late:false,nodl:false},gf={p:'',o:''},exp={};
 try{me=JSON.parse(localStorage.getItem('olba-mgmt-me')||'null')}catch(e){}
 const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -339,7 +344,7 @@ function head(){const tabs=me?[['home','tab_home'],['me','tab_me'],['all','tab_a
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 function go(t){tab=t;render();window.scrollTo(0,0)}
-function out(){localStorage.removeItem('olba-mgmt-me');me=null;cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){localStorage.removeItem('olba-mgmt-me');me=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* login */
@@ -375,9 +380,11 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  <div class="card"><h3>${L('s_next')} (${nxt.length})</h3>${nxt.slice(0,10).map(t=>li(t,st(t.id).deadline)).join('')||`<div class="empty">${L('none')}</div>`}</div></div>`}
 /* me */
 function meView(){if(!me)return loginView();
- const mine=T.filter(t=>t.o===me.who),ps=[...new Set(mine.map(t=>t.p))];
+ const W=isAdmin()&&vas?vas:me.who;
+ const strip=isAdmin()?`<div class="vs"><small>${L('vas_t')}</small>${PEOPLE.map(p=>`<button class="${W===p?'on':''}" onclick="vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}</div>`:'';
+ const mine=T.filter(t=>t.o===W),ps=[...new Set(mine.map(t=>t.p))];
  const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>!st(t.id).deadline&&st(t.id).status!=='Terminé').length;
- let h=cohAlert()+`<div class="card"><h2 class="serif">${L('hello',{w:esc(pnm(me.who))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>`;
+ let h=strip+cohAlert()+`<div class="card"><h2 class="serif">${L('hello',{w:esc(pnm(W))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>`;
  ps.forEach(p=>{h+=`<div class="card"><h2>${esc(pj(p))}</h2><div class="scroll"><table>${thead()}<tbody>${mine.filter(t=>t.p===p).map(t=>rowEdit(t,true)).join('')}</tbody></table></div></div>`});return h}
 /* overview */
 function allView(){const projs=[...new Set(T.map(t=>t.p))];
