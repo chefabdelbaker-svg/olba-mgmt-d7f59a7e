@@ -39,7 +39,7 @@ h2{font-size:17px;margin:0 0 10px}h3{font-size:14px;margin:0 0 10px;color:var(--
 table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
 th{text-align:start;background:var(--sand);padding:9px 8px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
 td{border-top:1px solid #eee3d8;padding:7px 8px;vertical-align:top}
-td.n{font-weight:700;color:#8a7a68;width:52px}td.dep{font-size:12px;color:#8a7a68;width:90px}
+td.n{font-weight:700;color:#8a7a68;width:52px}td.dep{font-size:12px;color:#8a7a68;min-width:140px}
 input[type=date],select.s,input.c{font:inherit;padding:7px;border:1px solid #cbbfb0;border-radius:6px;background:#fff;max-width:100%}
 input.c{width:100%;min-width:150px}
 .pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;white-space:nowrap}
@@ -185,7 +185,7 @@ fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'e
  k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Sans deadline',k_bl:'Bloquées',
  s_open:'Prochaines ouvertures',s_late:'En retard',s_next:'À venir (7 jours)',none:'Rien à signaler.',left:'J-{n}',today:"Aujourd'hui",past:'passée',
  hello:'Bonjour {w}',mysum:'{n} actions à ton nom, {o} restantes.',mynodl:'{n} sans deadline : à compléter.',myok:'Toutes tes deadlines sont renseignées.',auto:"Chaque changement s'enregistre tout seul.",adm:' Tu peux tout modifier dans « Vue d\'ensemble ».',
- th_id:'N°',th_a:'Action',th_dep:'Dépend de',th_dl:'Deadline',th_s:'Statut',th_c:'Commentaire',th_o:'Resp.',cph:'Commentaire',saved:'Enregistré ✓',err:'Erreur',
+ th_id:'N°',th_a:'Action',th_dep:'À finir avant',th_dl:'Deadline',th_s:'Statut',th_c:'Commentaire',th_o:'Resp.',cph:'Commentaire',saved:'Enregistré ✓',err:'Erreur',
  f_p:'Tous les projets',f_o:'Tous les responsables',f_s:'Tous les statuts',f_late:'En retard',f_nodl:'Sans deadline',cnt:'{n} actions',edit:' · tu peux modifier toutes les lignes.',
  p_d:'{d}/{n} terminées',p_l:'{n} en retard',p_b:'{n} bloquées',p_n:'{n} sans deadline',p_x:'Prochaine deadline : {d}',
  g_hint:'Clique sur un projet pour le déplier. La ligne rouge marque aujourd\'hui, le losange or l\'ouverture. Les barres suivent les deadlines saisies par chacun.',g_exp:'Tout déplier',g_col:'Tout replier',
@@ -198,7 +198,7 @@ en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',
  k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'No deadline',k_bl:'Blocked',
  s_open:'Upcoming openings',s_late:'Late',s_next:'Coming up (7 days)',none:'Nothing to report.',left:'D-{n}',today:'Today',past:'past',
  hello:'Hello {w}',mysum:'{n} actions assigned to you, {o} remaining.',mynodl:'{n} without a deadline: please fill in.',myok:'All your deadlines are filled in.',auto:'Every change is saved automatically.',adm:' You can edit everything in "Overview".',
- th_id:'No.',th_a:'Action',th_dep:'Depends on',th_dl:'Deadline',th_s:'Status',th_c:'Comment',th_o:'Owner',cph:'Comment',saved:'Saved ✓',err:'Error',
+ th_id:'No.',th_a:'Action',th_dep:'Must be done first',th_dl:'Deadline',th_s:'Status',th_c:'Comment',th_o:'Owner',cph:'Comment',saved:'Saved ✓',err:'Error',
  f_p:'All projects',f_o:'All owners',f_s:'All statuses',f_late:'Late',f_nodl:'No deadline',cnt:'{n} actions',edit:' · you can edit every row.',
  p_d:'{d}/{n} done',p_l:'{n} late',p_b:'{n} blocked',p_n:'{n} without deadline',p_x:'Next deadline: {d}',
  g_hint:'Click a project to expand it. The red line is today, the gold diamond is the opening. Bars follow the deadlines entered by each person.',g_exp:'Expand all',g_col:'Collapse all',
@@ -211,7 +211,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
  k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'بلا موعد',k_bl:'متعثّرة',
  s_open:'الافتتاحات القادمة',s_late:'متأخرة',s_next:'قريبًا (7 أيام)',none:'لا شيء يُذكر.',left:'بعد {n} يوم',today:'اليوم',past:'مضى',
  hello:'مرحبًا {w}',mysum:'لديك {n} مهمة، المتبقي منها {o}.',mynodl:'{n} بلا موعد نهائي: يُرجى إكمالها.',myok:'جميع مواعيدك مُدخلة.',auto:'يُحفظ كل تعديل تلقائيًا.',adm:' يمكنك تعديل كل شيء من «نظرة عامة».',
- th_id:'الرقم',th_a:'المهمة',th_dep:'تعتمد على',th_dl:'الموعد النهائي',th_s:'الحالة',th_c:'ملاحظة',th_o:'المسؤول',cph:'ملاحظة',saved:'تم الحفظ ✓',err:'خطأ',
+ th_id:'الرقم',th_a:'المهمة',th_dep:'يجب إنجازه أولًا',th_dl:'الموعد النهائي',th_s:'الحالة',th_c:'ملاحظة',th_o:'المسؤول',cph:'ملاحظة',saved:'تم الحفظ ✓',err:'خطأ',
  f_p:'كل المشاريع',f_o:'كل المسؤولين',f_s:'كل الحالات',f_late:'متأخرة',f_nodl:'بلا موعد',cnt:'{n} مهمة',edit:' · يمكنك تعديل كل الصفوف.',
  p_d:'{d}/{n} منجزة',p_l:'{n} متأخرة',p_b:'{n} متعثّرة',p_n:'{n} بلا موعد',p_x:'الموعد القادم: {d}',
  g_hint:'اضغط على مشروع لفتحه. الخط الأحمر هو اليوم، والمعيّن الذهبي هو الافتتاح. الأشرطة تتبع المواعيد التي يدخلها كل شخص.',g_exp:'فتح الكل',g_col:'طيّ الكل',
@@ -221,6 +221,8 @@ let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
 I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||p;
+const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
+const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
 const tn=t=>lang==='fr'?t.n:(t[lang]||t.n),pj=p=>lang==='fr'?p:(PJ[p]?PJ[p][lang]:p);
 let vas='',cov=true,S={},me=null,tab='home',fl={p:'',o:'',s:'',late:false,nodl:false},gf={p:'',o:''},exp={};
 let savedMe=null;try{savedMe=JSON.parse(localStorage.getItem('olba-mgmt-me')||'null')}catch(e){}
@@ -274,11 +276,11 @@ async function openPlan(){const pl=document.getElementById('pl');if(planLoaded||
 
 /* ===== Cohérence : incohérences de dates et de statuts ===== */
 const CM={
-fr:{nodl:p=>`${p.t} : indique ta deadline (démarrage prévu le ${p.s}).`,before:p=>`${p.t} : ta deadline (${p.d}) est avant la fin de ${p.q} « ${p.qn} » (${p.qe}), dont cette action dépend.`,open:p=>`${p.t} : ta deadline (${p.d}) est après l'ouverture du projet (${p.o}).`,late:p=>`${p.t} : deadline dépassée (${p.d}) et action non terminée.`,donep:p=>`${p.t} est marquée terminée alors que ${p.q} « ${p.qn} » ne l'est pas.`,
+fr:{nodl:p=>`${p.t} : indique ta deadline (démarrage prévu le ${p.s}).`,before:p=>`${p.t} : ta deadline (${p.d}) est avant la fin de « ${p.qn} » (${p.qe}), dont cette action dépend.`,open:p=>`${p.t} : ta deadline (${p.d}) est après l'ouverture du projet (${p.o}).`,late:p=>`${p.t} : deadline dépassée (${p.d}) et action non terminée.`,donep:p=>`${p.t} est marquée terminée alors que « ${p.qn} » ne l'est pas.`,
  hi:w=>`Bonjour ${w}, merci de vérifier ces points dans OLBA Management :`,bye:u=>`Merci de corriger ta deadline ou ton statut ici : ${u}`},
-en:{nodl:p=>`${p.t}: please enter your deadline (planned start ${p.s}).`,before:p=>`${p.t}: your deadline (${p.d}) is before the end of ${p.q} "${p.qn}" (${p.qe}), which this action depends on.`,open:p=>`${p.t}: your deadline (${p.d}) is after the project opening (${p.o}).`,late:p=>`${p.t}: deadline passed (${p.d}) and the action is not done.`,donep:p=>`${p.t} is marked done while ${p.q} "${p.qn}" is not.`,
+en:{nodl:p=>`${p.t}: please enter your deadline (planned start ${p.s}).`,before:p=>`${p.t}: your deadline (${p.d}) is before the end of "${p.qn}" (${p.qe}), which this action depends on.`,open:p=>`${p.t}: your deadline (${p.d}) is after the project opening (${p.o}).`,late:p=>`${p.t}: deadline passed (${p.d}) and the action is not done.`,donep:p=>`${p.t} is marked done while "${p.qn}" is not.`,
  hi:w=>`Hello ${w}, please check these points in OLBA Management:`,bye:u=>`Please fix your deadline or status here: ${u}`},
-ar:{nodl:p=>`${p.t}: يرجى إدخال الموعد النهائي (البدء المخطط ${p.s}).`,before:p=>`${p.t}: موعدك (${p.d}) قبل انتهاء ${p.q} «${p.qn}» (${p.qe}) التي تعتمد عليها هذه المهمة.`,open:p=>`${p.t}: موعدك (${p.d}) بعد افتتاح المشروع (${p.o}).`,late:p=>`${p.t}: تجاوزت المهمة موعدها (${p.d}) ولم تكتمل.`,donep:p=>`${p.t} مسجّلة كمنجزة بينما ${p.q} «${p.qn}» لم تكتمل.`,
+ar:{nodl:p=>`${p.t}: يرجى إدخال الموعد النهائي (البدء المخطط ${p.s}).`,before:p=>`${p.t}: موعدك (${p.d}) قبل انتهاء «${p.qn}» (${p.qe}) التي تعتمد عليها هذه المهمة.`,open:p=>`${p.t}: موعدك (${p.d}) بعد افتتاح المشروع (${p.o}).`,late:p=>`${p.t}: تجاوزت المهمة موعدها (${p.d}) ولم تكتمل.`,donep:p=>`${p.t} مسجّلة كمنجزة بينما «${p.qn}» لم تكتمل.`,
  hi:w=>`مرحبًا ${w}، يرجى مراجعة هذه النقاط في إدارة OLBA:`,bye:u=>`يرجى تصحيح الموعد أو الحالة هنا: ${u}`}};
 let _coh=null,_cohKey='';
 function COH(){const key=today()+'|'+T.length+'|'+Object.keys(S).length+'|'+Object.values(S).map(x=>(x.deadline||'')+x.status).join('').length+'|'+(S.__v||0);
@@ -294,7 +296,7 @@ function COH(){const key=today()+'|'+T.length+'|'+Object.keys(S).length+'|'+Obje
   if(d)(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).forEach(q=>{const pq=by.get(q);if(!pq||dn(pq))return;const pe=eEnd(pq);if(pe>d)out.push({id:t.id,o:t.o,kind:'before',sev:'e',p:{t:t.id,d:fd(d),q:q,qn:pq,qe:fd(pe)}})});
   if(d&&opn[t.p]&&!/(OP|PO)$/.test(t.id)&&d>opn[t.p])out.push({id:t.id,o:t.o,kind:'open',sev:'e',p:{t:t.id,d:fd(d),o:fd(opn[t.p])}})});
  out.sort((a,b)=>(a.sev==='e'?0:1)-(b.sev==='e'?0:1));_coh=out;_cohKey=sig;return out}
-function cohText(i,l){const p=Object.assign({},i.p);if(p.qn&&typeof p.qn==='object')p.qn=l==='fr'?p.qn.n:(p.qn[l]||p.qn.n);const tk=T.find(z=>z.id===i.id);if(tk)p.t=i.id+' '+(l==='fr'?tk.n:(tk[l]||tk.n));return CM[l][i.kind](p)}
+function cohText(i,l){const p=Object.assign({},i.p);if(p.qn&&typeof p.qn==='object')p.qn=l==='fr'?p.qn.n:(p.qn[l]||p.qn.n);const tk=T.find(z=>z.id===i.id);if(tk)p.t=(l==='fr'?tk.p:(PJ[tk.p]?PJ[tk.p][l]:tk.p))+' › '+(l==='fr'?tk.n:(tk[l]||tk.n));return CM[l][i.kind](p)}
 function cohMsg(w,l){const L2=COH().filter(i=>i.o===w);const u=location.origin+location.pathname;return CM[l].hi(l==='fr'?w:pnm(w))+'\n\n'+L2.map((i,k)=>(k+1)+') '+cohText(i,l)).join('\n')+'\n\n'+CM[l].bye(u)}
 async function cohCopy(w,l){try{await navigator.clipboard.writeText(cohMsg(w,l))}catch(e){const a=document.createElement('textarea');a.value=cohMsg(w,l);document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}const b=event&&event.target;if(b){const o=b.textContent;b.textContent=L('coh_copied');setTimeout(()=>b.textContent=o,1800)}}
 function cohWa(w,l){window.open('https://wa.me/?text='+encodeURIComponent(cohMsg(w,l)),'_blank')}
@@ -429,7 +431,7 @@ async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
 if(savedMe&&savedMe.who)selP=savedMe.who;
 let grp=DIRSET.includes(selP);
-async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab='home';render();window.scrollTo(0,0);loadPh();loadB2Acc();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
+async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
 document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('.pv');if(!b||e.pointerType==='touch')return;const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.setProperty('--ry',(x*16).toFixed(1)+'deg');b.style.setProperty('--rx',(-y*16).toFixed(1)+'deg')});
 document.addEventListener('pointerout',e=>{const b=e.target.closest&&e.target.closest('.pv');if(b&&!b.contains(e.relatedTarget)){b.style.removeProperty('--rx');b.style.removeProperty('--ry')}});
 let cvAn=true;
@@ -628,7 +630,7 @@ function b2CopyT(id){const t=B2.t.find(x=>x.id===id);if(!t)return;const s=(t.sub
 async function login(){const w=(document.getElementById('lw')||{}).value||'',p=document.getElementById('lp').value.trim().toUpperCase();
  const e=document.getElementById('le');e.textContent='';if(!w||!p){e.textContent=L('need');return}
  try{const ok=await rpc('mgmt_check',{p_who:w,p_pin:p});if(!ok){e.textContent=L('bad_pin');return}
- me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));try{localStorage.setItem('olba-last',w)}catch(_){}tab='home';render();window.scrollTo(0,0);loadPh();loadB2Acc()}catch(x){e.textContent=L('conn')}}
+ me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));try{localStorage.setItem('olba-last',w)}catch(_){}tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc()}catch(x){e.textContent=L('conn')}}
 function loginView(){return coverView()}
 /* save */
 async function save(id,el){const row=el.closest('tr');const g=c=>row.querySelector('.'+c);
@@ -640,8 +642,8 @@ function rowEdit(t,editable){const x=st(t.id);
  const dl=editable?`<input type="date" class="i-dl" value="${x.deadline||''}" onchange="save('${t.id}',this)">`:fd(x.deadline);
  const ss=editable?`<select class="s i-st" onchange="save('${t.id}',this)">${STAT.map(s=>`<option value="${s}"${s===x.status?' selected':''}>${stl(s)}</option>`).join('')}</select>`:`<span class="pill ${PC[x.status]}">${stl(x.status)}</span>`;
  const cm=editable?`<input class="c i-c" value="${esc(x.comment)}" maxlength="500" placeholder="${L('cph')}" onchange="save('${t.id}',this)">`:esc(x.comment);
- return `<tr class="${isLate(t)?'late':''}"><td class="n">${t.id}</td><td>${esc(tn(t))}</td><td class="dep">${esc(t.dep)}</td><td class="dl">${dl}</td><td>${ss}</td><td>${cm}<span class="ok"></span><div class="tl" data-id="${t.id}"></div></td></tr>`}
-const thead=(o)=>`<thead><tr><th>${L('th_id')}</th><th>${L('th_a')}</th><th class="dep">${L('th_dep')}</th><th>${L('th_dl')}</th><th>${L('th_s')}</th><th>${L('th_c')}</th>${o?`<th>${L('th_o')}</th>`:''}</tr></thead>`;
+ return `<tr class="${isLate(t)?'late':''}"><td>${esc(tn(t))}</td><td class="dep">${esc(depN(t))}</td><td class="dl">${dl}</td><td>${ss}</td><td>${cm}<span class="ok"></span><div class="tl" data-id="${t.id}"></div></td></tr>`}
+const thead=(o)=>`<thead><tr><th>${L('th_a')}</th><th class="dep">${L('th_dep')}</th><th>${L('th_dl')}</th><th>${L('th_s')}</th><th>${L('th_c')}</th>${o?`<th>${L('th_o')}</th>`:''}</tr></thead>`;
 /* home */
 function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
@@ -697,10 +699,10 @@ function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW
   const op=P.find(t=>/OP$/.test(t.id));
   rows+=`<div class="gr ph" onclick="exp['${esc(p)}']=!exp['${esc(p)}'];render()">${lab((open?'▾ ':'▸ ')+esc(pj(p))+` · ${dn}/${P.length}`)}<div class="gt" style="width:${W}px"><div class="gbar sum" style="left:${X(a)}px;width:${X(b)-X(a)+dw-2}px"><i style="width:${Math.round(dn/P.length*100)}%"></i></div>${op?`<div class="gms" style="left:${X(endOf(op))+3}px" title="${L('l_ms')} ${fd(endOf(op))}"></div>`:''}</div></div>`;
   if(open)P.forEach(t=>{const x=st(t.id),[s,e]=span(t),ms=/(GO|OP)$/.test(t.id)&&t.ms,late=isLate(t);
-   const tip=`${t.id} · ${tn(t)}\n${pnm(t.o)} · ${stl(x.status)}\n${fd(s)} → ${fd(e)}${x.deadline?'':' *'}`;
+   const tip=`${tn(t)}\n${pnm(t.o)} · ${stl(x.status)}\n${fd(s)} → ${fd(e)}${x.deadline?'':' *'}`;
    const bar=ms?`<div class="gms" style="left:${X(e)+3}px" title="${esc(tip)}"></div>`:`<div class="gbar ${GC[x.status]}${late?' lt':''}" style="left:${X(s)}px;width:${X(e)-X(s)+dw-2}px" title="${esc(tip)}"></div>`;
    const bx=ms?X(e)+24:X(e)+dw+4;
-   rows+=`<div class="gr">${lab(`<span style="color:#8a7a68">${t.id}</span> ${esc(tn(t))}`,tip)}<div class="gt" style="width:${W}px">${bar}<span class="gbl" style="left:${bx}px">${esc(pnm(t.o))} · ${fd(e)}</span></div></div>`})});
+   rows+=`<div class="gr">${lab(`${esc(tn(t))}`,tip)}<div class="gt" style="width:${W}px">${bar}<span class="gbl" style="left:${bx}px">${esc(pnm(t.o))} · ${fd(e)}</span></div></div>`})});
  const sel=(k,arr,lab,nm)=>`<select onchange="gf.${k}=this.value;render()"><option value="">${lab}</option>${arr.map(a=>`<option value="${esc(a)}"${gf[k]===a?' selected':''}>${esc(nm(a))}</option>`).join('')}</select>`;
  return `<div class="card" style="padding:14px"><p class="hint" style="margin-bottom:10px">${L('g_hint')}</p>
  <div class="filters">${sel('p',projs,L('f_p'),pj)}${sel('o',PEOPLE,L('f_o'),pnm)}<button class="b" style="padding:7px 12px;font-size:13px" onclick="projs_.forEach(p=>exp[p]=true);render()">${L('g_exp')}</button><button class="b" style="padding:7px 12px;font-size:13px;background:#8a7a68" onclick="exp={};gf.p='';gf.o='';render()">${L('g_col')}</button></div>
