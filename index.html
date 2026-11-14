@@ -222,7 +222,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
 let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
 I.fr.tab_mg='Management';I.en.tab_mg='Management';I.ar.tab_mg='الإدارة';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
-const stl=s=>I[lang].s[s]||s,const RN={'Hafiz':'Haifiz Muhammad Ramzan'};pnm=p=>(I[lang].pp&&I[lang].pp[p])||RN[p]||p;
+const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||({'Hafiz':'Haifiz Muhammad Ramzan'})[p]||p;
 const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
 const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
 const tn=t=>lang==='fr'?t.n:(t[lang]||t.n),pj=p=>lang==='fr'?p:(PJ[p]?PJ[p][lang]:p);
