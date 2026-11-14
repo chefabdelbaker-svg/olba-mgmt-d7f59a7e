@@ -229,6 +229,14 @@ details.cmore summary{cursor:pointer;color:#8a5a20;font-weight:600;margin-top:6p
  header{padding:8px 12px}#tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;width:100%;order:3;scrollbar-width:none;-webkit-overflow-scrolling:touch}#tabs::-webkit-scrollbar{display:none}
  .tab{padding:7px 11px;font-size:13.5px;flex:0 0 auto}.mgsub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mgsub::-webkit-scrollbar{display:none}.mgsub button{flex:0 0 auto}}
 .nodep th.dep,.nodep td.dep{display:none}
+.hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}
+.hero::after{content:'';position:absolute;top:0;bottom:0;right:-30px;width:44%;background:var(--logo) no-repeat center/contain;opacity:.1;pointer-events:none;z-index:0}
+tr.isdone td:first-child{color:#7d8f80;text-decoration:line-through;text-decoration-color:rgba(46,125,69,.5)}
+tr.donefx{animation:dfx 1.5s ease-out 1}
+tr.donefx td:first-child::after{content:' ✓';color:#2e7d45;font-weight:700;display:inline-block;animation:pop .6s cubic-bezier(.3,1.6,.5,1) 1}
+@keyframes dfx{0%{background:rgba(46,125,69,.28)}100%{background:transparent}}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+
 .hq{margin:16px 0 14px;font:italic 400 clamp(18px,2.4vw,24px) Georgia,serif;color:var(--gold2,#e8c27a);letter-spacing:.02em}
 .hq::before{content:'“';margin-inline-end:4px;opacity:.6}.hq::after{content:'”';margin-inline-start:4px;opacity:.6}
 .agtop{display:flex;justify-content:flex-end;margin-bottom:12px}
@@ -574,6 +582,9 @@ let GP={};
 function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
 const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
 function go(t){tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();fx();window.scrollTo(0,0)}
+
+try{document.documentElement.style.setProperty('--logo','url('+LOGO+')')}catch(e){}
+document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('i-st')&&el.value==='Terminé'){const tr=el.closest('tr');if(tr){tr.classList.add('donefx','isdone');setTimeout(()=>tr.classList.remove('donefx'),1600)}}else if(el&&el.classList&&el.classList.contains('i-st')){const tr=el.closest('tr');if(tr)tr.classList.remove('isdone')}});
 function fx(){const m=document.getElementById('m');if(!m)return;m.classList.remove('fx');void m.offsetWidth;m.classList.add('fx');clearTimeout(fx.t);fx.t=setTimeout(()=>m.classList.remove('fx'),900)}
 function out(){AG.ok=false;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
@@ -976,7 +987,7 @@ function rowEdit(t,editable){const x=st(t.id);
  const dl=editable?`<input type="date" class="i-dl" value="${x.deadline||''}" onchange="save('${t.id}',this)">`:fd(x.deadline);
  const ss=editable?`<select class="s i-st" onchange="save('${t.id}',this)">${STAT.map(s=>`<option value="${s}"${s===x.status?' selected':''}>${stl(s)}</option>`).join('')}</select>`:`<span class="pill ${PC[x.status]}">${stl(x.status)}</span>`;
  const cm=editable?`<input class="c i-c" value="${esc(x.comment)}" maxlength="500" placeholder="${L('cph')}" onchange="save('${t.id}',this)">`:esc(x.comment);
- return `<tr class="${isLate(t)?'late':''}"><td>${esc(tn(t))}</td><td class="dep">${esc(depN(t))}</td><td class="dl">${dl}</td><td>${ss}</td><td>${cm}<span class="ok"></span><div class="tl" data-id="${t.id}"></div></td></tr>`}
+ return `<tr class="${isLate(t)?'late':''}${x.status==='Terminé'?' isdone':''}"><td>${esc(tn(t))}</td><td class="dep">${esc(depN(t))}</td><td class="dl">${dl}</td><td>${ss}</td><td>${cm}<span class="ok"></span><div class="tl" data-id="${t.id}"></div></td></tr>`}
 const thead=(o)=>`<thead><tr><th>${L('th_a')}</th><th class="dep">${L('th_dep')}</th><th>${L('th_dl')}</th><th>${L('th_s')}</th><th>${L('th_c')}</th>${o?`<th>${L('th_o')}</th>`:''}</tr></thead>`;
 /* home */
 function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
