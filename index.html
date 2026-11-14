@@ -222,7 +222,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
 let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
 I.fr.tab_mg='Management';I.fr.tab_proj='Projets';I.en.tab_proj='Projects';I.ar.tab_proj='المشاريع';I.fr.tab_ops='Opérations';I.en.tab_ops='Operations';I.ar.tab_ops='العمليات';I.fr.hd_t='Bienvenue, Direction';I.en.hd_t='Welcome, Direction';I.ar.hd_t='مرحبًا، الإدارة';I.fr.hd_s='{l} en retard · {x} échéances sous 7 jours · {c} points de cohérence à vérifier';I.en.hd_s='{l} late · {x} due within 7 days · {c} consistency points to check';I.ar.hd_s='{l} متأخرة · {x} مستحقة خلال 7 أيام · {c} نقاط اتساق للمراجعة';I.en.tab_mg='Management';I.ar.tab_mg='الإدارة';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
-const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||({'Hafiz':'Haifiz Muhammad Ramzan','Rima':'Reema Aljohani','Sayed':'Syed Ibrahim'})[p]||p;
+const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||({'Hafiz':'Haifiz Muhammad Ramzan','Rima':'Reema Aljohani','Sayed':'Syed Ibrahim','Chef Omar':'Omar Farouk','Ossama':'Asmah Adil Naji','Ahmed':'Ahmed Alruwaithi'})[p]||p;
 const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
 const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
 const tn=t=>lang==='fr'?t.n:(t[lang]||t.n),pj=p=>lang==='fr'?p:(PJ[p]?PJ[p][lang]:p);
