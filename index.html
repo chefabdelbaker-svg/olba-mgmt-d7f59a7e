@@ -229,6 +229,7 @@ details.cmore summary{cursor:pointer;color:#8a5a20;font-weight:600;margin-top:6p
  header{padding:8px 12px}#tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;width:100%;order:3;scrollbar-width:none;-webkit-overflow-scrolling:touch}#tabs::-webkit-scrollbar{display:none}
  .tab{padding:7px 11px;font-size:13.5px;flex:0 0 auto}.mgsub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mgsub::-webkit-scrollbar{display:none}.mgsub button{flex:0 0 auto}}
 .nodep th.dep,.nodep td.dep{display:none}
+input.i-dl.auto{font-style:italic;color:#8a6a2c;background:#fff8ea;border-style:dashed}.dlp{display:block;font-size:11px;color:#a87433;margin-top:2px}
 .hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}
 .hero::after{content:'';position:absolute;top:0;bottom:0;right:-30px;width:44%;background:var(--logo) no-repeat center/contain;opacity:.1;pointer-events:none;z-index:0}
 tr.isdone td:first-child{color:#7d8f80;text-decoration:line-through;text-decoration-color:rgba(46,125,69,.5)}
@@ -280,12 +281,12 @@ fr:{brand:'OLBA Management',tab_home:'Accueil',tab_me:'Ma page',tab_all:"Vue d'e
  tab_coh:'Incohérences',tab_bg:'Budget',gate_m:'Une équipe · Un objectif · Un rêve',gate_t:'Bienvenue chez OLBA Management',pin_btn:'Mon code',pin_t:'Changer mon code',pin_h:'Choisis un nouveau code de 6 à 20 lettres ou chiffres, sans espaces ni accents.',pin_old:'Code actuel',pin_new:'Nouveau code',pin_x:'Annuler',pin_weak:'6 à 20 lettres ou chiffres, sans espace ni accent.',pin_bad:'Code actuel incorrect.',pin_ok:'Code modifié ✓ Utilise-le à ta prochaine connexion.',pin_rbtn:'Changer le code de {w}',pin_rt:'Nouveau code de {w}',pin_rh:'Un code est proposé : modifie-le si tu veux, puis envoie-le à la personne.',pin_rdone:'Code de {w} modifié. Envoie-le lui :',pin_nodb:'Cette fonction n\'est pas encore activée dans la base.',av_btn:'Mon avatar',av_t:'Mon avatar',av_h:'Choisis ton dessin et la couleur de peau, ou ajoute ta photo.',av_photo:'Ajouter ma photo',av_nophoto:'Retirer ma photo',av_priv:'Ta photo n\'est visible que par les membres connectés. Sur la page d\'accueil, les autres voient ton dessin.',vas_t:'Voir la page de… (tes modifications sont enregistrées au nom de la Direction)',who_s:'Qui es-tu ? Touche ton avatar, puis entre ton code.',gate_s:'Choisis ton nom et saisis ton code personnel pour entrer.',coh_t:'Points à vérifier',coh_h:'Incohérences détectées automatiquement dans les dates et statuts. Chaque responsable les voit sur sa page ; tu peux lui envoyer le message.',coh_none:'Aucune incohérence détectée.',coh_mine:'À vérifier',coh_copy:'Copier le message',coh_wa:'WhatsApp',coh_copied:'Message copié ✓',coh_all:'{n} point(s) à vérifier dans les dates et statuts. Ouvre l\'onglet Incohérences.',coh_my:'{n} point(s) à vérifier dans tes actions :',sev_e:'Incohérent',sev_w:'À compléter',login_t:'Connexion',login_h:'Choisis ton nom et saisis le code personnel reçu de Abdelhafid.',my_name:'— Mon nom —',my_code:'Mon code',enter:'Entrer',bad_pin:'Code incorrect.',conn:'Connexion impossible. Réessaie.',need:'Touche ton avatar et saisis ton code.',noLogin:"Voir la vue d'ensemble sans me connecter",
  k:'Pilotage des lancements',h_t:'Management',h_s:'{p} projets, {n} actions, un seul tableau de bord partagé par toute l\'équipe.',
  c_me:'Ma page',c_med:'Mes actions, mes deadlines : je mets à jour mon avancement.',c_all:"Vue d'ensemble",c_alld:'Tous les projets, leur avancement et les points de blocage.',c_g:'Calendrier Gantt',c_gd:'Qui fait quoi, quand : tous les projets sur une frise.',
- k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Sans deadline',k_bl:'Bloquées',
+ k_tot:'Actions',k_done:'Terminées',k_doing:'En cours',k_late:'En retard',k_nodl:'Dates à confirmer',k_bl:'Bloquées',
  s_open:'Prochaines ouvertures',s_late:'En retard',s_next:'À venir (7 jours)',none:'Rien à signaler.',left:'J-{n}',today:"Aujourd'hui",past:'passée',
- hello:'Bonjour {w}',mysum:'{n} actions à ton nom, {o} restantes.',mynodl:'{n} sans deadline : à compléter.',myok:'Toutes tes deadlines sont renseignées.',auto:"Chaque changement s'enregistre tout seul.",adm:' Tu peux tout modifier dans « Vue d\'ensemble ».',
+ hello:'Bonjour {w}',mysum:'{n} actions à ton nom, {o} restantes.',mynodl:'{n} dates à confirmer ou à corriger.',myok:'Toutes tes deadlines sont renseignées.',auto:"Chaque changement s'enregistre tout seul.",adm:' Tu peux tout modifier dans « Vue d\'ensemble ».',
  th_id:'N°',th_a:'Action',th_dep:'À finir avant',th_dl:'Deadline',th_s:'Statut',th_c:'Commentaire',th_o:'Resp.',cph:'Commentaire',saved:'Enregistré ✓',err:'Erreur',
- f_p:'Tous les projets',f_o:'Tous les responsables',f_s:'Tous les statuts',f_late:'En retard',f_nodl:'Sans deadline',cnt:'{n} actions',edit:' · tu peux modifier toutes les lignes.',
- p_d:'{d}/{n} terminées',p_l:'{n} en retard',p_b:'{n} bloquées',p_n:'{n} sans deadline',p_x:'Prochaine deadline : {d}',
+ f_p:'Tous les projets',f_o:'Tous les responsables',f_s:'Tous les statuts',f_late:'En retard',f_nodl:'Dates à confirmer',cnt:'{n} actions',edit:' · tu peux modifier toutes les lignes.',
+ p_d:'{d}/{n} terminées',p_l:'{n} en retard',p_b:'{n} bloquées',p_n:'{n} dates à confirmer',p_x:'Prochaine deadline : {d}',
  g_hint:'Clique sur un projet pour le déplier. La ligne rouge marque aujourd\'hui, le losange or l\'ouverture. Les barres suivent les deadlines saisies par chacun.',g_exp:'Tout déplier',g_col:'Tout replier',
  l_af:'À faire',l_ec:'En cours',l_t:'Terminé',l_b:'Bloqué',l_ms:'Ouverture',plan_err:'Impossible d\'ouvrir le planning directeur. Réessaie dans un instant.',l_lt:'En retard',tr:'Traduction indisponible',ft:'OLBA Bakehouse · Riyadh · données partagées en direct',
  s:{'À faire':'À faire','En cours':'En cours','Terminé':'Terminé','Bloqué':'Bloqué'},pp:{'Direction':'Direction'}},
@@ -293,12 +294,12 @@ en:{brand:'OLBA Management',tab_home:'Home',tab_me:'My page',tab_all:'Overview',
  tab_coh:'Inconsistencies',tab_bg:'Budget',gate_m:'One team · One goal · One dream',gate_t:'Welcome to OLBA Management',pin_btn:'My code',pin_t:'Change my code',pin_h:'Pick a new code of 6 to 20 letters or digits, no spaces or accents.',pin_old:'Current code',pin_new:'New code',pin_x:'Cancel',pin_weak:'6 to 20 letters or digits, no spaces or accents.',pin_bad:'Current code is wrong.',pin_ok:'Code changed ✓ Use it next time you sign in.',pin_rbtn:'Change {w}\'s code',pin_rt:'New code for {w}',pin_rh:'A code is suggested: edit it if you like, then send it to the person.',pin_rdone:'{w}\'s code changed. Send it to them:',pin_nodb:'This feature is not enabled in the database yet.',av_btn:'My avatar',av_t:'My avatar',av_h:'Pick your drawing and skin tone, or add your photo.',av_photo:'Add my photo',av_nophoto:'Remove my photo',av_priv:'Your photo is only visible to signed-in members. On the welcome page, others see your drawing.',vas_t:'View the page of… (your edits are saved on behalf of Management)',who_s:'Who are you? Tap your avatar, then enter your code.',gate_s:'Pick your name and enter your personal code to come in.',coh_t:'Items to check',coh_h:'Inconsistencies detected automatically in dates and statuses. Each owner sees theirs on their page; you can send them the message.',coh_none:'No inconsistency detected.',coh_mine:'To check',coh_copy:'Copy message',coh_wa:'WhatsApp',coh_copied:'Message copied ✓',coh_all:'{n} item(s) to check in dates and statuses. Open the Consistency tab.',coh_my:'{n} item(s) to check in your actions:',sev_e:'Inconsistent',sev_w:'To complete',login_t:'Sign in',login_h:'Pick your name and enter the personal code you received from Abdelhafid.',my_name:'— My name —',my_code:'My code',enter:'Enter',bad_pin:'Wrong code.',conn:'Could not connect. Please retry.',need:'Pick your name and enter your code.',noLogin:'See the overview without signing in',
  k:'Launch control',h_t:'Management',h_s:'{p} projects, {n} actions, one dashboard shared by the whole team.',
  c_me:'My page',c_med:'My actions and deadlines: I update my own progress.',c_all:'Overview',c_alld:'All projects, their progress and blockers.',c_g:'Gantt calendar',c_gd:'Who does what, and when: every project on one timeline.',
- k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'No deadline',k_bl:'Blocked',
+ k_tot:'Actions',k_done:'Done',k_doing:'In progress',k_late:'Late',k_nodl:'Dates to confirm',k_bl:'Blocked',
  s_open:'Upcoming openings',s_late:'Late',s_next:'Coming up (7 days)',none:'Nothing to report.',left:'D-{n}',today:'Today',past:'past',
- hello:'Hello {w}',mysum:'{n} actions assigned to you, {o} remaining.',mynodl:'{n} without a deadline: please fill in.',myok:'All your deadlines are filled in.',auto:'Every change is saved automatically.',adm:' You can edit everything in "Overview".',
+ hello:'Hello {w}',mysum:'{n} actions assigned to you, {o} remaining.',mynodl:'{n} dates to confirm or correct.',myok:'All your deadlines are filled in.',auto:'Every change is saved automatically.',adm:' You can edit everything in "Overview".',
  th_id:'No.',th_a:'Action',th_dep:'Must be done first',th_dl:'Deadline',th_s:'Status',th_c:'Comment',th_o:'Owner',cph:'Comment',saved:'Saved ✓',err:'Error',
- f_p:'All projects',f_o:'All owners',f_s:'All statuses',f_late:'Late',f_nodl:'No deadline',cnt:'{n} actions',edit:' · you can edit every row.',
- p_d:'{d}/{n} done',p_l:'{n} late',p_b:'{n} blocked',p_n:'{n} without deadline',p_x:'Next deadline: {d}',
+ f_p:'All projects',f_o:'All owners',f_s:'All statuses',f_late:'Late',f_nodl:'Dates to confirm',cnt:'{n} actions',edit:' · you can edit every row.',
+ p_d:'{d}/{n} done',p_l:'{n} late',p_b:'{n} blocked',p_n:'{n} dates to confirm',p_x:'Next deadline: {d}',
  g_hint:'Click a project to expand it. The red line is today, the gold diamond is the opening. Bars follow the deadlines entered by each person.',g_exp:'Expand all',g_col:'Collapse all',
  l_af:'To do',l_ec:'In progress',l_t:'Done',l_b:'Blocked',l_ms:'Opening',plan_err:'Could not open the planning director. Please retry shortly.',l_lt:'Late',tr:'Translation unavailable',ft:'OLBA Bakehouse · Riyadh · live shared data',
  s:{'À faire':'To do','En cours':'In progress','Terminé':'Done','Bloqué':'Blocked'},pp:{'Direction':'Management','Consultant pizza':'Pizza consultant'}},
@@ -306,12 +307,12 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
  tab_coh:'التناقضات',tab_bg:'الميزانية',gate_m:'فريق واحد · هدف واحد · حلم واحد',gate_t:'مرحبًا بكم في إدارة OLBA',pin_btn:'رمزي',pin_t:'تغيير رمزي',pin_h:'اختر رمزًا جديدًا من 6 إلى 20 حرفًا أو رقمًا بدون مسافات.',pin_old:'الرمز الحالي',pin_new:'الرمز الجديد',pin_x:'إلغاء',pin_weak:'من 6 إلى 20 حرفًا أو رقمًا بدون مسافات.',pin_bad:'الرمز الحالي غير صحيح.',pin_ok:'تم تغيير الرمز ✓ استخدمه في المرة القادمة.',pin_rbtn:'تغيير رمز {w}',pin_rt:'رمز جديد لـ {w}',pin_rh:'تم اقتراح رمز: عدّله إن شئت ثم أرسله للشخص.',pin_rdone:'تم تغيير رمز {w}. أرسله له:',pin_nodb:'هذه الميزة غير مفعّلة بعد في قاعدة البيانات.',av_btn:'صورتي',av_t:'صورتي الرمزية',av_h:'اختر رسمك ولون البشرة أو أضف صورتك.',av_photo:'إضافة صورتي',av_nophoto:'إزالة صورتي',av_priv:'صورتك مرئية فقط للأعضاء المسجّلين. في صفحة الترحيب يرى الآخرون رسمك.',vas_t:'عرض صفحة… (تُحفظ تعديلاتك باسم الإدارة)',who_s:'من أنت؟ اختر صورتك ثم أدخل رمزك.',gate_s:'اختر اسمك وأدخل رمزك الشخصي للدخول.',coh_t:'نقاط للمراجعة',coh_h:'تعارضات مكتشفة تلقائيًا في المواعيد والحالات. يراها كل مسؤول في صفحته، ويمكنك إرسال الرسالة إليه.',coh_none:'لا توجد تعارضات.',coh_mine:'للمراجعة',coh_copy:'نسخ الرسالة',coh_wa:'واتساب',coh_copied:'تم نسخ الرسالة ✓',coh_all:'{n} نقطة للمراجعة في المواعيد والحالات. افتح تبويب الاتساق.',coh_my:'{n} نقطة للمراجعة في مهامك:',sev_e:'تعارض',sev_w:'يحتاج إكمالًا',login_t:'تسجيل الدخول',login_h:'اختر اسمك وأدخل الرمز الشخصي الذي وصلك من عبدالحفيظ.',my_name:'— اسمي —',my_code:'رمزي',enter:'دخول',bad_pin:'الرمز غير صحيح.',conn:'تعذّر الاتصال. أعد المحاولة.',need:'اختر اسمك وأدخل رمزك.',noLogin:'عرض النظرة العامة دون تسجيل الدخول',
  k:'متابعة الإطلاقات',h_t:'الإدارة',h_s:'{p} مشاريع، {n} مهمة، ولوحة متابعة واحدة يشاركها الفريق كله.',
  c_me:'صفحتي',c_med:'مهامي ومواعيدي: أحدّث تقدّمي بنفسي.',c_all:'نظرة عامة',c_alld:'كل المشاريع وتقدّمها ونقاط التعثّر.',c_g:'جدول غانت',c_gd:'من يفعل ماذا ومتى: كل المشاريع على خط زمني واحد.',
- k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'بلا موعد',k_bl:'متعثّرة',
+ k_tot:'المهام',k_done:'منجزة',k_doing:'قيد التنفيذ',k_late:'متأخرة',k_nodl:'مواعيد للتأكيد',k_bl:'متعثّرة',
  s_open:'الافتتاحات القادمة',s_late:'متأخرة',s_next:'قريبًا (7 أيام)',none:'لا شيء يُذكر.',left:'بعد {n} يوم',today:'اليوم',past:'مضى',
- hello:'مرحبًا {w}',mysum:'لديك {n} مهمة، المتبقي منها {o}.',mynodl:'{n} بلا موعد نهائي: يُرجى إكمالها.',myok:'جميع مواعيدك مُدخلة.',auto:'يُحفظ كل تعديل تلقائيًا.',adm:' يمكنك تعديل كل شيء من «نظرة عامة».',
+ hello:'مرحبًا {w}',mysum:'لديك {n} مهمة، المتبقي منها {o}.',mynodl:'{n} مواعيد للتأكيد أو التصحيح.',myok:'جميع مواعيدك مُدخلة.',auto:'يُحفظ كل تعديل تلقائيًا.',adm:' يمكنك تعديل كل شيء من «نظرة عامة».',
  th_id:'الرقم',th_a:'المهمة',th_dep:'يجب إنجازه أولًا',th_dl:'الموعد النهائي',th_s:'الحالة',th_c:'ملاحظة',th_o:'المسؤول',cph:'ملاحظة',saved:'تم الحفظ ✓',err:'خطأ',
- f_p:'كل المشاريع',f_o:'كل المسؤولين',f_s:'كل الحالات',f_late:'متأخرة',f_nodl:'بلا موعد',cnt:'{n} مهمة',edit:' · يمكنك تعديل كل الصفوف.',
- p_d:'{d}/{n} منجزة',p_l:'{n} متأخرة',p_b:'{n} متعثّرة',p_n:'{n} بلا موعد',p_x:'الموعد القادم: {d}',
+ f_p:'كل المشاريع',f_o:'كل المسؤولين',f_s:'كل الحالات',f_late:'متأخرة',f_nodl:'مواعيد للتأكيد',cnt:'{n} مهمة',edit:' · يمكنك تعديل كل الصفوف.',
+ p_d:'{d}/{n} منجزة',p_l:'{n} متأخرة',p_b:'{n} متعثّرة',p_n:'{n} مواعيد للتأكيد',p_x:'الموعد القادم: {d}',
  g_hint:'اضغط على مشروع لفتحه. الخط الأحمر هو اليوم، والمعيّن الذهبي هو الافتتاح. الأشرطة تتبع المواعيد التي يدخلها كل شخص.',g_exp:'فتح الكل',g_col:'طيّ الكل',
  l_af:'للتنفيذ',l_ec:'قيد التنفيذ',l_t:'منجزة',l_b:'متعثّرة',l_ms:'الافتتاح',plan_err:'تعذّر فتح مخطط المدير. أعد المحاولة بعد قليل.',l_lt:'متأخرة',tr:'الترجمة غير متاحة',ft:'OLBA Bakehouse · الرياض · بيانات مشتركة مباشرة',
  s:{'À faire':'للتنفيذ','En cours':'قيد التنفيذ','Terminé':'منجزة','Bloqué':'متعثّرة'},pp:{'Direction':'الإدارة','Consultant pizza':'مستشار البيتزا','Chef Omar':'الشيف عمر'}}};
@@ -331,13 +332,14 @@ const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+
 const fd=s=>s?s.split('-').reverse().join('/'):'—';
 const U=s=>{const[a,b,c]=s.split('-').map(Number);return Date.UTC(a,b-1,c)};
 const dd=(a,b)=>Math.round((U(a)-U(b))/864e5);
-async function load(){try{const r=await fetch(URL_+'/rest/v1/mgmt_tasks?select=id,owner,deadline,status,comment,updated_by,proj,name,dep,pstart,pend',{headers:H});if(!r.ok)throw 0;const rows=await r.json();S={};rows.forEach(x=>S[x.id]=x);buildT(rows);return true}catch(e){return false}}
+async function load(){try{const r=await fetch(URL_+'/rest/v1/mgmt_tasks?select=id,owner,deadline,status,comment,updated_by,proj,name,dep,pstart,pend,dl_auto',{headers:H});if(!r.ok)throw 0;const rows=await r.json();S={};rows.forEach(x=>S[x.id]=x);buildT(rows);return true}catch(e){return false}}
 function buildT(rows){if(!rows.length)return;const st0=new Map(T0.map((t,i)=>[t.id,[t,i]]));
  const out=rows.map(r=>{const a=st0.get(r.id),b=a&&a[0],i=a?a[1]:9999;const nm=r.name,same=b&&(!nm||nm===b.n);
   return{p:PIDS[r.proj]||(b&&b.p)||r.proj||'',id:r.id,n:nm||(b&&b.n)||r.id,en:same?b.en:nm,ar:same?b.ar:nm,o:r.owner||(b&&b.o)||'Direction',dep:r.dep!=null?r.dep:(b&&b.dep)||'',s:r.pstart||(b&&b.s)||today(),e:r.pend||(b&&b.e)||today(),ms:/(GO|OP)$/.test(r.id),_i:i}});
  out.sort((x,y)=>x._i-y._i);T=out}
 async function rpc(fn,b){const r=await fetch(URL_+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json()}
 const st=id=>S[id]||{deadline:null,status:'À faire',comment:''};
+const nod=t=>{const x=st(t.id);return !x.deadline||!!x.dl_auto};
 const isLate=t=>{const x=st(t.id);return x.deadline&&x.deadline<today()&&x.status!=='Terminé'};
 const isAdmin=()=>me&&(me.who==='Direction'||me.who==='Ahmed');
 const isRO=()=>me&&me.who==='Ahmed';
@@ -984,7 +986,7 @@ async function save(id,el){const row=el.closest('tr');const g=c=>row.querySelect
  ok.textContent=L('saved');ok.style.color='';ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),1800);row.classList.toggle('late',!!isLate(T.find(t=>t.id===id)));fillTr()}
  catch(e){ok.textContent=L('err');ok.style.color='#b3261e';ok.classList.add('show')}}
 function rowEdit(t,editable){const x=st(t.id);
- const dl=editable?`<input type="date" class="i-dl" value="${x.deadline||''}" onchange="save('${t.id}',this)">`:fd(x.deadline);
+ const au=!!x.dl_auto&&x.status!=='Terminé',dl=(editable?`<input type="date" class="i-dl${au?' auto':''}" value="${x.deadline||''}" onchange="save('${t.id}',this)">`:fd(x.deadline))+(au?`<small class="dlp" title="${esc(LX('Date proposée d\'après le planning. Modifie-la ou garde-la.','Date suggested from the plan. Change it or keep it.','تاريخ مقترح من الخطة. عدّله أو أبقه.'))}">${LX('prévu','planned','مقترح')}</small>`:'')
  const ss=editable?`<select class="s i-st" onchange="save('${t.id}',this)">${STAT.map(s=>`<option value="${s}"${s===x.status?' selected':''}>${stl(s)}</option>`).join('')}</select>`:`<span class="pill ${PC[x.status]}">${stl(x.status)}</span>`;
  const cm=editable?`<input class="c i-c" value="${esc(x.comment)}" maxlength="500" placeholder="${L('cph')}" onchange="save('${t.id}',this)">`:esc(x.comment);
  return `<tr class="${isLate(t)?'late':''}${x.status==='Terminé'?' isdone':''}"><td>${esc(tn(t))}</td><td class="dep">${esc(depN(t))}</td><td class="dl">${dl}</td><td>${ss}</td><td>${cm}<span class="ok"></span><div class="tl" data-id="${t.id}"></div></td></tr>`}
@@ -992,7 +994,7 @@ const thead=(o)=>`<thead><tr><th>${L('th_a')}</th><th class="dep">${L('th_dep')}
 /* home */
 function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
-  late=T.filter(isLate),nodl=open.filter(t=>!st(t.id).deadline).length,bl=T.filter(t=>st(t.id).status==='Bloqué').length,td=today();
+  late=T.filter(isLate),nodl=open.filter(t=>nod(t)).length,bl=T.filter(t=>st(t.id).status==='Bloqué').length,td=today();
  const ops=T.filter(t=>/OP$/.test(t.id)&&st(t.id).status!=='Terminé').map(t=>({t,d:endOf(t)})).sort((a,b)=>a.d<b.d?-1:1);
  const nxt=open.filter(t=>st(t.id).deadline&&st(t.id).deadline>=td&&dd(st(t.id).deadline,td)<=7).sort((a,b)=>st(a.id).deadline<st(b.id).deadline?-1:1);
  const li=(t,d,c)=>`<div class="li"><span>${esc(tn(t))}<br><small>${esc(pj(t.p))} · ${esc(pnm(t.o))}</small></span><span class="d ${c||''}">${fd(d)}</span></div>`;
@@ -1006,7 +1008,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
 function teamView(){if(me&&!AG.ok)loadAg();const ord=t=>st(t.id).status==='Terminé'?'z':(st(t.id).deadline||'y');
  const strip=`<div class="vs"><small>${L('vas_t')}</small><button class="${tmv?'on':''}" onclick="tmv=true;vas='';render()"><span style="font-size:22px;line-height:46px">👥</span><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}</div>`;
  const rl=p=>{const r=ROLES[p];return r?r[lang==='fr'?0:lang==='en'?1:2]:''};
- const cards=LOGIN.filter(p=>p!=='Ahmed').map(p=>{const m=T.filter(t=>t.o===p);if(!m.length)return '';const op=m.filter(t=>st(t.id).status!=='Terminé'),lt=m.filter(isLate).length,nd=op.filter(t=>!st(t.id).deadline).length;
+ const cards=LOGIN.filter(p=>p!=='Ahmed').map(p=>{const m=T.filter(t=>t.o===p);if(!m.length)return '';const op=m.filter(t=>st(t.id).status!=='Terminé'),lt=m.filter(isLate).length,nd=op.filter(t=>nod(t)).length;
   const nx=op.slice().sort((a,b)=>ord(a).localeCompare(ord(b))).filter(t=>st(t.id).deadline).slice(0,3);
   return `<div class="card" style="cursor:pointer" onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()"><div style="display:flex;align-items:center;gap:12px">${avatar(p).replace('<svg','<svg style="width:52px;height:52px;flex:none"')}<div><b>${esc(pnm(p))}</b><div class="hint" style="margin:0">${esc(rl(p))}</div></div></div>
   <div class="bar" style="margin:12px 0 4px"><i style="width:${Math.round((m.length-op.length)/m.length*100)}%"></i></div><p class="hint" style="margin:4px 0 6px"><b>${op.length}</b> ${L('tm_open')} · <span class="${lt?'red':''}">${lt} ${L('tm_late')}</span> · <span class="${nd?'amb':''}">${nd} ${L('tm_nodl')}</span></p>
@@ -1018,13 +1020,13 @@ function meView(){if(!me)return loginView();
  const W=canSeeAll()&&vas?vas:me.who;
  const strip=canSeeAll()?`<div class="vs"><small>${L('vas_t')}</small><button onclick="tmv=true;vas='';render()"><span style="font-size:22px;line-height:46px">👥</span><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button class="${W===p?'on':''}" onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}${W!==me.who&&isEd()?`<button class="rb" onclick="pinOpen('${W}')">${L('pin_rbtn',{w:esc(pnm(W))})}</button>`:''}</div>`:'';
  const mine=T.filter(t=>t.o===W).sort((a,b)=>{const f=t=>st(t.id).status==='Terminé'?'z':(st(t.id).deadline||'y');return f(a).localeCompare(f(b))}),ps=[...new Set(mine.map(t=>t.p))];
- const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>!st(t.id).deadline&&st(t.id).status!=='Terminé').length;
+ const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length;
  let h=strip+cohAlert()+`<div class="card"><h2 class="serif">${L('hello',{w:esc(pnm(W))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>`+agMeCard(W);
  ps.forEach(p=>{h+=`<div class="card"><h2>${esc(pj(p))}</h2><div class="scroll"><table>${thead()}<tbody>${mine.filter(t=>t.p===p).map(t=>rowEdit(t,!isRO()&&(W===me.who||isEd()))).join('')}</tbody></table></div></div>`});return h}
 /* overview */
 function allView(){const projs=[...new Set(T.map(t=>t.p))];
  let h=`<div class="grid">`+projs.map(p=>{const Q=T.filter(t=>t.p===p),d=Q.filter(t=>st(t.id).status==='Terminé').length,
-  nd=Q.filter(t=>!st(t.id).deadline&&st(t.id).status!=='Terminé').length,lt=Q.filter(isLate).length,bl=Q.filter(t=>st(t.id).status==='Bloqué').length;
+  nd=Q.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length,lt=Q.filter(isLate).length,bl=Q.filter(t=>st(t.id).status==='Bloqué').length;
   const nx=Q.filter(t=>st(t.id).deadline&&st(t.id).status!=='Terminé').map(t=>st(t.id).deadline).sort()[0];
   return `<div class="pc"><b>${esc(pj(p))}</b><div class="bar"><i style="width:${Math.round(d/Q.length*100)}%"></i></div><small><b>${Math.round(d/Q.length*100)}%</b> · ${L('p_d',{d,n:Q.length})}</small>
   <div class="pcs">${lt?`<span class="dot r">${L('p_l',{n:lt})}</span>`:''}${bl?`<span class="dot r">${L('p_b',{n:bl})}</span>`:''}${nd?`<span class="dot a">${L('p_n',{n:nd})}</span>`:''}</div><small>${L('p_x',{d:fd(nx)})}</small></div>`}).join('')+`</div>`;
@@ -1033,7 +1035,7 @@ function allView(){const projs=[...new Set(T.map(t=>t.p))];
  h+=`<div class="filters">${sel('p',projs,L('f_p'),pj)}${sel('o',PEOPLE,L('f_o'),pnm)}${sel('s',STAT,L('f_s'),stl)}
  <label><input type="checkbox" ${fl.late?'checked':''} onchange="fl.late=this.checked;render()"> ${L('f_late')}</label>
  <label><input type="checkbox" ${fl.nodl?'checked':''} onchange="fl.nodl=this.checked;render()"> ${L('f_nodl')}</label></div>`;
- const Q=T.filter(t=>(!fl.p||t.p===fl.p)&&(!fl.o||t.o===fl.o)&&(!fl.s||st(t.id).status===fl.s)&&(!fl.late||isLate(t))&&(!fl.nodl||(!st(t.id).deadline&&st(t.id).status!=='Terminé')));
+ const Q=T.filter(t=>(!fl.p||t.p===fl.p)&&(!fl.o||t.o===fl.o)&&(!fl.s||st(t.id).status===fl.s)&&(!fl.late||isLate(t))&&(!fl.nodl||(nod(t)&&st(t.id).status!=='Terminé')));
  const ed=isEd();
  h+=`<div class="card"><p class="hint">${L('cnt',{n:Q.length})}${ed?L('edit'):''}</p><div class="scroll"><table>${thead(1)}<tbody>`+
  Q.map(t=>rowEdit(t,ed).replace('</tr>',`<td>${esc(pnm(t.o))}</td></tr>`)).join('')+`</tbody></table></div></div><button class="b2o lsb" onclick="lsx=false;fl={p:'',o:'',s:'',late:false,nodl:false};render()">${LX('Replier la liste','Collapse list','طي القائمة')}</button>`;return h}
