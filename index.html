@@ -324,6 +324,22 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 .hero.mgh::before{display:none}
 .clkw.f1::before{background-color:#f6efe2;filter:contrast(.6) brightness(.55) sepia(.8)}
 .agsv{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}.agsv .ok{color:#2e7d45;font-weight:600;font-size:14px}
+
+.hero.pgh{padding:24px 30px;display:flex;align-items:center;gap:20px;margin-bottom:16px}.hero.pgh::before{display:none}.hero.pgh::after{width:20%;opacity:.12}
+.pgh .pgi{width:54px;height:54px;border-radius:16px;background:rgba(232,194,122,.14);border:1px solid rgba(232,194,122,.4);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 24px rgba(232,194,122,.18)}.pgh .pgi svg{width:28px;height:28px;color:#e8c27a}
+.pgh h1{font-size:clamp(28px,4vw,40px);margin:4px 0 4px;-webkit-text-fill-color:#fff;background:none;animation:none}.pgh p{font-size:14.5px;color:#d9c8ae}
+.pgh h1::after{content:'';display:block;width:56px;height:2px;margin-top:10px;background:linear-gradient(90deg,#e8c27a,transparent);animation:ulg 2.4s ease-out 1}@keyframes ulg{from{width:0}}
+.pgh .pgm{margin-inline-start:auto;text-align:center;position:relative;z-index:1}.pgh .pgm b{display:block;font:400 34px Georgia,serif;color:#f1d79c}.pgh .pgm small{color:#bfae92;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.pje{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid;font-size:16px;margin-inline-end:8px;vertical-align:middle}
+.pc{border-inline-start:5px solid var(--pc,#a87433)!important;transition:.25s}.pc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(60,40,20,.12)}.pc>b{font-family:Georgia,serif;font-size:17px;font-weight:600}.pc>b{display:block}.pc .jn{display:inline-block;margin:8px 0 6px}
+.pc .bar i{background:var(--pc,#2e7d45)!important}
+.pcard{border-top:3px solid var(--pc,#a87433)}.pcard h2{font-family:Georgia,serif}
+.mav{width:64px;height:64px;border-radius:50%;overflow:hidden;flex:none;border:2px solid #e8c27a;box-shadow:0 0 0 4px #f4ead9}.mav svg,.mav img{width:100%;height:100%;display:block}
+.cnt{font:600 13px Inter,sans-serif;background:#f1e6d3;color:#7a5326;border-radius:999px;padding:3px 10px;margin-inline-start:8px;vertical-align:middle}
+.b2cards table,.b2cards tbody{display:block}.b2cards thead{display:none}.b2cards tbody tr{display:grid;grid-template-columns:1.5fr 160px 150px 1.2fr;gap:12px;align-items:center;border:1px solid #eadfcd;border-radius:12px;padding:10px 14px;margin-bottom:10px;background:#fff;transition:.2s}.b2cards tbody tr:hover{border-color:var(--pc,#a87433);box-shadow:0 4px 14px rgba(60,40,20,.08)}
+.b2cards td{display:block;border:0!important;padding:0!important}.b2cards td.dep{display:none}
+.cko{width:24px;height:24px;border-radius:50%;border:2px solid #cdb994;background:#fff;cursor:pointer;vertical-align:middle;margin-inline-end:10px;transition:.2s}.cko:hover{border-color:#2e7d45}.b2cards tr.isdone .cko{background:#2e7d45;border-color:#2e7d45;box-shadow:inset 0 0 0 4px #fff}
+@media(max-width:800px){.hero.pgh{padding:18px 20px;gap:14px}.pgh .pgm{display:none}.b2cards tbody tr{grid-template-columns:1fr}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="tools"><button id="srchb" onclick="srOpen()" title="Search">⌕</button><button id="dkb" onclick="dkTog()" title="Dark">☾</button></span><span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span class="who" id="who"></span></header>
@@ -733,7 +749,8 @@ function b2View(){if(!me||b2bAcc==='none')return '';
  const body=b2s.sub==='tsk'?b2Tsk():b2s.sub==='pipe'?b2Pipe():b2s.sub==='cli'?b2Cli():b2s.sub==='goal'?b2Goal():b2s.sub==='plan'?b2Plan():b2Tpl();
  return agBanner()+`<div class="card"><h2>${bt('t')}</h2>${ro}${nav}</div>${body}`}
 function b2Tsk(){const m=T.filter(t=>t.p===PIDS.X).sort((a,b)=>{const f=t=>st(t.id).status==='Terminé'?'z':(st(t.id).deadline||'y');return f(a).localeCompare(f(b))});
- return `<div class="card"><h2>${esc(pj(PIDS.X))}</h2><div class="scroll"><table class="${m.some(t=>t.dep)?'':'nodep'}">${thead()}<tbody>${m.map(t=>rowEdit(t,!isRO()&&(me.who===t.o||isEd()))).join('')}</tbody></table></div></div>`}
+ const dn=m.filter(t=>st(t.id).status==='Terminé').length;
+ return `<div class="card b2cards pcard" style="--pc:${pcol(PIDS.X)}"><h2>${pje(PIDS.X)} ${esc(pj(PIDS.X))} <small class="cnt">${dn}/${m.length}</small></h2><div class="scroll"><table class="nodep">${thead()}<tbody>${m.map(t=>{let r=rowEdit(t,!isRO()&&(me.who===t.o||isEd()));return r.replace('<td>','<td><button class="cko" onclick="ckT(\''+t.id+'\',this)" title="OK"></button>')}).join('')}</tbody></table></div></div>`}
 function b2Pipe(){const P=B2.p,cats=[...new Set(P.map(p=>p.cat).filter(Boolean))].sort(),typs=[...new Set(P.map(p=>p.typ).filter(Boolean))].sort();
  const ct=P.filter(p=>!['À qualifier','Contact vérifié','Écarté'].includes(p.status)).length;
  const kp=[[bt('k_tot'),P.length],[bt('k_mail'),P.filter(p=>b2mail(p.contact)).length],[bt('k_ct'),ct],[bt('k_ex'),P.filter(p=>['Dégustation planifiée','Échange en cours'].includes(p.status)).length],[bt('k_pa'),P.filter(p=>p.status==='Partenaire').length],[bt('k_due'),P.filter(b2due).length]];
@@ -1133,8 +1150,9 @@ function meView(){if(!me)return loginView();
  const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length;
  const dn=mine.length-open,pc=mine.length?Math.round(dn/mine.length*100):0,nx=mine.filter(t=>st(t.id).status!=='Terminé'&&st(t.id).deadline&&st(t.id).deadline>=today()).map(t=>st(t.id).deadline).sort()[0],R=34,C=2*Math.PI*R;
  const ring=`<div class="ringw"><svg viewBox="0 0 84 84" class="ring"><circle cx="42" cy="42" r="${R}" fill="none" stroke="#eadfcd" stroke-width="8"/><circle cx="42" cy="42" r="${R}" fill="none" stroke="#a87433" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(C*pc/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 42 42)"/><text x="42" y="48" text-anchor="middle" font-size="19" font-family="Georgia,serif" fill="#2b211a">${pc}%</text></svg><div><small>${LX('Prochaine échéance','Next deadline','الموعد القادم')}</small><b>${nx?fd(nx):'—'}</b><small>${dn}/${mine.length} ${LX('terminées','done','منجزة')}</small></div></div>`;
- let h=strip+cohAlert()+`<div class="card meh"><div><h2 class="serif">${L('hello',{w:esc(pnm(W))})}</h2><p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div>${ring}</div>`+agMeCard(W);
- ps.forEach(p=>{h+=`<div class="card"><h2>${esc(pj(p))}</h2><div class="scroll"><table>${thead()}<tbody>${mine.filter(t=>t.p===p).map(t=>rowEdit(t,!isRO()&&(W===me.who||isEd()))).join('')}</tbody></table></div></div>`});return h}
+ const tr=AG.ok?agRow(W,today()):null;
+ let h=strip+cohAlert()+`<div class="card meh"><div style="display:flex;gap:16px;align-items:center"><div class="mav">${avatar(W)}</div><div><h2 class="serif">${L('hello',{w:esc(pnm(W))})}</h2>${tr&&(tr.arr||tr.dep)?`<div class="agtl">⏱ ${LX('Arrivée','In','وصول')} <b>${esc(tr.arr||'—')}</b> · ${LX('Départ','Out','مغادرة')} <b>${esc(tr.dep||'—')}</b></div>`:''}<p class="hint">${L('mysum',{n:mine.length,o:open})} ${nodl?`<span class="amb">${L('mynodl',{n:nodl})}</span>`:L('myok')} ${L('auto')}${isAdmin()?L('adm'):''}</p></div></div>${ring}</div>`+agMeCard(W);
+ ps.forEach(p=>{h+=`<div class="card pcard" style="--pc:${pcol(p)}"><h2>${pje(p)} ${esc(pj(p))}</h2><div class="scroll"><table>${thead()}<tbody>${mine.filter(t=>t.p===p).map(t=>rowEdit(t,!isRO()&&(W===me.who||isEd()))).join('')}</tbody></table></div></div>`});return h}
 /* overview */
 function allView(){const projs=[...new Set(T.map(t=>t.p))];
  const chip=(on,fn,lab)=>`<button class="chp${on?' on':''}" onclick="${fn};lsx=true;render()">${lab}</button>`;
@@ -1143,7 +1161,8 @@ function allView(){const projs=[...new Set(T.map(t=>t.p))];
  let h=chips+`<div class="grid">`+projs.map(p=>{const Q=T.filter(t=>t.p===p),d=Q.filter(t=>st(t.id).status==='Terminé').length,
   nd=Q.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length,lt=Q.filter(isLate).length,bl=Q.filter(t=>st(t.id).status==='Bloqué').length;
   const nx=Q.filter(t=>st(t.id).deadline&&st(t.id).status!=='Terminé').map(t=>st(t.id).deadline).sort()[0];
-  return `<div class="pc"><b>${esc(pj(p))}</b><div class="bar"><i style="width:${Math.round(d/Q.length*100)}%"></i></div><small><b>${Math.round(d/Q.length*100)}%</b> · ${L('p_d',{d,n:Q.length})}</small>
+  const od=opDate(p),oj=od?dd(od,today()):null;
+  return `<div class="pc" style="--pc:${pcol(p)}"><b>${pje(p)} ${esc(pj(p))}</b>${oj!==null?`<em class="jn${oj>=0&&oj<=7?' hot':''}${oj<0?' past':''}">${LX('Ouverture','Opening','الافتتاح')} ${fd(od).slice(0,5)} · J${oj>=0?'-'+oj:'+'+(-oj)}</em>`:''}<div class="bar"><i style="width:${Math.round(d/Q.length*100)}%"></i></div><small><b>${Math.round(d/Q.length*100)}%</b> · ${L('p_d',{d,n:Q.length})}</small>
   <div class="pcs">${lt?`<span class="dot r">${L('p_l',{n:lt})}</span>`:''}${bl?`<span class="dot r">${L('p_b',{n:bl})}</span>`:''}${nd?`<span class="dot a">${L('p_n',{n:nd})}</span>`:''}</div><small>${L('p_x',{d:fd(nx)})}</small></div>`}).join('')+`</div>`;
  if(!lsx&&!anyF)return h+`<button class="b2o lsb" onclick="lsx=true;render()">${LX('Afficher les '+T.length+' actions','Show all '+T.length+' actions','عرض كل '+T.length+' إجراء')}</button>`;
  const sel=(k,arr,lab,nm)=>`<select onchange="fl.${k}=this.value;render()"><option value="">${lab}</option>${arr.map(a=>`<option value="${esc(a)}"${fl[k]===a?' selected':''}>${esc(nm(a))}</option>`).join('')}</select>`;
@@ -1246,7 +1265,7 @@ function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW
   const sp=P.map(span),a=sp.map(s=>s[0]).sort()[0],b=sp.map(s=>s[1]).sort().pop();
   const dn=P.filter(t=>st(t.id).status==='Terminé').length,open=exp[p]||gf.o||gf.p;
   const op=P.find(t=>/OP$/.test(t.id));
-  rows+=`<div class="gr ph" onclick="exp['${esc(p)}']=!exp['${esc(p)}'];render()">${lab((open?'▾ ':'▸ ')+esc(pj(p))+` · ${dn}/${P.length}`)}<div class="gt" style="width:${W}px"><div class="gbar sum" style="left:${X(a)}px;width:${X(b)-X(a)+dw-2}px"><i style="width:${Math.round(dn/P.length*100)}%"></i></div>${op?`<div class="gms" style="left:${X(endOf(op))+3}px" title="${L('l_ms')} ${fd(endOf(op))}"></div>`:''}</div></div>`;
+  rows+=`<div class="gr ph" onclick="exp['${esc(p)}']=!exp['${esc(p)}'];render()">${lab((open?'▾ ':'▸ ')+PJX[p]?.[0]+' '+esc(pj(p))+` · ${dn}/${P.length}`)}<div class="gt" style="width:${W}px"><div class="gbar sum" style="left:${X(a)}px;width:${X(b)-X(a)+dw-2}px;background:${pcol(p)}40"><i style="width:${Math.round(dn/P.length*100)}%;background:${pcol(p)}"></i></div>${op?`<div class="gms" style="left:${X(endOf(op))+3}px" title="${L('l_ms')} ${fd(endOf(op))}"></div>`:''}</div></div>`;
   if(open)P.forEach(t=>{const x=st(t.id),[s,e]=span(t),ms=/(GO|OP)$/.test(t.id)&&t.ms,late=isLate(t);
    const tip=`${tn(t)}\n${pnm(t.o)} · ${stl(x.status)}\n${fd(s)} → ${fd(e)}${x.deadline?'':' *'}`;
    const bar=ms?`<div class="gms" style="left:${X(e)+3}px" title="${esc(tip)}"></div>`:`<div class="gbar ${GC[x.status]}${late?' lt':''}" style="left:${X(s)}px;width:${X(e)-X(s)+dw-2}px" title="${esc(tip)}"></div>`;
@@ -1260,6 +1279,22 @@ function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW
  <div class="gdy"><div class="gl" style="border:0;padding:0"></div><div style="width:${W}px;display:flex;border:0;padding:0">${dy}</div></div></div>
  <div style="position:relative"><div class="gov" style="left:${LW}px;width:${W}px">${ov}</div>${rows}</div></div></div></div>`}
 const projs_=[...new Set(T.map(t=>t.p))];
+const PJX={'Winter Booth':['❄️','#5b8fb9'],'Pizzeria / Pizza Terrace':['🍕','#c8553d'],'Breakfast New Items':['🥐','#d9a03f'],'Early Morning Opening':['🌅','#e08a4a'],'24/24 Operations':['🕛','#4a5a8a'],'Ramadan Campaign':['🌙','#2e7d6b'],'Ramadan Gift Boxes':['🎁','#a0527c'],'Celebration Cakes':['🎂','#c46a8a'],'B2B Développement':['🤝','#7a5a3a']};
+const pcol=p=>(PJX[p]||['','#a87433'])[1],pje=p=>PJX[p]?`<span class="pje" style="background:${pcol(p)}22;border-color:${pcol(p)}66">${PJX[p][0]}</span>`:'';
+function opDate(p){const t=T.find(x=>x.p===p&&/OP$/.test(x.id));return t?endOf(t):null}
+function pgHero(){if(!me||tab==='home'||tab==='mg'||(tab==='me'&&!tmv&&false))return '';
+ const td=today(),W=me.who;let ic,tt,sb,mt='';
+ const nx=(()=>{const a=[...new Set(T.map(t=>t.p))].map(p=>opDate(p)).filter(d=>d&&d>=td).sort()[0];return a?dd(a,td):null})();
+ if(tab==='all'||tab==='gantt'||tab==='coh'){ic='proj';tt=LX('Projets','Projects','المشاريع');const np=new Set(T.map(t=>t.p)).size;sb=LX(np+' lancements · '+T.length+' actions','Launches: '+np+' · '+T.length+' actions',np+' إطلاق · '+T.length+' إجراء');mt=nx!==null?'J-'+nx:''}
+ else if(tab==='me'&&!(canSeeAll()&&tmv)){ic='me';tt=vas?pnm(vas):LX('Ma page','My page','صفحتي');sb=vas?LX('Actions, dates et rapport du jour','Actions, dates and daily report','الإجراءات والمواعيد والتقرير اليومي'):LX('Mes actions, mes dates et mon rapport du jour','My actions, dates and daily report','إجراءاتي ومواعيدي وتقريري اليومي')}
+ else if(tab==='me'){ic='me';if(tmv){tt=LX('Équipe','Team','الفريق');const ppl=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction'),n=AG.ok?ppl.filter(p=>agRow(p,td)).length:0;sb=LX('Suivi des actions et rapports du jour','Actions and daily reports','متابعة الإجراءات والتقارير اليومية');mt=AG.ok?n+'/'+ppl.length:''}else{return ''}}
+ else if(tab==='meet'||tab==='day'){ic='ag';tt=LX('Agenda','Agenda','الأجندة');sb=LX('Réunions et suivi quotidien · rapports avant 19h','Meetings and daily tracking · reports before 7 PM','الاجتماعات والمتابعة اليومية');mt='22:00'}
+ else if(tab==='budget'){ic='budget';tt=LX('Budget','Budget','الميزانية');sb=LX('Dépenses et budgets par projet','Spending and budgets by project','المصاريف والميزانيات حسب المشروع')}
+ else if(tab==='b2b'){ic='b2b';tt='B2B';sb=LX('OLBA B2B Solutions · tâches, prospects, clients','OLBA B2B Solutions · tasks, prospects, clients','حلول B2B · مهام، عملاء محتملون، عملاء')}
+ else if(tab==='pur'||tab==='stk'){ic='ops';tt=LX('Achats & Stock','Purchasing & Stock','المشتريات والمخزون');sb=LX('Commandes, fournisseurs et inventaire','Orders, suppliers and inventory','الطلبات والموردون والمخزون')}
+ else return '';
+ return `<div class="hero pgh"><div class="pgi">${ico(ic,'ti')}</div><div><div class="k">OLBA Bakehouse</div><h1>${tt}</h1><p>${sb}</p></div>${mt?`<div class="pgm"><b>${mt}</b><small>${tab==='all'||tab==='gantt'||tab==='coh'?LX('prochaine ouverture','next opening','الافتتاح القادم'):tab==='me'?LX('rapports reçus','reports in','تقارير مستلمة'):LX('réunion','meeting','اجتماع')}</small></div>`:''}</div>`}
+function ckT(id,b){const row=b.closest('tr'),sel=row.querySelector('.i-st');sel.value=sel.value==='Terminé'?'À faire':'Terminé';row.classList.toggle('isdone',sel.value==='Terminé');save(id,sel)}
 function render(){document.body.classList.toggle('cvr',!me);head();const m=document.getElementById('m');const pl=document.getElementById('pl');
  let sb=document.getElementById('sb');if(!sb){sb=document.createElement('div');sb.id='sb';m.parentNode.insertBefore(sb,m)}
  {const gs=me?groupSubs():{proj:[],ops:[],ag:[]},g=Object.keys(gs).find(x=>gs[x].includes(tab)),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;
@@ -1268,7 +1303,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='meet'?agMeet():tab==='day'?agDay():tab==='pur'?purView():tab==='stk'?skView():tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
+ m.innerHTML=pgHero()+(tab==='meet'?agMeet():tab==='day'?agDay():tab==='pur'?purView():tab==='stk'?skView():tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView());
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();loadAv();await load();render();
