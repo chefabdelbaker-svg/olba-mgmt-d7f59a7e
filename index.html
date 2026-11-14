@@ -302,12 +302,21 @@ html.dk{filter:invert(.92) hue-rotate(180deg);background:#fff}html.dk img,html.d
 html.dk header,html.dk .hero{filter:invert(1) hue-rotate(180deg)}html.dk header img,html.dk header .avatar,html.dk header .brand i,html.dk .hero img,html.dk .hero .avatar{filter:none}
 
 .agtm{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}.agtm label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#8a7560}.agtm input{padding:8px 10px;border:1px solid #d9c9ad;border-radius:8px;font:inherit}.agtl{margin:6px 0 8px;font-size:13px;color:#7a5326}
-.hero>.clk{right:auto;left:auto;inset-inline-end:calc(30% + 14px);width:290px;align-items:center;text-align:center;direction:ltr;gap:4px}
+.hero>.clk{right:auto;left:auto;inset-inline-end:calc(29% + 20px);width:290px;align-items:center;text-align:center;direction:ltr;gap:4px}
 .clk .an{width:124px;height:124px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35))}
 .clk b{font-size:clamp(26px,2.6vw,34px)!important;letter-spacing:2px}.clk b i{display:none}
 .clk span,.clk small{unicode-bidi:plaintext;direction:ltr;text-align:center}
-.hero::after{right:-30px;left:auto;width:30%}html[dir=rtl] .hero::after{left:-30px;right:auto}
+.hero::after{right:18px;left:auto;width:27%;opacity:.16}html[dir=rtl] .hero::after{left:18px;right:auto}
 @media(max-width:900px){.hero>.clk{position:static;transform:none;inset-inline-end:auto;width:auto;align-items:flex-start;margin:0 0 16px}.hero::after{width:44%;inset-inline-end:-30px}.clk .an{width:96px;height:96px}}
+
+.clkw{position:relative;width:132px;height:132px;border-radius:50%;cursor:pointer;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));transition:.3s}.clkw:hover{transform:scale(1.04)}
+.clkw::before{content:'';position:absolute;inset:9%;border-radius:50%;background:#2b2118 var(--logo) no-repeat center 56%/80%;opacity:1;pointer-events:none}.clkw .fc{fill-opacity:.62}.clkw.f1::before{background-color:#f6efe2}.clkw.f2::before{background-color:#1d3a2c}
+.clkw .an{position:relative;width:100%;height:100%;filter:none}
+.clkw .fc{stroke-width:2.5}.clkw .fi{fill:none;stroke-width:1}.clkw .tk,.clkw .h1,.clkw .h2,.clkw .h3{stroke-linecap:round}
+.clkw.f0 .fc{fill:#2b2118;stroke:#e8c27a}.clkw.f0 .fi{stroke:rgba(232,194,122,.25)}.clkw.f0 .tk{stroke:#e8c27a}.clkw.f0 .h1{stroke:#fff}.clkw.f0 .h2{stroke:#f1d79c;fill:#e8c27a}.clkw.f0 .h3{stroke:#d9534f}
+.clkw.f1 .fc{fill:#f6efe2;stroke:#a87433}.clkw.f1 .fi{stroke:rgba(168,116,51,.3)}.clkw.f1 .tk{stroke:#7a5326}.clkw.f1 .h1{stroke:#2b2118}.clkw.f1 .h2{stroke:#5a4636;fill:#a87433}.clkw.f1 .h3{stroke:#b3402f}
+.clkw.f2 .fc{fill:#1d3a2c;stroke:#d9a85b}.clkw.f2 .fi{stroke:rgba(217,168,91,.3)}.clkw.f2 .tk{stroke:#d9a85b}.clkw.f2 .h1{stroke:#f6efe2}.clkw.f2 .h2{stroke:#d9a85b;fill:#d9a85b}.clkw.f2 .h3{stroke:#f1d79c}
+@media(max-width:900px){.clkw{width:104px;height:104px}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="tools"><button id="srchb" onclick="srOpen()" title="Search">⌕</button><button id="dkb" onclick="dkTog()" title="Dark">☾</button></span><span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span class="who" id="who"></span></header>
@@ -647,7 +656,10 @@ function go(t){if(t==='mg')MG.s='home';tab=t;const s=groupSubs();for(const g in 
 
 try{document.documentElement.style.setProperty('--logo','url('+LOGO+')')}catch(e){}
 document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('i-st')&&el.value==='Terminé'){const tr=el.closest('tr');if(tr){tr.classList.add('donefx','isdone');setTimeout(()=>tr.classList.remove('donefx'),1600)}}else if(el&&el.classList&&el.classList.contains('i-st')){const tr=el.closest('tr');if(tr)tr.classList.remove('isdone')}});
-function clkTick(){const t=document.getElementById('clkT');if(!t)return;const n=new Date(),lc=lang==='ar'?'ar-SA-u-nu-latn':lang==='en'?'en-GB':'fr-FR',z='Asia/Riyadh';
+function clkFace(step){let n=-1;try{const v=localStorage.getItem('olba_cf');n=v===null?-1:+v}catch(e){}
+ if(step){n=((n<0?Math.floor(Date.now()/864e5)%3:n)+1)%3;try{localStorage.setItem('olba_cf',n)}catch(e){}}else if(n<0)n=Math.floor(Date.now()/864e5)%3;
+ const w=document.querySelector('.clkw');if(w)w.className='clkw f'+n}
+function clkTick(){const t=document.getElementById('clkT');if(!t)return;clkFace(0);const n=new Date(),lc=lang==='ar'?'ar-SA-u-nu-latn':lang==='en'?'en-GB':'fr-FR',z='Asia/Riyadh';
  try{const hm=new Intl.DateTimeFormat(lc,{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:z}).format(n),sc=new Intl.DateTimeFormat('en-GB',{second:'2-digit',timeZone:z}).format(n).padStart(2,'0');
  t.innerHTML=hm+'<i>'+sc+'</i>';{const p=new Intl.DateTimeFormat('en-GB',{hour:'numeric',minute:'numeric',second:'numeric',hour12:false,timeZone:z}).formatToParts(n),v=k=>+(p.find(x=>x.type===k)||{value:0}).value,h=v('hour')%12,m=v('minute'),s2=v('second'),rot=(id,a)=>{const e=document.getElementById(id);if(e)e.setAttribute('transform','rotate('+a+' 60 60)')};rot('hH',h*30+m*.5);rot('hM',m*6+s2*.1);rot('hS',s2*6)}
  const d=new Intl.DateTimeFormat(lc,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:z}).format(n);document.getElementById('clkD').textContent=d.charAt(0).toUpperCase()+d.slice(1);
@@ -1088,7 +1100,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const ops=T.filter(t=>/OP$/.test(t.id)&&st(t.id).status!=='Terminé').map(t=>({t,d:endOf(t)})).sort((a,b)=>a.d<b.d?-1:1);
  const nxt=open.filter(t=>st(t.id).deadline&&st(t.id).deadline>=td&&dd(st(t.id).deadline,td)<=7).sort((a,b)=>st(a.id).deadline<st(b.id).deadline?-1:1);
  const li=(t,d,c)=>`<div class="li"><span>${esc(tn(t))}<br><small>${esc(pj(t.p))} · ${esc(pnm(t.o))}</small></span><span class="d ${c||''}">${fd(d)}</span></div>`;
- return agBanner()+cohAlert()+`<div class="hero"><div class="clk"><svg class="an" viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#2b2118" stroke="#e8c27a" stroke-width="2.5"/><circle cx="60" cy="60" r="51" fill="none" stroke="rgba(232,194,122,.25)" stroke-width="1"/>${[...Array(12)].map((_,i)=>`<line x1="60" y1="${i%3?10:8}" x2="60" y2="${i%3?15:19}" stroke="#e8c27a" stroke-width="${i%3?1.5:2.8}" transform="rotate(${i*30} 60 60)"/>`).join('')}<line id="hH" x1="60" y1="60" x2="60" y2="34" stroke="#fff" stroke-width="4" stroke-linecap="round"/><line id="hM" x1="60" y1="60" x2="60" y2="20" stroke="#f1d79c" stroke-width="2.8" stroke-linecap="round"/><line id="hS" x1="60" y1="68" x2="60" y2="16" stroke="#d9534f" stroke-width="1.4" stroke-linecap="round"/><circle cx="60" cy="60" r="3.5" fill="#e8c27a"/></svg><b id="clkT"></b><span id="clkD"></span><small id="clkH"></small></div><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
+ return agBanner()+cohAlert()+`<div class="hero"><div class="clk"><div class="clkw" onclick="clkFace(1)" title="${LX('Changer de style','Change style','تغيير النمط')}"><svg class="an" viewBox="0 0 120 120"><circle class="fc" cx="60" cy="60" r="57"/><circle class="fi" cx="60" cy="60" r="51"/>${[...Array(12)].map((_,i)=>`<line class="tk" x1="60" y1="${i%3?10:8}" x2="60" y2="${i%3?15:19}" stroke-width="${i%3?1.5:2.8}" transform="rotate(${i*30} 60 60)"/>`).join('')}<line id="hH" class="h1" x1="60" y1="60" x2="60" y2="34" stroke-width="4" stroke-linecap="round"/><line id="hM" class="h2" x1="60" y1="60" x2="60" y2="20" stroke-width="2.8" stroke-linecap="round"/><line id="hS" class="h3" x1="60" y1="68" x2="60" y2="16" stroke-width="1.4" stroke-linecap="round"/><circle class="h2" cx="60" cy="60" r="3.5"/></svg></div><b id="clkT"></b><span id="clkD"></span><small id="clkH"></small></div><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
  ${dayCard()}
  <div class="kpis kl">${[[n,'k_tot',''],[done,'k_done','grn'],[doing,'k_doing',''],[late.length,'k_late',late.length?'red':''],[nodl,'k_nodl',nodl?'amb':''],[bl,'k_bl',bl?'red':'']].map(([v,l,c])=>`<div class="kp"><b class="${c}">${v}</b><small>${L(l)}</small></div>`).join('')}</div>
  <div class="two"><div class="card"><h3>${L('s_late')} (${late.length})</h3>${late.slice(0,8).map(t=>li(t,st(t.id).deadline,'red')).join('')||`<div class="empty">${L('none')}</div>`}</div>
