@@ -202,7 +202,7 @@ table td,table th{padding-top:10px;padding-bottom:10px}
 .cv-m:hover .dv{opacity:1;animation-play-state:paused;text-shadow:0 0 18px #F7AA54}
 @keyframes dvl{0%,6%{opacity:.38;transform:scale(1);text-shadow:none}12%,28%{opacity:1;transform:scale(1.08);text-shadow:0 0 14px #F7AA54,0 0 38px rgba(247,170,84,.65)}34%,100%{opacity:.38;transform:scale(1);text-shadow:none}}
 .agbn{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-left:4px solid #a87433;background:#fff7e8}
-.hq{margin-top:16px;font:italic 400 clamp(18px,2.4vw,24px) Georgia,serif;color:var(--gold2,#e8c27a);letter-spacing:.02em}
+.hq{margin:16px 0 14px;font:italic 400 clamp(18px,2.4vw,24px) Georgia,serif;color:var(--gold2,#e8c27a);letter-spacing:.02em}
 .hq::before{content:'“';margin-inline-end:4px;opacity:.6}.hq::after{content:'”';margin-inline-start:4px;opacity:.6}
 .agtop{display:flex;justify-content:flex-end;margin-bottom:12px}
 .agwrap{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start}
@@ -332,7 +332,7 @@ async function openPlan(){const pl=document.getElementById('pl');if(planLoaded||
   const sr=await rpc('mgmt_state_get',{p_who:me.who,p_pin:me.pin});
   const boot={url:URL_,key:KEY,who:me.who,pin:me.pin,ro:isRO(),lang:lang==='en'?'en':'fr',state:sr?sr.data:null,version:sr?sr.version:0};
   const inj='<script>window.__OLBA='+JSON.stringify(boot).replace(/</g,'\\u003c')+';<\/script>';
-  const f=document.createElement('iframe');f.style.cssText='width:100%;height:calc(100vh - 90px);border:0;display:block;background:#fff';
+  const f=document.createElement('iframe');f.style.cssText='width:100%;height:calc(100vh - 170px);border:0;display:block;background:#fff';
   f.srcdoc=html.replace('<body>','<body>'+inj);pl.innerHTML='';if(isRO()){const b=document.createElement('div');b.style.cssText='background:#f3ece2;color:#5a3a1a;padding:8px 14px;font:600 13px Inter,sans-serif';b.textContent=lang==='en'?'Read-only view':lang==='ar'?'عرض للقراءة فقط':'Lecture seule : tu peux consulter, pas modifier.';pl.appendChild(b)}pl.appendChild(f);planLoaded=true}
  catch(e){pl.innerHTML='<div class="card login"><h2 class="serif">'+L('plan_err')+'</h2><p class="hint">'+esc(String(e.message||e)).slice(0,200)+'</p></div>'}
  planBusy=false}
@@ -544,7 +544,7 @@ function head(){const GS=groupSubs();const tabs=me?[['home','tab_home'],['me',ca
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 let GP={};
-function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(isAdmin())p.push('plan');if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
+function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
 const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
 function go(t){tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();window.scrollTo(0,0)}
 function out(){AG.ok=false;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
@@ -771,9 +771,9 @@ const mgOK=()=>isDir()||PU.acc!=='none'||SK.acc!=='none';
 async function loadPurAcc(){PU.acc='none';if(!me)return;try{const a=await rpc('pur_access',{p_who:me.who,p_pin:me.pin});PU.acc=(a==='edit'||a==='view')?a:'none'}catch(e){PU.acc='none'}head();if(tab==='mg')render()}
 async function loadPur(){if(PU.busy)return;PU.busy=true;try{const d=await rpc('pur_list',{p_who:me.who,p_pin:me.pin});PU.sup=d.sup||[];PU.it=d.items||[];PU.qs=d.quotes||[];PU.hist=d.hist||[];PU.err=false}catch(e){PU.err=true}PU.ok=true;PU.busy=false}
 function mgView(){if(!me||!isDir())return '';
- const subs=['vis','org','hr','kpi','acc'];if(!subs.includes(MG.s))MG.s=subs[0];
+ const subs=['vis','pld','org','hr','kpi','acc'];if(!subs.includes(MG.s))MG.s=subs[0];
  const bar=subs.length>1?`<div class="mgsub">${subs.map(k=>`<button class="${MG.s===k?'on':''}" onclick="MG.s='${k}';render();window.scrollTo(0,0)">${pt(k)}</button>`).join('')}</div>`:'';
- return mgQ()+bar+(MG.s==='stk'?skView():MG.s==='pur'?purView():MG.s==='kpi'?kpView():hrView(MG.s))}
+ return mgQ()+bar+(MG.s==='pld'?'':MG.s==='stk'?skView():MG.s==='pur'?purView():MG.s==='kpi'?kpView():hrView(MG.s))}
 Object.assign(PT.fr,{kpi:'KPI',code:'Code',best:'Meilleur prix',qts:'Devis',gap:'Écart',addQ:'+ Devis',dl:'Supprimer',lg:'Général',lb2:'B2B',lo:'OLBA',dlv:'Livraison',wins:'Meilleurs prix',q0:'Aucun devis',chk:'Prix unitaire différent du total du fichier'});
 Object.assign(PT.en,{kpi:'KPIs',code:'Code',best:'Best price',qts:'Quotes',gap:'Gap',addQ:'+ Quote',lg:'General',lb2:'B2B',lo:'OLBA',dlv:'Delivery',wins:'Best prices',q0:'No quote',chk:'Unit price differs from the file total'});
 Object.assign(PT.ar,{kpi:'المؤشرات',code:'الرمز',best:'أفضل سعر',qts:'عروض',gap:'الفارق',addQ:'+ عرض',lg:'عام',lb2:'B2B',lo:'OLBA',dlv:'التسليم',wins:'أفضل الأسعار',q0:'لا عروض',chk:'سعر الوحدة يختلف عن الإجمالي'});
@@ -861,7 +861,7 @@ const SKT={fr:{stk:'Stock',ov:'Vue d\'ensemble',it:'Articles',buy:'Achats',sp:'F
 en:{stk:'Stock',ov:'Overview',it:'Items',buy:'Purchases',sp:'Suppliers',val:'Stock value',nit:'Items',out:'Out of stock',low:'Below minimum',lowN:'No minimum set',pur:'Purchases',alr:'Price alerts',alrT:'Alerts to clarify',alrS:'A purchase price far from the inventory price, or a different unit. To correct or clarify.',byc:'Stock value by family',top:'Highest stock value',ord:'Out of stock to reorder',none:'Nothing to report.',code:'Code',nm:'Item',cat:'Family',stock:'Stock',min:'Min',max:'Max',paid:'Paid price',inv:'Inventory price',v:'Value',state:'Status',srch:'Search…',all:'All families',sAll:'All statuses',sOut:'Out of stock',sLow:'Below minimum',sOk:'OK',sAlr:'Price alerts',ed:'Edit',sv:'Save',cx:'Cancel',nt:'Note',cl:'Alert clarified',cln:'Explanation',sup:'Supplier',ht:'Total excl. VAT',tva:'VAT',ttc:'Total incl. VAT',ln:'lines',dt:'Date',po:'PO no.',qty:'Qty',pr:'Price',tt:'Incl. VAT',ph:'Phone',trm:'Terms',lst:'Last purchase',cn:'Connection failed, retry.',ro:'Read-only.',sub:'Data from the November 2026 file, harmonised (families and units). The original file is untouched.',src:'Petty cash purchase',noB:'No purchases',pm:'Paid price = latest purchase price',gap:'gap',unitD:'Different unit',ex:'Paid price',vs:'vs',per:'in inventory',cons:'Month use',nb:'Purchases this month',top8:'Top 8 by value',ofW:'of',defMin:'set',alrMsgP:'Paid price far from the inventory price',alrMsgU:'Purchase unit differs from inventory unit'},
 ar:{stk:'المخزون',ov:'نظرة',it:'الأصناف',buy:'المشتريات',sp:'الموردون',val:'قيمة المخزون',nit:'الأصناف',out:'نفد المخزون',low:'أقل من الحد الأدنى',lowN:'لا حد أدنى',pur:'المشتريات',alr:'تنبيهات الأسعار',alrT:'تنبيهات للتوضيح',code:'الرمز',nm:'الصنف',cat:'الفئة',stock:'المخزون',min:'الحد الأدنى',max:'الحد الأقصى',paid:'السعر المدفوع',inv:'سعر الجرد',v:'القيمة',state:'الحالة',srch:'بحث…',sOut:'نفد',sLow:'أقل من الحد',sOk:'جيد',ed:'تعديل',sv:'حفظ',cx:'إلغاء',nt:'ملاحظة',sup:'المورد',ph:'الهاتف',trm:'الشروط',dt:'التاريخ',qty:'الكمية',pr:'السعر',tt:'شامل الضريبة',cn:'فشل الاتصال، أعد المحاولة.'}};
 const skt=k=>(SKT[lang]||SKT.fr)[k]||SKT.fr[k]||k;
-Object.assign(PT.fr,{stk:'Stock'});Object.assign(PT.en,{stk:'Stock'});Object.assign(PT.ar,{stk:'المخزون'});
+Object.assign(PT.fr,{pld:'Planning directeur'});Object.assign(PT.en,{pld:'Planning director'});Object.assign(PT.ar,{pld:'مخطط المدير'});Object.assign(PT.fr,{stk:'Stock'});Object.assign(PT.en,{stk:'Stock'});Object.assign(PT.ar,{stk:'المخزون'});
 const skN=(n,d)=>n==null||n===''||isNaN(n)?'—':Number(n).toLocaleString(lang==='ar'?'ar-SA':lang==='fr'?'fr-FR':'en-US',{minimumFractionDigits:d||0,maximumFractionDigits:d==null?0:d});
 const skP=n=>n==null||isNaN(n)?'—':skN(n,n<1?3:2);
 const skD=d=>d?d.slice(8,10)+'/'+d.slice(5,7):'—';
@@ -1099,7 +1099,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  let sb=document.getElementById('sb');if(!sb){sb=document.createElement('div');sb.id='sb';m.parentNode.insertBefore(sb,m)}
  {const gs=me?groupSubs():{proj:[],ops:[],ag:[]},g=Object.keys(gs).find(x=>gs[x].includes(tab)),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;
   sb.innerHTML=g&&gs[g].length>1?`<div class="mgsub sbar">${gs[g].map(k=>`<button class="${tab===k?'on':''}" onclick="go('${k}')">${subL(k)}${k==='coh'&&ne?`<span class="badge">${ne}</span>`:''}</button>`).join('')}</div>`:''}
- if(tab==='plan'&&isAdmin()){m.style.display='none';pl.style.display='block';openPlan();return}
+ if(tab==='mg'&&MG.s==='pld'&&isDir()&&isAdmin()){m.style.display='';m.innerHTML=mgView();pl.style.display='block';openPlan();return}
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
@@ -1107,5 +1107,5 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();loadAv();await load();render();
- setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if(tab==='plan'||!me)return;if(tab==='budget'){await loadBudget();render();return}if(await load())render()},30000)})();
+ setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if((tab==='mg'&&MG.s==='pld')||!me)return;if(tab==='budget'){await loadBudget();render();return}if(await load())render()},30000)})();
 </script></body></html>
