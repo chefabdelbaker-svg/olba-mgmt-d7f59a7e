@@ -229,6 +229,28 @@ details.cmore summary{cursor:pointer;color:#8a5a20;font-weight:600;margin-top:6p
  header{padding:8px 12px}#tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;width:100%;order:3;scrollbar-width:none;-webkit-overflow-scrolling:touch}#tabs::-webkit-scrollbar{display:none}
  .tab{padding:7px 11px;font-size:13.5px;flex:0 0 auto}.mgsub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mgsub::-webkit-scrollbar{display:none}.mgsub button{flex:0 0 auto}}
 .nodep th.dep,.nodep td.dep{display:none}
+.tab{display:inline-flex;align-items:center;gap:7px;position:relative}.ti{width:16px;height:16px;flex:0 0 auto;opacity:.85}.tab.on .ti{color:#a87433;opacity:1}
+.pdot{width:9px;height:9px;border-radius:50%;background:#e8b64a;display:inline-block;position:relative;flex:0 0 auto;box-shadow:0 0 0 0 rgba(232,182,74,.7);animation:pls 1.8s infinite}
+.tab .pdot{position:absolute;top:3px;right:3px}
+@keyframes pls{0%{box-shadow:0 0 0 0 rgba(232,182,74,.65)}70%{box-shadow:0 0 0 9px rgba(232,182,74,0)}100%{box-shadow:0 0 0 0 rgba(232,182,74,0)}}
+.badge.pulse{animation:pls2 2s infinite}@keyframes pls2{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}60%{box-shadow:0 0 0 7px rgba(192,57,43,0)}}
+.hero.mgh{padding:30px 32px}.hero.mgh h1{font-size:clamp(30px,5vw,46px)}.hero.mgh .hq{margin:10px 0 0}
+.mgt{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.mgtile{position:relative;text-align:start;display:flex;flex-direction:column;gap:6px;padding:22px 22px 20px;border-radius:18px;border:1px solid rgba(232,194,122,.28);background:linear-gradient(145deg,#2b2118,#46341f);color:#f3e6cc;cursor:pointer;font-family:inherit;animation:fxin .45s cubic-bezier(.2,.7,.2,1) both;overflow:hidden}
+.mgtile::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 0%,rgba(232,194,122,.22),transparent 55%);opacity:0;transition:opacity .3s}
+.mgtile:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(43,33,26,.35),0 0 0 1px rgba(232,194,122,.6)}.mgtile:hover::after{opacity:1}
+.tic{width:30px;height:30px;color:#e8c27a;margin-bottom:6px}.mgtile b{font:400 22px Georgia,serif;color:#fff}.mgtile span{font-size:13.5px;color:#d8c8ae;line-height:1.4}
+.mgtile em{font-style:normal;font-weight:700;color:#e8c27a;font-size:13.5px;margin-top:6px}.mgp{text-decoration:none;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#f1d79c;margin-top:2px}
+.crumb{display:flex;align-items:center;gap:10px;margin:2px 0 12px;font-size:14px;color:#8a7a68}.crumb button{border:0;background:none;color:#a87433;font:inherit;font-weight:600;cursor:pointer;padding:4px 0}.crumb b{color:#2b211a}
+.mgl{display:grid;grid-template-columns:210px 1fr;gap:20px;align-items:start}.mgc{min-width:0}.mgpills{display:none}
+.mgrail{display:flex;flex-direction:column;gap:6px;position:sticky;top:78px}
+.mgrail button{display:flex;align-items:center;gap:10px;text-align:start;border:1px solid #e6dcc9;background:#fff;border-radius:12px;padding:11px 14px;font:600 14px inherit;font-family:inherit;color:#5a4a38;cursor:pointer;transition:all .22s}
+.mgrail button .ti{color:#a87433}.mgrail button:hover{transform:translateX(3px);box-shadow:0 3px 10px rgba(43,33,26,.12)}
+.mgrail button.on{background:#2b211a;color:#f3e6cc;border-color:#2b211a;box-shadow:0 0 0 1px rgba(168,116,51,.5),0 6px 20px rgba(168,116,51,.4)}.mgrail button.on .ti{color:#e8c27a}
+.mgh2 button{display:inline-flex;align-items:center;gap:7px}.mgh2 .ti{width:15px;height:15px}
+@media(max-width:900px){.mgl{grid-template-columns:1fr}.mgrail{display:none}.mgpills{display:block}}
+@media(max-width:700px){.tab .ti{display:none}}
+
 input.i-dl.auto{font-style:italic;color:#8a6a2c;background:#fff8ea;border-style:dashed}.dlp{display:block;font-size:11px;color:#a87433;margin-top:2px}
 .hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}
 .hero::after{content:'';position:absolute;top:0;bottom:0;right:-30px;width:44%;background:var(--logo) no-repeat center/contain;opacity:.1;pointer-events:none;z-index:0}
@@ -573,9 +595,12 @@ function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA �
 <div class="cvp ${grp?'g3':'g5'}${cvAn?' an':''}">${(grp?DIRSET:['Rima','Chef Omar','Hafiz','Ossama','__DIR']).map(p=>p==='__DIR'?`<button class="pv" onclick="pickG()">${grpAv()}<span>${esc(pnm('Direction'))}</span><em>COO · CEO · Shop manager</em></button>`:`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>${grp?`<button class="cv-back" onclick="backG()">← ${bk()}</button>`:''}
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
+const ICN={home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',me:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M16 5.5a3 3 0 010 5.5M18 14.500c2 .8 3 2.800 3 5.500"/>',proj:'<path d="M4 19V5M4 8h9M4 13h14M4 18h7"/>',ag:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',budget:'<circle cx="12" cy="12" r="9"/><path d="M14.500 9.200c-.6-.8-1.500-1.200-2.600-1.200-1.600 0-2.700.9-2.700 2.100 0 3 5.400 1.500 5.400 4.300 0 1.300-1.200 2.200-2.800 2.200-1.200 0-2.200-.5-2.800-1.400M12 6.500V8m0 8v1.500"/>',b2b:'<path d="M3 9l2-5h14l2 5M4 9v11h16V9M9 20v-6h6v6"/>',ops:'<path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7M12 11v10"/>',mg:'<path d="M12 3l2.600 5.400 5.900.8-4.300 4.100 1 5.800L12 16.300 6.800 19.100l1-5.800L3.500 9.200l5.900-.8L12 3z"/>',vis:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',pld:'<path d="M4 19V5M4 7h8M8 12h10M4 17h13"/><circle cx="19" cy="7" r="1.500"/>',org:'<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/>',hr:'<circle cx="12" cy="8" r="3.500"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/>',kpi:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',acc:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h3M13 12h3M8 16h3M13 16h3"/>'};
+const ico=(k,c)=>`<svg class="${c||'ti'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICN[k]||''}</svg>`;
+const miss=()=>{if(!me||!AG.ok||new Date().getHours()<16)return 0;const td=today();return canSeeAll()?LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction'&&!agRow(p,td)).length:(me.who==='Ahmed'||agRow(me.who,td)?0:1)};
 function head(){const GS=groupSubs();const tabs=me?[['home','tab_home'],['me',canSeeAll()?'tab_team':'tab_me']]:[];
  if(me){if(GS.proj.length)tabs.push([GS.proj[0],'tab_proj','proj']);tabs.push(['meet','tab_ag','ag']);tabs.push(['budget','tab_bg']);if(b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(GS.ops.length)tabs.push([GS.ops[0],'tab_ops','ops']);if(isDir())tabs.push(['mg','tab_mg'])}
- document.getElementById('tabs').innerHTML=tabs.map(([k,l,g])=>{const on=g?GS[g].includes(tab):tab===k,tg=g?(GS[g].includes(GP[g])?GP[g]:k):k,ne=g==='proj'&&canSeeAll()?COH().filter(i=>i.sev==='e').length:0;return `<button class="tab${on?' on':''}" onclick="go('${tg}')">${L(l)}${ne?`<span class="badge">${ne}</span>`:''}</button>`}).join('');
+ document.getElementById('tabs').innerHTML=tabs.map(([k,l,g])=>{const on=g?GS[g].includes(tab):tab===k,tg=g?(GS[g].includes(GP[g])?GP[g]:k):k,ne=g==='proj'&&canSeeAll()?COH().filter(i=>i.sev==='e').length:0;const ik=k==='me'?'me':g||k,pu=g==='ag'?miss():0;return `<button class="tab${on?' on':''}" onclick="go('${tg}')">${ico(ik)}<span>${L(l)}</span>${ne?`<span class="badge pulse">${ne}</span>`:''}${pu?`<i class="pdot" title="${pu}"></i>`:''}</button>`}).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="avOpen()">${L('av_btn')}</button> <button class="l" onclick="pinOpen()">${L('pin_btn')}</button> <button class="l" onclick="out()">${L('change')}</button>`:'';
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
@@ -583,7 +608,7 @@ function head(){const GS=groupSubs();const tabs=me?[['home','tab_home'],['me',ca
 let GP={};
 function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
 const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
-function go(t){tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();fx();window.scrollTo(0,0)}
+function go(t){if(t==='mg')MG.s='home';tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();fx();window.scrollTo(0,0)}
 
 try{document.documentElement.style.setProperty('--logo','url('+LOGO+')')}catch(e){}
 document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('i-st')&&el.value==='Terminé'){const tr=el.closest('tr');if(tr){tr.classList.add('donefx','isdone');setTimeout(()=>tr.classList.remove('donefx'),1600)}}else if(el&&el.classList&&el.classList.contains('i-st')){const tr=el.closest('tr');if(tr)tr.classList.remove('isdone')}});
@@ -811,10 +836,23 @@ const isDir=()=>me&&me.who==='Direction';
 const mgOK=()=>isDir()||PU.acc!=='none'||SK.acc!=='none';
 async function loadPurAcc(){PU.acc='none';if(!me)return;try{const a=await rpc('pur_access',{p_who:me.who,p_pin:me.pin});PU.acc=(a==='edit'||a==='view')?a:'none'}catch(e){PU.acc='none'}head();if(tab==='mg')render()}
 async function loadPur(){if(PU.busy)return;PU.busy=true;try{const d=await rpc('pur_list',{p_who:me.who,p_pin:me.pin});PU.sup=d.sup||[];PU.it=d.items||[];PU.qs=d.quotes||[];PU.hist=d.hist||[];PU.err=false}catch(e){PU.err=true}PU.ok=true;PU.busy=false}
-function mgView(){if(!me||!isDir())return '';
- const subs=['vis','pld','org','hr','kpi','acc'];if(!subs.includes(MG.s))MG.s=subs[0];
- const bar=subs.length>1?`<div class="mgsub">${subs.map(k=>`<button class="${MG.s===k?'on':''}" onclick="MG.s='${k}';render();window.scrollTo(0,0)">${pt(k)}</button>`).join('')}</div>`:'';
- return mgQ()+bar+(MG.s==='pld'?'':MG.s==='stk'?skView():MG.s==='pur'?purView():MG.s==='kpi'?kpView():hrView(MG.s))}
+const MGS=['vis','pld','org','hr','kpi','acc'];
+const mgFig=k=>{if(k==='pld'){const np=Object.keys(PJ).filter(p=>T.some(t=>t.p===p)).length,n=T.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length;return{t:LX(np+' projets · '+T.length+' actions',np+' projects · '+T.length+' actions',np+' مشاريع · '+T.length+' مهمة'),p:n?LX(n+' dates à confirmer',n+' dates to confirm',n+' مواعيد للتأكيد'):''}}
+ if(k==='org')return{t:LX(LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction').length+' managers',LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction').length+' managers',LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction').length+' مديرين')};
+ if(k==='hr')return{t:HR.ok&&HR.s.length?LX(HR.s.length+' employés',HR.s.length+' employees',HR.s.length+' موظفًا'):''};
+ if(k==='kpi')return{t:KP.ok&&KP.defs.length?LX(KP.defs.length+' indicateurs',KP.defs.length+' indicators',KP.defs.length+' مؤشرًا'):''};
+ return{t:''}};
+const mgD={vis:['Vision et cap de l\'entreprise','Vision and direction','الرؤية والتوجه'],pld:['Les 8 lancements, le planning et les points à sécuriser','The 8 launches, the plan and key risks','الإطلاقات الثمانية والخطة والمخاطر'],org:['Qui fait quoi, rôles et responsabilités','Who does what, roles and responsibilities','من يفعل ماذا والأدوار'],hr:['Équipes, contrats et paie','Teams, contracts and payroll','الفرق والعقود والرواتب'],kpi:['Indicateurs de performance par rôle','Performance indicators by role','مؤشرات الأداء حسب الدور'],acc:['Comptabilité et suivi financier','Accounting and financial tracking','المحاسبة والمتابعة المالية']};
+function mgHero(){return `<div class="hero mgh"><div class="k">OLBA Bakehouse · ${LX('Direction','Management','الإدارة')}</div><h1>${L('tab_mg')}</h1><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div></div>`}
+function mgView(){if(!me||!isDir())return '';if(!MGS.includes(MG.s)&&MG.s!=='home')MG.s='home';
+ if(MG.s==='home'){if(!HR.ok&&!HR.err&&!HR.busy&&typeof loadHR==='function'){try{loadHR()}catch(e){}}
+  return mgHero()+`<div class="mgt">${MGS.map((k,i)=>{const f=mgFig(k);return `<button class="mgtile" style="animation-delay:${i*.06}s" onclick="MG.s='${k}';render();fx();window.scrollTo(0,0)">${ico(k,'tic')}<b>${pt(k)}</b><span>${LX(mgD[k][0],mgD[k][1],mgD[k][2])}</span>${f.t?`<em>${esc(f.t)}</em>`:''}${f.p?`<u class="mgp"><i class="pdot"></i>${esc(f.p)}</u>`:''}</button>`}).join('')}</div>`}
+ const crumb=`<div class="crumb"><button onclick="go('mg')">← ${L('tab_mg')}</button><span>›</span><b>${pt(MG.s)}</b></div>`;
+ const pills=`<div class="mgsub mgh2">${MGS.map(k=>`<button class="${MG.s===k?'on':''}" onclick="MG.s='${k}';render();fx();window.scrollTo(0,0)">${ico(k)}<span>${pt(k)}</span></button>`).join('')}</div>`;
+ if(MG.s==='pld')return crumb+pills;
+ const rail=`<nav class="mgrail">${MGS.map(k=>`<button class="${MG.s===k?'on':''}" onclick="MG.s='${k}';render();fx();window.scrollTo(0,0)">${ico(k)}<span>${pt(k)}</span></button>`).join('')}</nav>`;
+ const body=MG.s==='kpi'?kpView():hrView(MG.s);
+ return `<div class="mgl">${rail}<div class="mgc">${crumb}<div class="mgpills">${pills}</div>${body}</div></div>`}
 Object.assign(PT.fr,{kpi:'KPI',code:'Code',best:'Meilleur prix',qts:'Devis',gap:'Écart',addQ:'+ Devis',dl:'Supprimer',lg:'Général',lb2:'B2B',lo:'OLBA',dlv:'Livraison',wins:'Meilleurs prix',q0:'Aucun devis',chk:'Prix unitaire différent du total du fichier'});
 Object.assign(PT.en,{kpi:'KPIs',code:'Code',best:'Best price',qts:'Quotes',gap:'Gap',addQ:'+ Quote',lg:'General',lb2:'B2B',lo:'OLBA',dlv:'Delivery',wins:'Best prices',q0:'No quote',chk:'Unit price differs from the file total'});
 Object.assign(PT.ar,{kpi:'المؤشرات',code:'الرمز',best:'أفضل سعر',qts:'عروض',gap:'الفارق',addQ:'+ عرض',lg:'عام',lb2:'B2B',lo:'OLBA',dlv:'التسليم',wins:'أفضل الأسعار',q0:'لا عروض',chk:'سعر الوحدة يختلف عن الإجمالي'});
