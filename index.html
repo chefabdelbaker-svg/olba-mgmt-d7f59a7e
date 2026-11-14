@@ -229,6 +229,12 @@ details.cmore summary{cursor:pointer;color:#8a5a20;font-weight:600;margin-top:6p
  header{padding:8px 12px}#tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;width:100%;order:3;scrollbar-width:none;-webkit-overflow-scrolling:touch}#tabs::-webkit-scrollbar{display:none}
  .tab{padding:7px 11px;font-size:13.5px;flex:0 0 auto}.mgsub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mgsub::-webkit-scrollbar{display:none}.mgsub button{flex:0 0 auto}}
 .nodep th.dep,.nodep td.dep{display:none}
+.hero>.clk{position:absolute;top:50%;right:34px;transform:translateY(-50%);text-align:end;z-index:2;display:flex;flex-direction:column;gap:2px}
+.clk b{font:400 clamp(40px,5.5vw,68px) Georgia,serif;letter-spacing:2px;color:#fff;line-height:1;text-shadow:0 0 24px rgba(232,194,122,.35)}
+.clk b i{font-style:normal;font-size:.36em;color:#e8c27a;margin-inline-start:8px;letter-spacing:1px;vertical-align:.9em}
+.clk span{color:#f1d79c;font-size:15px;letter-spacing:.5px}.clk small{color:#bfae92;font-size:12.5px;letter-spacing:1px}
+@media(max-width:900px){.hero>.clk{position:static;transform:none;text-align:start;margin:0 0 16px}.clk b{font-size:44px}}
+
 .tab{display:inline-flex;align-items:center;gap:7px;position:relative}.ti{width:16px;height:16px;flex:0 0 auto;opacity:.85}.tab.on .ti{color:#a87433;opacity:1}
 .pdot{width:9px;height:9px;border-radius:50%;background:#e8b64a;display:inline-block;position:relative;flex:0 0 auto;box-shadow:0 0 0 0 rgba(232,182,74,.7);animation:pls 1.8s infinite}
 .tab .pdot{position:absolute;top:3px;right:3px}
@@ -612,6 +618,13 @@ function go(t){if(t==='mg')MG.s='home';tab=t;const s=groupSubs();for(const g in 
 
 try{document.documentElement.style.setProperty('--logo','url('+LOGO+')')}catch(e){}
 document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('i-st')&&el.value==='Terminé'){const tr=el.closest('tr');if(tr){tr.classList.add('donefx','isdone');setTimeout(()=>tr.classList.remove('donefx'),1600)}}else if(el&&el.classList&&el.classList.contains('i-st')){const tr=el.closest('tr');if(tr)tr.classList.remove('isdone')}});
+function clkTick(){const t=document.getElementById('clkT');if(!t)return;const n=new Date(),lc=lang==='ar'?'ar-SA-u-nu-latn':lang==='en'?'en-GB':'fr-FR',z='Asia/Riyadh';
+ try{const hm=new Intl.DateTimeFormat(lc,{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:z}).format(n),sc=new Intl.DateTimeFormat('en-GB',{second:'2-digit',timeZone:z}).format(n).padStart(2,'0');
+ t.innerHTML=hm+'<i>'+sc+'</i>';
+ const d=new Intl.DateTimeFormat(lc,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:z}).format(n);document.getElementById('clkD').textContent=d.charAt(0).toUpperCase()+d.slice(1);
+ document.getElementById('clkH').textContent=new Intl.DateTimeFormat((lang==='ar'?'ar-SA':lang==='en'?'en':'fr')+'-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric',timeZone:z}).format(n)+' H · Riyad'}catch(e){}}
+setInterval(clkTick,1000);
+{const _r=render;render=function(){const x=_r.apply(this,arguments);clkTick();return x}}
 function fx(){const m=document.getElementById('m');if(!m)return;m.classList.remove('fx');void m.offsetWidth;m.classList.add('fx');clearTimeout(fx.t);fx.t=setTimeout(()=>m.classList.remove('fx'),900)}
 function out(){AG.ok=false;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
@@ -1036,7 +1049,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const ops=T.filter(t=>/OP$/.test(t.id)&&st(t.id).status!=='Terminé').map(t=>({t,d:endOf(t)})).sort((a,b)=>a.d<b.d?-1:1);
  const nxt=open.filter(t=>st(t.id).deadline&&st(t.id).deadline>=td&&dd(st(t.id).deadline,td)<=7).sort((a,b)=>st(a.id).deadline<st(b.id).deadline?-1:1);
  const li=(t,d,c)=>`<div class="li"><span>${esc(tn(t))}<br><small>${esc(pj(t.p))} · ${esc(pnm(t.o))}</small></span><span class="d ${c||''}">${fd(d)}</span></div>`;
- return agBanner()+cohAlert()+`<div class="hero"><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
+ return agBanner()+cohAlert()+`<div class="hero"><div class="clk"><b id="clkT"></b><span id="clkD"></span><small id="clkH"></small></div><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
  <div class="kpis kl">${[[n,'k_tot',''],[done,'k_done','grn'],[doing,'k_doing',''],[late.length,'k_late',late.length?'red':''],[nodl,'k_nodl',nodl?'amb':''],[bl,'k_bl',bl?'red':'']].map(([v,l,c])=>`<div class="kp"><b class="${c}">${v}</b><small>${L(l)}</small></div>`).join('')}</div>
  <div class="two"><div class="card"><h3>${L('s_late')} (${late.length})</h3>${late.slice(0,8).map(t=>li(t,st(t.id).deadline,'red')).join('')||`<div class="empty">${L('none')}</div>`}</div>
  <div class="card"><h3>${L('s_next')} (${nxt.length})</h3>${nxt.slice(0,10).map(t=>li(t,st(t.id).deadline)).join('')||`<div class="empty">${L('none')}</div>`}</div></div>
