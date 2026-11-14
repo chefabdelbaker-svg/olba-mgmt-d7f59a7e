@@ -197,6 +197,35 @@ footer{text-align:center;color:#9a8b78;font-size:12px;padding:24px}
 .card h3{letter-spacing:.06em}
 table td,table th{padding-top:10px;padding-bottom:10px}
 .bar{height:8px;border-radius:99px}.bar i{border-radius:99px}
+.dv{display:inline-block;opacity:.38;animation:dvl 6s ease-in-out infinite;transition:opacity .3s}
+.cv-m i{font-style:normal;opacity:.5;margin:0 .5em}
+.cv-m:hover .dv{opacity:1;animation-play-state:paused;text-shadow:0 0 18px #F7AA54}
+@keyframes dvl{0%,6%{opacity:.38;transform:scale(1);text-shadow:none}12%,28%{opacity:1;transform:scale(1.08);text-shadow:0 0 14px #F7AA54,0 0 38px rgba(247,170,84,.65)}34%,100%{opacity:.38;transform:scale(1);text-shadow:none}}
+.hq{margin-top:16px;font:italic 400 clamp(18px,2.4vw,24px) Georgia,serif;color:var(--gold2,#e8c27a);letter-spacing:.02em}
+.hq::before{content:'“';margin-inline-end:4px;opacity:.6}.hq::after{content:'”';margin-inline-start:4px;opacity:.6}
+.agtop{display:flex;justify-content:flex-end;margin-bottom:12px}
+.agwrap{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start}
+@media(max-width:860px){.agwrap{grid-template-columns:1fr}}
+.agh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;text-transform:capitalize}
+.agg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.agw{font-size:11px;color:var(--mut);text-transform:capitalize}
+.agd{position:relative;padding:8px 0;border-radius:10px;font-size:13px}
+.agd.we{color:#a39382}.agd.td{background:#2b2118;color:#fff}
+.agd.hv{background:#fbf0d6;font-weight:700}.agd.td.hv{background:#2b2118}
+.agd span{position:absolute;top:1px;inset-inline-end:3px;font-size:9px;background:var(--gold);color:#fff;border-radius:99px;padding:0 4px}
+.agsh{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
+.agm{margin-bottom:12px}.agt{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.agti{font-size:17px}.agds{margin:8px 0;line-height:1.55;font-size:14px}
+.agb{display:flex;flex-wrap:wrap;gap:6px}
+.agfg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px}@media(max-width:760px){.agfg{grid-template-columns:1fr 1fr}}
+.agf label,.agl{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);margin-bottom:10px}
+.agf input,.agf textarea,.agl textarea,.agl input,#dy-1,#dy-2,#dy-3{font:inherit;font-size:14px;padding:9px 10px;border:1px solid #d9cdb8;border-radius:10px;background:#fff;color:#2b2118;width:100%;box-sizing:border-box}
+.agp{display:flex;flex-wrap:wrap;gap:6px 14px}.agp label{flex-direction:row;align-items:center;gap:6px;margin:0;color:#2b2118}.agp input{width:auto}
+.agdn b{font-family:Georgia,serif;font-size:20px;text-transform:capitalize}
+.agr{border-top:1px solid var(--line);padding:12px 0}.agrh{display:flex;align-items:center;gap:12px}.agrh>div{flex:1}
+.agrb{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:10px 0 0 50px}@media(max-width:760px){.agrb{grid-template-columns:1fr;margin-inline-start:0}}
+.agrb small{color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}.agrb p{margin:3px 0 0;font-size:14px;line-height:1.5}
+.dot.g{background:#dff1e4;color:#1e6a3a}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span class="who" id="who"></span></header>
@@ -252,7 +281,7 @@ ar:{brand:'إدارة OLBA',tab_home:'الرئيسية',tab_me:'صفحتي',tab_
  s:{'À faire':'للتنفيذ','En cours':'قيد التنفيذ','Terminé':'منجزة','Bloqué':'متعثّرة'},pp:{'Direction':'الإدارة','Consultant pizza':'مستشار البيتزا','Chef Omar':'الشيف عمر'}}};
 let lang='fr';try{lang=localStorage.getItem('olba-lang')||'fr'}catch(e){}
 const L=(k,o)=>{let s=(I[lang][k]??I.fr[k]??k);if(o)for(const q in o)s=s.replace('{'+q+'}',o[q]);return s};
-I.fr.tab_mg='Management';I.fr.tab_proj='Projets';I.en.tab_proj='Projects';I.ar.tab_proj='المشاريع';I.fr.tab_ops='Achats & Stock';I.en.tab_ops='Purchasing & Stock';I.ar.tab_ops='المشتريات والمخزون';I.fr.tab_team='Équipe';I.en.tab_team='Team';I.ar.tab_team='الفريق';I.fr.c_team='Équipe';I.en.c_team='Team';I.ar.c_team='الفريق';I.fr.c_teamd='Chaque personne, ses tâches classées par échéance.';I.en.c_teamd='Each person, tasks ordered by deadline.';I.ar.c_teamd='كل شخص ومهامه مرتبة حسب الموعد.';I.fr.tm_open='ouvertes';I.en.tm_open='open';I.ar.tm_open='مفتوحة';I.fr.tm_late='en retard';I.en.tm_late='late';I.ar.tm_late='متأخرة';I.fr.tm_nodl='sans deadline';I.en.tm_nodl='no deadline';I.ar.tm_nodl='بلا موعد';I.fr.tm_all='Équipe';I.en.tm_all='Team';I.ar.tm_all='الفريق';I.fr.tm_nx='Prochaines tâches';I.en.tm_nx='Next tasks';I.ar.tm_nx='المهام القادمة';I.fr.tm_see='Voir tout';I.en.tm_see='See all';I.ar.tm_see='عرض الكل';I.fr.hd_t='Bienvenue, Direction';I.en.hd_t='Welcome, Direction';I.ar.hd_t='مرحبًا، الإدارة';I.fr.hd_s='{l} en retard · {x} échéances sous 7 jours · {c} points de cohérence à vérifier';I.en.hd_s='{l} late · {x} due within 7 days · {c} consistency points to check';I.ar.hd_s='{l} متأخرة · {x} مستحقة خلال 7 أيام · {c} نقاط اتساق للمراجعة';I.en.tab_mg='Management';I.ar.tab_mg='الإدارة';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
+I.fr.tab_mg='Management';I.fr.tab_proj='Projets';I.en.tab_proj='Projects';I.ar.tab_proj='المشاريع';I.fr.tab_ag='Agenda';I.en.tab_ag='Agenda';I.ar.tab_ag='الأجندة';I.fr.tab_ops='Achats & Stock';I.en.tab_ops='Purchasing & Stock';I.ar.tab_ops='المشتريات والمخزون';I.fr.tab_team='Équipe';I.en.tab_team='Team';I.ar.tab_team='الفريق';I.fr.c_team='Équipe';I.en.c_team='Team';I.ar.c_team='الفريق';I.fr.c_teamd='Chaque personne, ses tâches classées par échéance.';I.en.c_teamd='Each person, tasks ordered by deadline.';I.ar.c_teamd='كل شخص ومهامه مرتبة حسب الموعد.';I.fr.tm_open='ouvertes';I.en.tm_open='open';I.ar.tm_open='مفتوحة';I.fr.tm_late='en retard';I.en.tm_late='late';I.ar.tm_late='متأخرة';I.fr.tm_nodl='sans deadline';I.en.tm_nodl='no deadline';I.ar.tm_nodl='بلا موعد';I.fr.tm_all='Équipe';I.en.tm_all='Team';I.ar.tm_all='الفريق';I.fr.tm_nx='Prochaines tâches';I.en.tm_nx='Next tasks';I.ar.tm_nx='المهام القادمة';I.fr.tm_see='Voir tout';I.en.tm_see='See all';I.ar.tm_see='عرض الكل';I.fr.hd_t='Bienvenue, Direction';I.en.hd_t='Welcome, Direction';I.ar.hd_t='مرحبًا، الإدارة';I.fr.hd_s='{l} en retard · {x} échéances sous 7 jours · {c} points de cohérence à vérifier';I.en.hd_s='{l} late · {x} due within 7 days · {c} consistency points to check';I.ar.hd_s='{l} متأخرة · {x} مستحقة خلال 7 أيام · {c} نقاط اتساق للمراجعة';I.en.tab_mg='Management';I.ar.tab_mg='الإدارة';I.fr.tab_b2b='B2B';I.en.tab_b2b='B2B';I.ar.tab_b2b='B2B';
 const stl=s=>I[lang].s[s]||s,pnm=p=>(I[lang].pp&&I[lang].pp[p])||({'Hafiz':'Haifiz Muhammad Ramzan','Rima':'Reema Aljohani','Sayed':'Syed Ibrahim','Chef Omar':'Omar Farouk','Ossama':'Asmah Adil Naji','Ahmed':'Ahmed Alruwaithi'})[p]||p;
 const landTab=()=>!me?'home':me.who==='Ossama'?'b2b':(me.who==='Direction'||me.who==='Ahmed'||me.who==='Sayed')?'home':'me';
 const depN=t=>(t.dep||'').split(',').map(z=>z.trim()).filter(Boolean).map(q=>{const x=T.find(y=>y.id===q);return x?tn(x):''}).filter(Boolean).join(' · ');
@@ -464,7 +493,7 @@ async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
 if(savedMe&&savedMe.who)selP=savedMe.who;
 let grp=DIRSET.includes(selP);
-async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc();loadPurAcc();loadStkAcc();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
+async function resume(){const e=document.getElementById('le');try{const ok=await rpc('mgmt_check',{p_who:savedMe.who,p_pin:savedMe.pin});if(ok){me=savedMe;tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc();loadPurAcc();loadStkAcc();loadAg();return}}catch(x){e&&(e.textContent=L('conn'));return}savedMe=null;try{localStorage.removeItem('olba-mgmt-me')}catch(_){}render()}
 document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('.pv');if(!b||e.pointerType==='touch')return;const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.setProperty('--ry',(x*16).toFixed(1)+'deg');b.style.setProperty('--rx',(-y*16).toFixed(1)+'deg')});
 document.addEventListener('pointerout',e=>{const b=e.target.closest&&e.target.closest('.pv');if(b&&!b.contains(e.relatedTarget)){b.style.removeProperty('--rx');b.style.removeProperty('--ry')}});
 let cvAn=true;
@@ -502,22 +531,22 @@ async function pinSave(tg){const e=document.getElementById('pe'),nw=document.get
   else{await rpc('mgmt_reset_pin',{p_who:me.who,p_pin:me.pin,p_target:tg,p_new:nw});
    document.querySelector('#mdl .mc').innerHTML=`<h3>${L('pin_rdone',{w:esc(pnm(tg))})}</h3><div class="code">${esc(nw.toUpperCase())}</div><div class="pr"><button class="b" onclick="navigator.clipboard&&navigator.clipboard.writeText('${nw.toUpperCase()}');this.textContent='✓'">${L('coh_copy')}</button><button class="b" style="background:#eee;color:#333" onclick="pinClose()">OK</button></div>`}}
  catch(x){e.textContent=/denied/.test(String(x.message))?L('pin_bad'):/weak/.test(String(x.message))?L('pin_weak'):/function|404|PGRST/.test(String(x.message))?L('pin_nodb'):L('conn')}}
-function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA — Baked En Harmonie" src="${LOGO}"><div class="cv-rule"></div><h1 class="cv-t">${L('gate_t')}</h1><p class="cv-m">${L('gate_m')}</p><p class="cv-s">${L('who_s')}</p>
+function coverView(){return `<div class="cover"><img class="cv-logo" alt="OLBA — Baked En Harmonie" src="${LOGO}"><div class="cv-rule"></div><h1 class="cv-t">${L('gate_t')}</h1><p class="cv-m">${L('gate_m').split('·').map((w,i)=>`<span class="dv" style="animation-delay:${i*2}s">${esc(w.trim())}</span>`).join('<i>·</i>')}</p><p class="cv-s">${L('who_s')}</p>
 <div class="cvp ${grp?'g3':'g5'}${cvAn?' an':''}">${(grp?DIRSET:['Rima','Chef Omar','Hafiz','Ossama','__DIR']).map(p=>p==='__DIR'?`<button class="pv" onclick="pickG()">${grpAv()}<span>${esc(pnm('Direction'))}</span><em>COO · CEO · Shop manager</em></button>`:`<button class="pv${selP===p?' on':''}${selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></button>`).join('')}</div>${grp?`<button class="cv-back" onclick="backG()">← ${bk()}</button>`:''}
 ${selP&&savedMe&&savedMe.who===selP?`<div class="pin"><button class="cv-b" onclick="resume()">${L('enter')}</button></div><div class="pe" id="le"></div>`:selP?`<div class="pin"><input type="hidden" id="lw" value="${selP}"><input id="lp" placeholder="${L('my_code')}" autocomplete="off" dir="ltr" onkeydown="if(event.key==='Enter')login()"><button class="cv-b" onclick="login()">${L('enter')}</button></div><div class="pe" id="le"></div>`:`<div class="pe" id="le"></div>`}
 <div class="cvl">${['fr','en','ar'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ar'?'عربي':l.toUpperCase()}</button>`).join('')}</div><div class="cv-f">OLBA Bakehouse · Riyadh</div></div>`}
 function head(){const GS=groupSubs();const tabs=me?[['home','tab_home'],['me',canSeeAll()?'tab_team':'tab_me']]:[];
- if(me){if(GS.proj.length)tabs.push([GS.proj[0],'tab_proj','proj']);tabs.push(['budget','tab_bg']);if(b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(GS.ops.length)tabs.push([GS.ops[0],'tab_ops','ops']);if(isDir())tabs.push(['mg','tab_mg'])}
+ if(me){if(GS.proj.length)tabs.push([GS.proj[0],'tab_proj','proj']);tabs.push(['meet','tab_ag','ag']);tabs.push(['budget','tab_bg']);if(b2bAcc!=='none')tabs.push(['b2b','tab_b2b']);if(GS.ops.length)tabs.push([GS.ops[0],'tab_ops','ops']);if(isDir())tabs.push(['mg','tab_mg'])}
  document.getElementById('tabs').innerHTML=tabs.map(([k,l,g])=>{const on=g?GS[g].includes(tab):tab===k,tg=g?(GS[g].includes(GP[g])?GP[g]:k):k,ne=g==='proj'&&canSeeAll()?COH().filter(i=>i.sev==='e').length:0;return `<button class="tab${on?' on':''}" onclick="go('${tg}')">${L(l)}${ne?`<span class="badge">${ne}</span>`:''}</button>`}).join('');
  document.getElementById('bt').textContent=L('brand');document.getElementById('ft').textContent=L('ft');
  document.getElementById('who').innerHTML=me?esc(pnm(me.who))+` <button class="l" onclick="avOpen()">${L('av_btn')}</button> <button class="l" onclick="pinOpen()">${L('pin_btn')}</button> <button class="l" onclick="out()">${L('change')}</button>`:'';
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 let GP={};
-function groupSubs(){if(!me)return{proj:[],ops:[]};const p=['all','gantt'];if(isAdmin())p.push('plan');if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o}}
-const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):L('tab_'+k);
+function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(isAdmin())p.push('plan');if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
+const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
 function go(t){tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();window.scrollTo(0,0)}
-function out(){lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){AG.ok=false;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* ===== B2B module (data lives in the protected DB; access checked server-side) ===== */
@@ -741,7 +770,7 @@ async function loadPur(){if(PU.busy)return;PU.busy=true;try{const d=await rpc('p
 function mgView(){if(!me||!isDir())return '';
  const subs=['vis','org','hr','kpi','acc'];if(!subs.includes(MG.s))MG.s=subs[0];
  const bar=subs.length>1?`<div class="mgsub">${subs.map(k=>`<button class="${MG.s===k?'on':''}" onclick="MG.s='${k}';render();window.scrollTo(0,0)">${pt(k)}</button>`).join('')}</div>`:'';
- return bar+(MG.s==='stk'?skView():MG.s==='pur'?purView():MG.s==='kpi'?kpView():hrView(MG.s))}
+ return mgQ()+bar+(MG.s==='stk'?skView():MG.s==='pur'?purView():MG.s==='kpi'?kpView():hrView(MG.s))}
 Object.assign(PT.fr,{kpi:'KPI',code:'Code',best:'Meilleur prix',qts:'Devis',gap:'Écart',addQ:'+ Devis',dl:'Supprimer',lg:'Général',lb2:'B2B',lo:'OLBA',dlv:'Livraison',wins:'Meilleurs prix',q0:'Aucun devis',chk:'Prix unitaire différent du total du fichier'});
 Object.assign(PT.en,{kpi:'KPIs',code:'Code',best:'Best price',qts:'Quotes',gap:'Gap',addQ:'+ Quote',lg:'General',lb2:'B2B',lo:'OLBA',dlv:'Delivery',wins:'Best prices',q0:'No quote',chk:'Unit price differs from the file total'});
 Object.assign(PT.ar,{kpi:'المؤشرات',code:'الرمز',best:'أفضل سعر',qts:'عروض',gap:'الفارق',addQ:'+ عرض',lg:'عام',lb2:'B2B',lo:'OLBA',dlv:'التسليم',wins:'أفضل الأسعار',q0:'لا عروض',chk:'سعر الوحدة يختلف عن الإجمالي'});
@@ -904,7 +933,7 @@ function skView(){if(!mgOK()||SK.acc==='none')return `<div class="card"><p class
 async function login(){const w=(document.getElementById('lw')||{}).value||'',p=document.getElementById('lp').value.trim().toUpperCase();
  const e=document.getElementById('le');e.textContent='';if(!w||!p){e.textContent=L('need');return}
  try{const ok=await rpc('mgmt_check',{p_who:w,p_pin:p});if(!ok){e.textContent=L('bad_pin');return}
- me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));try{localStorage.setItem('olba-last',w)}catch(_){}tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc();loadPurAcc();loadStkAcc()}catch(x){e.textContent=L('conn')}}
+ me={who:w,pin:p};localStorage.setItem('olba-mgmt-me',JSON.stringify(me));try{localStorage.setItem('olba-last',w)}catch(_){}tab=landTab();render();window.scrollTo(0,0);loadPh();loadB2Acc();loadPurAcc();loadStkAcc();loadAg()}catch(x){e.textContent=L('conn')}}
 function loginView(){return coverView()}
 /* save */
 async function save(id,el){const row=el.closest('tr');const g=c=>row.querySelector('.'+c);
@@ -925,7 +954,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const ops=T.filter(t=>/OP$/.test(t.id)&&st(t.id).status!=='Terminé').map(t=>({t,d:endOf(t)})).sort((a,b)=>a.d<b.d?-1:1);
  const nxt=open.filter(t=>st(t.id).deadline&&st(t.id).deadline>=td&&dd(st(t.id).deadline,td)<=7).sort((a,b)=>st(a.id).deadline<st(b.id).deadline?-1:1);
  const li=(t,d,c)=>`<div class="li"><span>${esc(tn(t))}<br><small>${esc(pj(t.p))} · ${esc(pnm(t.o))}</small></span><span class="d ${c||''}">${fd(d)}</span></div>`;
- return cohAlert()+`<div class="hero"><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
+ return cohAlert()+`<div class="hero"><div class="k">OLBA Bakehouse · ${L('k')}</div>${isDir()?`<h1>${L('hd_t')}</h1><p>${L('hd_s',{l:late.length,x:nxt.length,c:COH().filter(i=>i.sev==='e').length})}</p><div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`:`<h1>${L('h_t')}</h1><p>${L('h_s',{p:projs.length,n})}</p>`}</div>
  <div class="kpis kl">${[[n,'k_tot',''],[done,'k_done','grn'],[doing,'k_doing',''],[late.length,'k_late',late.length?'red':''],[nodl,'k_nodl',nodl?'amb':''],[bl,'k_bl',bl?'red':'']].map(([v,l,c])=>`<div class="kp"><b class="${c}">${v}</b><small>${L(l)}</small></div>`).join('')}</div>
  <div class="two"><div class="card"><h3>${L('s_late')} (${late.length})</h3>${late.slice(0,8).map(t=>li(t,st(t.id).deadline,'red')).join('')||`<div class="empty">${L('none')}</div>`}</div>
  <div class="card"><h3>${L('s_next')} (${nxt.length})</h3>${nxt.slice(0,10).map(t=>li(t,st(t.id).deadline)).join('')||`<div class="empty">${L('none')}</div>`}</div></div>
@@ -965,6 +994,64 @@ function allView(){const projs=[...new Set(T.map(t=>t.p))];
  const ed=isEd();
  h+=`<div class="card"><p class="hint">${L('cnt',{n:Q.length})}${ed?L('edit'):''}</p><div class="scroll"><table>${thead(1)}<tbody>`+
  Q.map(t=>rowEdit(t,ed).replace('</tr>',`<td>${esc(pnm(t.o))}</td></tr>`)).join('')+`</tbody></table></div></div><button class="b2o lsb" onclick="lsx=false;fl={p:'',o:'',s:'',late:false,nodl:false};render()">${LX('Replier la liste','Collapse list','طي القائمة')}</button>`;return h}
+/* ===== Agenda : réunions + suivi quotidien ===== */
+const AG={ok:false,busy:false,meet:[],daily:[],ed:null,mo:null,day:null,err:false};
+const AGT={fr:{meet:'Réunions',day:'Suivi quotidien',ag:'Agenda',new:'+ Nouvelle réunion',ttl:'Titre',dt:'Date',tm:'Heure',du:'Durée (min)',pl:'Lieu / lien',ds:'Description (ordre du jour)',inv:'Invités',all:'Toute l\'équipe',sv:'Enregistrer',cx:'Annuler',ed:'Modifier',dl:'Supprimer',ics:'Calendrier (.ics)',wa:'WhatsApp',ml:'E-mail',up:'À venir',pa:'Passées',none:'Aucune réunion.',cf:'Supprimer cette réunion ?',cn:'Enregistrement impossible.',cp:'Copier',cpd:'Copié ✓',
+  done:'Fait aujourd\'hui',plan:'Prévu demain',blk:'Top 3 blocages',saved:'Enregistré',rcv:'Reçu',mis:'Manquant',syn:'Synthèse de l\'équipe',cps:'Copier la synthèse',mine:'Mon rapport du jour',tsk:'tâches ouvertes',late:'en retard',dl7:'À envoyer avant 19h, pour la réunion de 22h.',nb:'Aucun blocage',pr:'Jour précédent',nx:'Jour suivant',ro:'Lecture seule.',nobody:'Rien de saisi'},
+ en:{meet:'Meetings',day:'Daily tracking',ag:'Agenda',new:'+ New meeting',ttl:'Title',dt:'Date',tm:'Time',du:'Duration (min)',pl:'Place / link',ds:'Description (agenda)',inv:'Invitees',all:'Whole team',sv:'Save',cx:'Cancel',ed:'Edit',dl:'Delete',ics:'Calendar (.ics)',wa:'WhatsApp',ml:'Email',up:'Upcoming',pa:'Past',none:'No meetings.',cf:'Delete this meeting?',cn:'Could not save.',cp:'Copy',cpd:'Copied ✓',
+  done:'Done today',plan:'Planned tomorrow',blk:'Top 3 blockers',saved:'Saved',rcv:'Received',mis:'Missing',syn:'Team summary',cps:'Copy summary',mine:'My report of the day',tsk:'open tasks',late:'late',dl7:'Send before 7 PM, for the 10 PM meeting.',nb:'No blockers',pr:'Previous day',nx:'Next day',ro:'Read only.',nobody:'Nothing entered'},
+ ar:{meet:'الاجتماعات',day:'المتابعة اليومية',ag:'الأجندة',new:'+ اجتماع جديد',ttl:'العنوان',dt:'التاريخ',tm:'الوقت',du:'المدة (دقيقة)',pl:'المكان / الرابط',ds:'الوصف (جدول الأعمال)',inv:'المدعوون',all:'كل الفريق',sv:'حفظ',cx:'إلغاء',ed:'تعديل',dl:'حذف',ics:'التقويم (.ics)',wa:'واتساب',ml:'بريد',up:'القادمة',pa:'السابقة',none:'لا توجد اجتماعات.',cf:'حذف هذا الاجتماع؟',cn:'تعذّر الحفظ.',cp:'نسخ',cpd:'تم النسخ ✓',
+  done:'ما أُنجز اليوم',plan:'المخطط غدًا',blk:'أهم 3 عوائق',saved:'تم الحفظ',rcv:'تم الاستلام',mis:'ناقص',syn:'ملخص الفريق',cps:'نسخ الملخص',mine:'تقريري اليومي',tsk:'مهام مفتوحة',late:'متأخرة',dl7:'يُرسل قبل 7 مساءً لاجتماع 10 مساءً.',nb:'لا عوائق',pr:'اليوم السابق',nx:'اليوم التالي',ro:'للقراءة فقط.',nobody:'لا شيء'}};
+const agt=k=>AGT[lang][k]||AGT.fr[k]||k;
+async function loadAg(){if(!me||AG.busy)return;AG.busy=true;try{const[m,d]=await Promise.all([rpc('ag_meet_list',{p_who:me.who,p_pin:me.pin}),rpc('ag_daily_list',{p_who:me.who,p_pin:me.pin})]);AG.meet=m||[];AG.daily=d||[];AG.err=false}catch(e){AG.err=true}AG.ok=true;AG.busy=false;if(tab==='meet'||tab==='day')render()}
+const agDur=m=>{const[h,n]=(m.mtime||'10:00').split(':').map(Number),e=h*60+n+(+m.dur||60);return pad(Math.floor(e/60)%24)+':'+pad(e%60)};
+const agDateL=d=>{const x=new Date(d+'T00:00:00Z');return new Intl.DateTimeFormat(lang==='ar'?'ar-u-ca-gregory-nu-latn':lang==='en'?'en-GB':'fr-FR',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'}).format(x)};
+function agText(m){const inv=(m.attendees&&m.attendees.length?m.attendees.map(pnm).join(', '):agt('all'));return `📅 ${m.title}\n${agDateL(m.mdate)} · ${m.mtime}–${agDur(m)}${m.place?'\n📍 '+m.place:''}\n\n${m.descr||''}\n\n${agt('inv')}: ${inv}`.replace(/\n\n\n+/g,'\n\n')}
+function agIcs(id){const m=AG.meet.find(x=>x.id===id);if(!m)return;const[y,mo,d]=m.mdate.split('-').map(Number),[h,n]=m.mtime.split(':').map(Number),f=t=>{const z=new Date(t);return z.getUTCFullYear()+pad(z.getUTCMonth()+1)+pad(z.getUTCDate())+'T'+pad(z.getUTCHours())+pad(z.getUTCMinutes())+'00Z'},s=Date.UTC(y,mo-1,d,h-3,n),e=s+(+m.dur||60)*6e4,x=v=>String(v||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/[,;]/g,'\\$&');
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//OLBA Management//FR','BEGIN:VEVENT','UID:olba-meet-'+m.id+'@olba','DTSTAMP:'+f(Date.now()),'DTSTART:'+f(s),'DTEND:'+f(e),'SUMMARY:'+x(m.title),'LOCATION:'+x(m.place),'DESCRIPTION:'+x(agText(m)),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='OLBA-'+m.mdate+'.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+function agWa(id){const m=AG.meet.find(x=>x.id===id);if(m)window.open('https://wa.me/?text='+encodeURIComponent(agText(m)),'_blank')}
+function agMail(id){const m=AG.meet.find(x=>x.id===id);if(m)location.href='mailto:?subject='+encodeURIComponent(m.title+' · '+m.mdate+' '+m.mtime)+'&body='+encodeURIComponent(agText(m))}
+function agCopy(id,b){const m=AG.meet.find(x=>x.id===id);navigator.clipboard&&navigator.clipboard.writeText(agText(m)).then(()=>{b.textContent=agt('cpd')})}
+function agEdit(id){const m=id?AG.meet.find(x=>x.id===id):{id:'',title:'',mdate:today(),mtime:'10:00',dur:60,place:'',descr:'',attendees:[]};AG.ed=Object.assign({},m,{attendees:[...(m.attendees||[])]});render()}
+function agTog(p,c){const a=AG.ed.attendees,i=a.indexOf(p);if(c&&i<0)a.push(p);if(!c&&i>=0)a.splice(i,1)}
+async function agSave(){const g=i=>document.getElementById(i).value,p={id:AG.ed.id||'',title:g('ag-t').trim(),mdate:g('ag-d'),mtime:g('ag-h'),dur:g('ag-u'),place:g('ag-p'),descr:g('ag-s'),attendees:AG.ed.attendees};if(!p.title||!p.mdate)return;try{const r=await rpc('ag_meet_save',{p_who:me.who,p_pin:me.pin,p:p});const i=AG.meet.findIndex(x=>x.id===r.id);if(i>=0)AG.meet[i]=r;else AG.meet.push(r);AG.meet.sort((a,b)=>(a.mdate+a.mtime).localeCompare(b.mdate+b.mtime));AG.ed=null;render()}catch(e){alert(agt('cn'))}}
+async function agDel(id){if(!confirm(agt('cf')))return;try{await rpc('ag_meet_del',{p_who:me.who,p_pin:me.pin,p_id:id});AG.meet=AG.meet.filter(x=>x.id!==id);render()}catch(e){alert(agt('cn'))}}
+function agMonth(){const td=today();if(!AG.mo)AG.mo=td.slice(0,7);const[y,mo]=AG.mo.split('-').map(Number),f=new Date(Date.UTC(y,mo-1,1)),n=new Date(Date.UTC(y,mo,0)).getUTCDate(),w0=(f.getUTCDay()+1)%7,cnt={};AG.meet.forEach(m=>{cnt[m.mdate]=(cnt[m.mdate]||0)+1});
+ const loc=lang==='ar'?'ar-u-ca-gregory-nu-latn':lang==='en'?'en-GB':'fr-FR',wd=[...Array(7)].map((_,i)=>new Intl.DateTimeFormat(loc,{weekday:'short',timeZone:'UTC'}).format(new Date(Date.UTC(2026,0,3+i))));
+ let c=wd.map(x=>`<b class="agw">${x}</b>`).join('');for(let i=0;i<w0;i++)c+='<i></i>';for(let d=1;d<=n;d++){const k=AG.mo+'-'+pad(d),w=(w0+d-1)%7;c+=`<div class="agd${k===td?' td':''}${w>=5?' we':''}${cnt[k]?' hv':''}">${d}${cnt[k]?`<span>${cnt[k]}</span>`:''}</div>`}
+ const ttl=new Intl.DateTimeFormat(loc,{month:'long',year:'numeric',timeZone:'UTC'}).format(f),sh=v=>{const z=new Date(Date.UTC(y,mo-1+v,1));return z.getUTCFullYear()+'-'+pad(z.getUTCMonth()+1)};
+ return `<div class="card agcal"><div class="agh"><button class="b2o" onclick="AG.mo='${sh(-1)}';render()">‹</button><b>${ttl}</b><button class="b2o" onclick="AG.mo='${sh(1)}';render()">›</button></div><div class="agg">${c}</div></div>`}
+function agCard(m,adm){const inv=m.attendees&&m.attendees.length?m.attendees.map(p=>esc(pnm(p))).join(' · '):agt('all');return `<div class="card agm"><div class="agt"><div><b class="agti">${esc(m.title)}</b><div class="hint" style="margin:2px 0">${esc(agDateL(m.mdate))} · ${esc(m.mtime)}–${agDur(m)}${m.place?' · 📍 '+esc(m.place):''}</div></div></div>
+ ${m.descr?`<p class="agds">${esc(m.descr).replace(/\n/g,'<br>')}</p>`:''}<p class="hint" style="margin:4px 0 10px">${agt('inv')} : ${inv}</p>
+ <div class="agb"><button class="b2o" onclick="agIcs(${m.id})">${agt('ics')}</button><button class="b2o" onclick="agWa(${m.id})">${agt('wa')}</button><button class="b2o" onclick="agMail(${m.id})">${agt('ml')}</button><button class="b2o" onclick="agCopy(${m.id},this)">${agt('cp')}</button>${adm?`<button class="b2o" onclick="agEdit(${m.id})">${agt('ed')}</button><button class="b2o" onclick="agDel(${m.id})">${agt('dl')}</button>`:''}</div></div>`}
+function agForm(){const e=AG.ed;return `<div class="card agf"><div class="agfg"><label>${agt('ttl')}<input id="ag-t" value="${esc(e.title)}"></label><label>${agt('dt')}<input id="ag-d" type="date" value="${e.mdate}"></label><label>${agt('tm')}<input id="ag-h" type="time" value="${e.mtime}"></label><label>${agt('du')}<input id="ag-u" type="number" min="5" step="5" value="${e.dur}"></label></div>
+ <label class="agl">${agt('pl')}<input id="ag-p" value="${esc(e.place)}"></label><label class="agl">${agt('ds')}<textarea id="ag-s" rows="5">${esc(e.descr)}</textarea></label>
+ <div class="hint" style="margin:6px 0 4px">${agt('inv')} <small>(${agt('all')} = ${lang==='fr'?'aucun coché':lang==='en'?'none ticked':'بدون تحديد'})</small></div><div class="agp">${LOGIN.map(p=>`<label><input type="checkbox" ${e.attendees.includes(p)?'checked':''} onchange="agTog('${p}',this.checked)"> ${esc(pnm(p))}</label>`).join('')}</div>
+ <div class="agb" style="margin-top:12px"><button class="b" onclick="agSave()">${agt('sv')}</button><button class="b2o" onclick="AG.ed=null;render()">${agt('cx')}</button></div></div>`}
+function agMeet(){if(!AG.ok){loadAg();return `<div class="card"><p class="hint">…</p></div>`}const adm=isEd(),td=today();
+ if(AG.ed)return agForm();const up=AG.meet.filter(m=>m.mdate>=td),pa=AG.meet.filter(m=>m.mdate<td).reverse().slice(0,8);
+ return `<div class="agtop">${adm?`<button class="b" onclick="agEdit(0)">${agt('new')}</button>`:'<span></span>'}</div><div class="agwrap">${agMonth()}<div>${up.length?`<h3 class="agsh">${agt('up')}</h3>`+up.map(m=>agCard(m,adm)).join(''):`<div class="card"><p class="hint">${agt('none')}</p></div>`}${pa.length?`<h3 class="agsh">${agt('pa')}</h3>`+pa.map(m=>agCard(m,adm)).join(''):''}</div></div>`}
+/* suivi quotidien */
+function agRow(w,d){return AG.daily.find(r=>r.who===w&&r.day===d)}
+async function agDaySave(){const g=i=>document.getElementById(i).value,d=AG.day||today(),p={day:d,done:g('dy-d'),plan:g('dy-p'),b1:g('dy-1'),b2:g('dy-2'),b3:g('dy-3')};try{const r=await rpc('ag_daily_save',{p_who:me.who,p_pin:me.pin,p:p});const i=AG.daily.findIndex(x=>x.who===r.who&&x.day===r.day);if(i>=0)AG.daily[i]=r;else AG.daily.push(r);const s=document.getElementById('dy-s');if(s){s.textContent=agt('saved')+' ✓';setTimeout(()=>{if(s)s.textContent=''},2000)}}catch(e){alert(agt('cn'))}}
+function agDayGo(v){const d=new Date(U(AG.day||today())+v*864e5);AG.day=d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());render()}
+function agSynTxt(d){const ppl=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction');return `${agt('syn')} · ${fd(d)}\n\n`+ppl.map(p=>{const r=agRow(p,d);if(!r)return `${pnm(p)} : ${agt('mis')}`;const b=[r.b1,r.b2,r.b3].filter(Boolean);return `${pnm(p)}\n- ${agt('done')}: ${r.done||'—'}\n- ${agt('plan')}: ${r.plan||'—'}\n- ${agt('blk')}: ${b.length?b.join(' / '):agt('nb')}`}).join('\n\n')}
+function agSynCopy(b){navigator.clipboard&&navigator.clipboard.writeText(agSynTxt(AG.day||today())).then(()=>{b.textContent=agt('cpd')})}
+function agDay(){if(!AG.ok){loadAg();return `<div class="card"><p class="hint">…</p></div>`}const d=AG.day||today(),adm=isAdmin(),ro=isRO();
+ const nav=`<div class="agh agdn"><button class="b2o" onclick="agDayGo(-1)" title="${agt('pr')}">‹</button><b>${esc(agDateL(d))}</b><button class="b2o" onclick="agDayGo(1)" title="${agt('nx')}">›</button></div><p class="hint" style="text-align:center;margin:0 0 14px">${agt('dl7')}</p>`;
+ let h=nav;
+ if(adm){const ppl=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction');
+  h+=`<div class="card"><div class="agt"><h3 style="margin:0">${agt('syn')}</h3><button class="b2o" onclick="agSynCopy(this)">${agt('cps')}</button></div>`+ppl.map(p=>{const r=agRow(p,d),mt=T.filter(t=>t.o===p&&st(t.id).status!=='Terminé'),lt=mt.filter(isLate).length,b=r?[r.b1,r.b2,r.b3].filter(Boolean):[];
+   return `<div class="agr"><div class="agrh">${avatar(p).replace('<svg','<svg style="width:38px;height:38px;flex:none"')}<div><b>${esc(pnm(p))}</b><div class="hint" style="margin:0">${mt.length} ${agt('tsk')}${lt?` · <span class="red">${lt} ${agt('late')}</span>`:''}</div></div><span class="dot ${r?'g':'r'}">${r?agt('rcv'):agt('mis')}</span></div>
+   ${r?`<div class="agrb"><div><small>${agt('done')}</small><p>${esc(r.done||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('plan')}</small><p>${esc(r.plan||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('blk')}</small><p>${b.length?b.map(x=>'• '+esc(x)).join('<br>'):agt('nb')}</p></div></div>`:''}</div>`}).join('')+`</div>`}
+ if(!ro){const r=agRow(me.who,d)||{done:'',plan:'',b1:'',b2:'',b3:''};
+  h+=`<div class="card"><h3 style="margin-top:0">${adm?agt('mine'):agt('mine')}</h3><label class="agl">${agt('done')}<textarea id="dy-d" rows="4" onchange="agDaySave()">${esc(r.done)}</textarea></label><label class="agl">${agt('plan')}<textarea id="dy-p" rows="3" onchange="agDaySave()">${esc(r.plan)}</textarea></label>
+  <div class="hint" style="margin:8px 0 4px">${agt('blk')}</div><input id="dy-1" value="${esc(r.b1)}" placeholder="1" onchange="agDaySave()"><input id="dy-2" value="${esc(r.b2)}" placeholder="2" onchange="agDaySave()" style="margin-top:6px"><input id="dy-3" value="${esc(r.b3)}" placeholder="3" onchange="agDaySave()" style="margin-top:6px"><div class="hint" id="dy-s" style="margin-top:6px;min-height:18px"></div></div>`}
+ else if(!adm)h+=`<div class="card"><p class="hint">${agt('ro')}</p></div>`;
+ return h}
+function mgQ(){return `<div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`}
+
 /* gantt */
 function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW=window.innerWidth<700?170:290;
  const Q=T.filter(t=>(!gf.p||t.p===gf.p)&&(!gf.o||t.o===gf.o));
@@ -998,13 +1085,13 @@ function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW
 const projs_=[...new Set(T.map(t=>t.p))];
 function render(){document.body.classList.toggle('cvr',!me);head();const m=document.getElementById('m');const pl=document.getElementById('pl');
  let sb=document.getElementById('sb');if(!sb){sb=document.createElement('div');sb.id='sb';m.parentNode.insertBefore(sb,m)}
- {const gs=me?groupSubs():{proj:[],ops:[]},g=Object.keys(gs).find(x=>gs[x].includes(tab)),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;
+ {const gs=me?groupSubs():{proj:[],ops:[],ag:[]},g=Object.keys(gs).find(x=>gs[x].includes(tab)),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;
   sb.innerHTML=g&&gs[g].length>1?`<div class="mgsub sbar">${gs[g].map(k=>`<button class="${tab===k?'on':''}" onclick="go('${k}')">${subL(k)}${k==='coh'&&ne?`<span class="badge">${ne}</span>`:''}</button>`).join('')}</div>`:''}
  if(tab==='plan'&&isAdmin()){m.style.display='none';pl.style.display='block';openPlan();return}
  m.style.display='';pl.style.display='none';
  if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
- m.innerHTML=tab==='pur'?purView():tab==='stk'?skView():tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
+ m.innerHTML=tab==='meet'?agMeet():tab==='day'?agDay():tab==='pur'?purView():tab==='stk'?skView():tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView();
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
 (async()=>{render();loadAv();await load();render();
