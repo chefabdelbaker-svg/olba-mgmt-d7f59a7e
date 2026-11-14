@@ -647,7 +647,7 @@ function clkTick(){const t=document.getElementById('clkT');if(!t)return;const n=
 setInterval(clkTick,1000);
 {const _r=render;render=function(){const x=_r.apply(this,arguments);clkTick();return x}}
 function fx(){const m=document.getElementById('m');if(!m)return;m.classList.remove('fx');void m.offsetWidth;m.classList.add('fx');clearTimeout(fx.t);fx.t=setTimeout(()=>m.classList.remove('fx'),900)}
-function out(){AG.ok=false;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
+function out(){AG.ok=false;AG.fo=null;AG.fd=null;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';render()}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* ===== B2B module (data lives in the protected DB; access checked server-side) ===== */
@@ -1071,7 +1071,8 @@ function dayCard(){if(!me)return '';const td=today(),W=me.who,mine=T.filter(t=>t
  const row=(ic,txt,sub,cl,fn)=>`<div class="dyi ${cl||''}" ${fn?`onclick="${fn}" style="cursor:pointer"`:''}><i>${ic}</i><div><b>${txt}</b>${sub?`<small>${sub}</small>`:''}</div></div>`;
  const items=[...pr.map(x=>row(x.k<0?'⚠':'▸',esc(tn(x.t)),esc(pj(x.t.p))+' · '+(x.k<0?LX('en retard depuis ','late since ','متأخرة منذ ')+(-x.k)+LX(' j',' d',' ي'):x.k===0?LX("aujourd'hui",'today','اليوم'):LX('dans '+x.k+' j','in '+x.k+' d','بعد '+x.k+' ي')),x.k<0?'late':'',"go('me')")),
   ...mt.map(m=>row('◷',esc(m.title),esc(m.mtime||'')+(m.place?' · '+esc(m.place):''),'',"go('meet')")),
-  ...(rp?[row('✎',LX('Envoyer mon rapport du jour','Send my daily report','إرسال تقريري اليومي'),LX('Avant 19h','Before 7 PM','قبل 7 مساءً'),'warn',"go('day')")]:[])];
+  ...(isDir()&&AG.ok?(()=>{const ppl=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction'),n=ppl.filter(p=>agRow(p,td)).length;return [row('✉',LX('Rapports du jour reçus : '+n+'/'+ppl.length,'Daily reports received: '+n+'/'+ppl.length,'التقارير المستلمة: '+n+'/'+ppl.length),LX('Voir le suivi quotidien','Open daily tracking','فتح المتابعة اليومية'),n<ppl.length?'warn':'',"go('day')")]})():[]),
+ ...(rp?[row('✎',LX('Envoyer mon rapport du jour','Send my daily report','إرسال تقريري اليومي'),LX('Avant 19h','Before 7 PM','قبل 7 مساءً'),'warn',"AG.fo=me.who;AG.fd=null;go('me')")]:[])];
  return `<div class="card dy"><h3 style="margin-top:0">${LX('Ma journée','My day','يومي')}</h3>${items.join('')||`<div class="empty">${LX('Rien d\'urgent aujourd\'hui. ✓','Nothing urgent today. ✓','لا شيء عاجل اليوم. ✓')}</div>`}</div>`}
 function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
@@ -1176,10 +1177,16 @@ function agForm(d,w){w=w||me.who;const r=agRow(w,d)||{done:'',plan:'',b1:'',b2:'
 function agRepCard(w,d){const r=agRow(w,d),b=r?[r.b1,r.b2,r.b3].filter(Boolean):[];
   return `<div class="card"><div class="agt"><h3 style="margin:0">${agt('rep')} · ${esc(agDateL(d))}</h3><span class="dot ${r?'g':'r'}">${r?agt('rcv'):agt('mis')}</span></div>${r?`<div class="agrb"><div><small>${agt('done')}</small><p>${esc(r.done||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('plan')}</small><p>${esc(r.plan||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('blk')}</small><p>${b.length?b.map(x=>'• '+esc(x)).join('<br>'):agt('nb')}</p></div></div>`:''}</div>`}
 function agBanner(){if(!me||isDir()||isRO()||me.who==='Ahmed')return '';if(!AG.ok){loadAg();return ''}if(agRow(me.who,today()))return '';
-  return `<div class="card agbn"><div><b>${agt('bn')}</b><div class="hint" style="margin:2px 0 0">${agt('dl7')}</div></div><button class="b" onclick="go('day')">${agt('bnb')}</button></div>`}
-function agMeCard(W){if(!me)return '';if(!AG.ok){loadAg();return ''}const d=today();
-  if(W===me.who&&!isDir()&&!isRO())return agForm(d);
-  if(isAdmin()&&W!==me.who&&W!=='Ahmed'&&W!=='Direction')return agForm(d,W);if(canSeeAll()&&W!==me.who&&W!=='Ahmed')return agRepCard(W,d);return ''}
+  return `<div class="card agbn"><div><b>${agt('bn')}</b><div class="hint" style="margin:2px 0 0">${agt('dl7')}</div></div><button class="b" onclick="AG.fo=me.who;AG.fd=null;go('me')">${agt('bnb')}</button></div>`}
+function agWrap(W,d,own){const r=agRow(W,d),op=AG.fo===W;
+  const hd=`<div class="card agw" onclick="AG.fo=${op?'null':"'"+W+"'"};render()" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px"><div><h3 style="margin:0">✎ ${own?LX('Mon rapport du jour','My daily report','تقريري اليومي'):LX('Rapport du jour · ','Daily report · ','التقرير اليومي · ')+esc(pnm(W))}</h3><small class="hint">${op?LX('Cliquer pour replier','Click to close','انقر للإغلاق'):LX('Cliquer pour remplir ou modifier','Click to fill or edit','انقر للتعبئة أو التعديل')}</small></div><span class="dot ${r?'g':'r'}">${r?agt('rcv'):agt('mis')}</span></div>`;
+  if(!op)return hd;
+  const mn=new Date(Date.now()-30*864e5).toISOString().slice(0,10);
+  const pick=`<label class="agl">${LX('Jour concerné','Day','اليوم')}<input type="date" value="${d}" min="${mn}" max="${today()}" onchange="AG.fd=AG.day=this.value||null;render()"></label>`;
+  return hd+`<div style="margin-top:-8px">${pick}${agForm(d,W)}</div>`}
+function agMeCard(W){if(!me)return '';if(!AG.ok){loadAg();return ''}const d=AG.fd||today();
+  if(W===me.who&&!isDir()&&!isRO())return agWrap(W,d,true);
+  if(isAdmin()&&W!==me.who&&W!=='Ahmed'&&W!=='Direction')return agWrap(W,d,false);if(canSeeAll()&&W!==me.who&&W!=='Ahmed')return agRepCard(W,d);return ''}
 function agRelMsg(names){const u=location.origin+location.pathname;return LX('Bonjour'+(names.length===1?' '+names[0]:'')+', ton rapport du jour OLBA n\'est pas encore envoyé. Merci de le remplir avant 19h : '+u,'Hello'+(names.length===1?' '+names[0]:'')+', your OLBA daily report is not sent yet. Please fill it in before 7 PM: '+u,'مرحبًا'+(names.length===1?' '+names[0]:'')+'، لم يصل تقريرك اليومي بعد. يرجى تعبئته قبل الساعة 7 مساءً: '+u)}
 function agRel(p){window.open('https://wa.me/?text='+encodeURIComponent(agRelMsg([pnm(p)])),'_blank')}
 function agRelAll(){const d=AG.day||today(),ms=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction'&&!agRow(p,d));if(!ms.length){alert(LX('Tous les rapports sont reçus.','All reports received.','وصلت كل التقارير.'));return}window.open('https://wa.me/?text='+encodeURIComponent(agRelMsg(ms.map(pnm))),'_blank')}
@@ -1187,10 +1194,10 @@ function agDay(){if(!AG.ok){loadAg();return `<div class="card"><p class="hint">�
  const nav=`<div class="agh agdn"><button class="b2o" onclick="agDayGo(-1)" title="${agt('pr')}">‹</button><b>${esc(agDateL(d))}</b><button class="b2o" onclick="agDayGo(1)" title="${agt('nx')}">›</button></div><p class="hint" style="text-align:center;margin:0 0 14px">${agt('dl7')}</p>`;
  let h=nav;
  if(adm){const ppl=LOGIN.filter(p=>p!=='Ahmed'&&p!=='Direction');
-  h+=`<div class="card"><div class="agt"><h3 style="margin:0">${agt('syn')}</h3><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="b2o" onclick="agRelAll()">${LX('Relancer les manquants','Remind missing','تذكير المتأخرين')}</button><button class="b2o" onclick="agSynCopy(this)">${agt('cps')}</button></span></div>`+ppl.map(p=>{const r=agRow(p,d),mt=T.filter(t=>t.o===p&&st(t.id).status!=='Terminé'),lt=mt.filter(isLate).length,b=r?[r.b1,r.b2,r.b3].filter(Boolean):[];
+  h+=`<div class="card"><div class="agt"><h3 style="margin:0">${agt('syn')}</h3><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="b2o" onclick="window.open('https://wa.me/?text='+encodeURIComponent(agSynTxt(AG.day||today())),'_blank')">WhatsApp</button><button class="b2o" onclick="agRelAll()">${LX('Relancer les manquants','Remind missing','تذكير المتأخرين')}</button><button class="b2o" onclick="agSynCopy(this)">${agt('cps')}</button></span></div>`+ppl.map(p=>{const r=agRow(p,d),mt=T.filter(t=>t.o===p&&st(t.id).status!=='Terminé'),lt=mt.filter(isLate).length,b=r?[r.b1,r.b2,r.b3].filter(Boolean):[];
    return `<div class="agr"><div class="agrh">${avatar(p).replace('<svg','<svg style="width:38px;height:38px;flex:none"')}<div><b>${esc(pnm(p))}</b><div class="hint" style="margin:0">${mt.length} ${agt('tsk')}${lt?` · <span class="red">${lt} ${agt('late')}</span>`:''}</div></div><span class="dot ${r?'g':'r'}">${r?agt('rcv'):agt('mis')}</span>${r?'':`<button class="b2o" onclick="agRel('${p}')">${LX('Relancer','Remind','تذكير')}</button>`}</div>
    ${r?`<div class="agrb"><div><small>${agt('done')}</small><p>${esc(r.done||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('plan')}</small><p>${esc(r.plan||'—').replace(/\n/g,'<br>')}</p></div><div><small>${agt('blk')}</small><p>${b.length?b.map(x=>'• '+esc(x)).join('<br>'):agt('nb')}</p></div></div>`:''}</div>`}).join('')+`</div>`}
- if(!ro&&!isDir()){h+=agForm(d)}
+ if(!ro&&!isDir()){h+=agWrap(me.who,d,true)}
  else if(!adm)h+=`<div class="card"><p class="hint">${agt('ro')}</p></div>`;
  return h}
 function mgQ(){return `<div class="hq">${LX('Votre équipe est à votre image.','Your team is a reflection of you.','فريقك يعكس صورتك.')}</div>`}
