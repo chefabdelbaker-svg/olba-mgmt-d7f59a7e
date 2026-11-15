@@ -905,7 +905,7 @@ let GP={};
 function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
 const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
 
-function dkApply(){let d=0;try{d=+localStorage.getItem('olba_dk')||0}catch(e){}document.documentElement.classList.toggle('dk',!!d)}
+function dkApply(){let d=0;try{d=+localStorage.getItem('olba_dk')||0}catch(e){}document.documentElement.classList.toggle('dk',!!d&&!!me)}
 function dkTog(){let d=document.documentElement.classList.contains('dk')?0:1;try{localStorage.setItem('olba_dk',d)}catch(e){}dkApply()}
 dkApply();
 function srOpen(){if(!me)return;const b=document.getElementById('srch');b.classList.add('on');const i=document.getElementById('sri');i.placeholder=LX('Tâche, personne, projet…','Task, person, project…','مهمة، شخص، مشروع…');i.value='';document.getElementById('srr').innerHTML='';setTimeout(()=>i.focus(),30)}
@@ -1744,7 +1744,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
   sb.innerHTML=g&&gs[g].length>1?`<div class="mgsub sbar">${gs[g].map(k=>`<button class="${tab===k?'on':''}" onclick="go('${k}')">${subL(k)}${k==='coh'&&ne?`<span class="badge">${ne}</span>`:''}</button>`).join('')}</div>`:''}
  if(tab==='mg'&&MG.s==='pld'&&isDir()&&isAdmin()){m.style.display='';m.innerHTML=mgView();pl.style.display='block';openPlan();return}
  m.style.display='';pl.style.display='none';
- if(!me){m.innerHTML=coverView();return}
+ dkApply();if(!me){m.innerHTML=coverView();return}
  const keep=document.querySelector('.gw');const sl=keep?[keep.scrollLeft,keep.scrollTop]:null;
  m.innerHTML=pgHero()+(tab==='meet'?agMeet():tab==='day'?agDay():tab==='pur'?purView():tab==='stk'?skView():tab==='kit'?kitView():tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='budget'?budgetView():ganttView());
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
