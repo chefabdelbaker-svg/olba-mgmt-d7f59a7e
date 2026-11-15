@@ -448,6 +448,27 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 
 @media(max-width:600px){.cover.c1 .cv-s{margin-top:40px!important;padding:0 6px!important;font-size:clamp(13px,2.2vh,17px)!important}.vA .b1,.vA .b2{--w:min(26vw,12vh)}.vA .b3{--w:min(17vw,10vh)}.vB .b1,.vB .b2{--w:min(26vw,12.5vh)}.vB .b3{--w:min(20vw,11vh)}}
 
+/* --- couleurs du projet d'intérieur : prune (marbre), olive (banquettes), terracotta (murs) --- */
+.cover.c0,.cover.c1{background:radial-gradient(circle at 12% 88%,rgba(124,79,142,.38),transparent 42%),radial-gradient(circle at 90% 60%,rgba(107,122,58,.32),transparent 42%),radial-gradient(circle at 50% 0%,rgba(196,105,58,.4),transparent 50%),radial-gradient(circle at 50% 35%,#5D281A 0%,#3E211B 78%)!important}
+.cv-m .dv:nth-of-type(1){color:#D2A9E3}.cv-m .dv:nth-of-type(2){color:#BFD070}.cv-m .dv:nth-of-type(3){color:#F5A678}
+.cover.c1 .b1{--tc:#D2A9E3;--tf:#7C4F8E}.cover.c1 .b2{--tc:#BFD070;--tf:#6B7A3A}.cover.c1 .b3{--tc:#F5A678;--tf:#B4562B}
+.cover.c1 .bl{background:var(--tf);color:#fff;padding:4px 18px!important;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.cover.c1 .bl::before,.cover.c1 .bl::after{background:linear-gradient(90deg,transparent,var(--tc))}
+.cover.c1 .ob .pv em{color:var(--tc)!important}
+.cover.c1 .vln{background:linear-gradient(#F7AA54,rgba(247,170,84,.2))}
+.vA .ob .pv svg{box-shadow:0 0 0 3px #3E211B,0 0 0 5px var(--tc),0 0 30px var(--tf)!important}
+.vB .ob .pv{background:linear-gradient(180deg,color-mix(in srgb,var(--tf) 70%,transparent),color-mix(in srgb,var(--tf) 10%,transparent) 80%)!important;box-shadow:inset 0 0 0 1.5px var(--tc),0 18px 30px rgba(0,0,0,.35)!important}
+.vB .ob .pv svg{box-shadow:0 0 0 2px var(--tc)!important}
+.vC .ob .pv{background:linear-gradient(135deg,color-mix(in srgb,var(--tf) 55%,transparent),color-mix(in srgb,var(--tf) 8%,transparent))!important;box-shadow:inset 5px 0 0 var(--tc),inset 0 0 0 1px color-mix(in srgb,var(--tc) 45%,transparent),0 10px 20px rgba(0,0,0,.3)!important}
+.vC .ob .pv svg{box-shadow:0 0 0 2px var(--tc)}
+.cover.c1 .ob .pv.ph{background:none!important;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--tc) 55%,transparent)!important}
+.cover.c1 .ob .pv.ph .phc{border-color:var(--tc);color:var(--tc)}
+.cover.c1 .ob .pv:hover svg{box-shadow:0 0 0 3px #3E211B,0 0 0 6px #F7AA54,0 0 34px #F7AA54!important}
+
+.cover.c1 .bl{display:flex!important;width:max-content;max-width:92%}.cover.c1 .bl::before,.cover.c1 .bl::after{display:none}
+
+@media(max-width:600px){.vB .b1,.vB .b2{--w:min(24vw,11vh)}.vB .b3{--w:min(19vw,9.5vh)}.vB .ob .pv{gap:1px!important}}
+
 .kg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 10px}.kgb{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;background:#fff;border:2px solid #eadfce;border-top:5px solid var(--gc);border-radius:14px;padding:12px 14px;cursor:pointer;font-family:Inter,sans-serif;color:#3E211B;transition:transform .15s,box-shadow .15s}
 .kgb:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(62,33,27,.12)}.kgb .kgi{font-size:22px}.kgb b{font-size:15px}.kgb small{font-size:12px;opacity:.65;line-height:1.35}.kgb.on{background:var(--gc);color:#fff;border-color:var(--gc)}.kgb.on small{opacity:1;color:#fff}.kgb.on b{color:#fff}
 .kgs{padding:8px 10px;background:#fff;border-left:5px solid var(--gc);border-radius:10px;margin-bottom:12px}.kgs .chp.on{background:var(--gc);border-color:var(--gc);color:#fff}
