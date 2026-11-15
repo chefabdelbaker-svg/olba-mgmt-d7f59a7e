@@ -880,7 +880,7 @@ ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل و�
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
 function orgChart(){const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
- return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgPh('Kyrt Ryxl Llarenas',LX('Manager HACCP','HACCP Manager','مدير HACCP'))+orgPh(LX('Taxes','Taxes','الضرائب'),T.free)+orgPh(LX('Planning','Planning','التخطيط'),T.free))}</div>`}
+ return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgPh('Kyrt Ryxl Llarenas',LX('Manager HACCP','HACCP Manager','مدير HACCP')))}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
 function cvBack(){cvStep=0;selOpen=false;cvAn=true;render()}
 function cvClose(){selOpen=false;cvAn=false;render()}
