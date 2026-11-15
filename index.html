@@ -109,9 +109,9 @@ body.cvr header,body.cvr footer{display:none}body.cvr main{padding:0;max-width:n
 .pin input{padding:13px 18px;border:0;border-radius:999px;font:600 18px Inter,sans-serif;letter-spacing:.18em;text-align:center;width:210px;background:#F8DAB8;color:#3E211B}
 .pin .cv-b{margin:0}.pe{color:#ffb4ab;min-height:20px;margin-top:8px;font-size:14px}
 @media(max-width:700px){.cvp{grid-template-columns:repeat(3,1fr)}.cv-logo{width:min(300px,70vw)}}
-.vs{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:0 0 14px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:16px}
-.vs small{width:100%;color:var(--mut);font-size:12.5px}
-.vs button{background:transparent;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font:600 12px inherit;color:var(--ink);padding:5px 7px;border-radius:12px;opacity:.7}
+.vs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px 6px;align-items:start;justify-items:center;margin:0 0 14px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.vs small{grid-column:1/-1;justify-self:start;width:100%;color:var(--mut);font-size:12.5px}
+.vs button{width:100%;text-align:center;line-height:1.25;background:transparent;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font:600 12px inherit;color:var(--ink);padding:5px 7px;border-radius:12px;opacity:.7}
 .vs button svg{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 2px transparent}
 .vs button.on{opacity:1;background:#fdf1de}.vs button.on svg{box-shadow:0 0 0 3px #d9a85b}.vs button:hover{opacity:1}
 #mdl{display:none;position:fixed;inset:0;background:rgba(30,18,12,.6);z-index:50}
@@ -307,7 +307,7 @@ html.dk header,html.dk .hero{filter:invert(1) hue-rotate(180deg)}html.dk header 
 .clk b{font-size:clamp(26px,2.6vw,34px)!important;letter-spacing:2px}.clk b i{display:none}
 .clk span,.clk small{unicode-bidi:plaintext;direction:ltr;text-align:center}
 .hero::after{right:18px;left:auto;width:27%;opacity:.16}html[dir=rtl] .hero::after{left:18px;right:auto}
-@media(max-width:900px){.hero>.clk{position:static;transform:none;inset-inline-end:auto;width:auto;align-items:flex-start;margin:0 0 16px}.hero::after{width:44%;inset-inline-end:-30px}.clk .an{width:96px;height:96px}}
+@media(max-width:900px){.hero>.clk{position:static;transform:none;inset-inline-end:auto;width:auto;align-items:flex-start;margin:0 0 16px}.hero::after{width:36%;right:14px;left:auto;inset-inline-end:14px;opacity:.14}html[dir=rtl] .hero::after{right:auto;left:14px}.clk .an{width:96px;height:96px}}
 
 .clkw{position:relative;width:132px;height:132px;border-radius:50%;cursor:pointer;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));transition:.3s}.clkw:hover{transform:scale(1.04)}
 .clkw::before{content:'';position:absolute;inset:9%;border-radius:50%;background:#2b2118 var(--logo) no-repeat center 56%/80%;opacity:1;pointer-events:none}.clkw .fc{fill-opacity:.62}.clkw.f1::before{background-color:#f6efe2}.clkw.f2::before{background-color:#1d3a2c}
@@ -1383,7 +1383,7 @@ function homeView(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  <div class="nav nsm">${[['me',canSeeAll()?'c_team':'c_me',canSeeAll()?'c_teamd':'c_med','01'],['all','c_all','c_alld','02'],['gantt','c_g','c_gd','03']].map(([k,a,b,no])=>`<button class="nc" onclick="go('${k}')"><div class="no">${no}</div><b>${L(a)}</b><span>${L(b)}</span></button>`).join('')}</div>`}
 /* me */
 function teamView(){if(me&&!AG.ok)loadAg();const ord=t=>st(t.id).status==='Terminé'?'z':(st(t.id).deadline||'y');
- const strip=`<div class="vs"><small>${L('vas_t')}</small><button class="${tmv?'on':''}" onclick="tmv=true;vas='';render()"><span style="font-size:22px;line-height:46px">👥</span><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}</div>`;
+ const strip=`<div class="vs"><small>${L('vas_t')}</small><button class="${tmv?'on':''}" onclick="tmv=true;vas='';render()"><svg viewBox="0 0 46 46" style="width:46px;height:46px"><circle cx="23" cy="23" r="22" fill="#3E211B" stroke="#F7AA54" stroke-width="1.5"/><g fill="none" stroke="#F7AA54" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="19" r="4.5"/><path d="M10 33c0-5 3.5-8 8-8s8 3 8 8"/><circle cx="29.5" cy="20" r="3.5"/><path d="M30 26c4 0 7 2.5 7 7"/></g></svg><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}</div>`;
  const rl=p=>{const r=ROLES[p];return r?r[lang==='fr'?0:lang==='en'?1:2]:''};
  const cards=LOGIN.filter(p=>p!=='Ahmed').map(p=>{const m=T.filter(t=>t.o===p);if(!m.length)return '';const op=m.filter(t=>st(t.id).status!=='Terminé'),lt=m.filter(isLate).length,nd=op.filter(t=>nod(t)).length;
   const nx=op.slice().sort((a,b)=>ord(a).localeCompare(ord(b))).filter(t=>st(t.id).deadline).slice(0,3);
@@ -1395,7 +1395,7 @@ function teamView(){if(me&&!AG.ok)loadAg();const ord=t=>st(t.id).status==='Termi
 function meView(){if(!me)return loginView();
  if(canSeeAll()&&tmv)return teamView();
  const W=canSeeAll()&&vas?vas:me.who;
- const strip=canSeeAll()?`<div class="vs"><small>${L('vas_t')}</small><button onclick="tmv=true;vas='';render()"><span style="font-size:22px;line-height:46px">👥</span><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button class="${W===p?'on':''}" onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}${W!==me.who&&isEd()?`<button class="rb" onclick="pinOpen('${W}')">${L('pin_rbtn',{w:esc(pnm(W))})}</button>`:''}</div>`:'';
+ const strip=canSeeAll()?`<div class="vs"><small>${L('vas_t')}</small><button onclick="tmv=true;vas='';render()"><svg viewBox="0 0 46 46" style="width:46px;height:46px"><circle cx="23" cy="23" r="22" fill="#3E211B" stroke="#F7AA54" stroke-width="1.5"/><g fill="none" stroke="#F7AA54" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="19" r="4.5"/><path d="M10 33c0-5 3.5-8 8-8s8 3 8 8"/><circle cx="29.5" cy="20" r="3.5"/><path d="M30 26c4 0 7 2.5 7 7"/></g></svg><span>${L('tm_all')}</span></button>${LOGIN.filter(p=>p!=='Ahmed').map(p=>`<button class="${W===p?'on':''}" onclick="tmv=false;vas=${p==='Direction'?"''":"'"+p+"'"};render()">${avatar(p).replace('<svg','<svg style="width:46px;height:46px"')}<span>${esc(pnm(p))}</span></button>`).join('')}${W!==me.who&&isEd()?`<button class="rb" onclick="pinOpen('${W}')">${L('pin_rbtn',{w:esc(pnm(W))})}</button>`:''}</div>`:'';
  const mine=T.filter(t=>t.o===W).sort((a,b)=>{const f=t=>st(t.id).status==='Terminé'?'z':(st(t.id).deadline||'y');return f(a).localeCompare(f(b))}),ps=[...new Set(mine.map(t=>t.p))];
  const open=mine.filter(t=>st(t.id).status!=='Terminé').length,nodl=mine.filter(t=>nod(t)&&st(t.id).status!=='Terminé').length;
  const dn=mine.length-open,pc=mine.length?Math.round(dn/mine.length*100):0,nx=mine.filter(t=>st(t.id).status!=='Terminé'&&st(t.id).deadline&&st(t.id).deadline>=today()).map(t=>st(t.id).deadline).sort()[0],R=34,C=2*Math.PI*R;
