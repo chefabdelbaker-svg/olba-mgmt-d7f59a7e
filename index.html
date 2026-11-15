@@ -469,6 +469,43 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 
 @media(max-width:600px){.vB .b1,.vB .b2{--w:min(24vw,11vh)}.vB .b3{--w:min(19vw,9.5vh)}.vB .ob .pv{gap:1px!important}}
 
+/* --- palette de marque uniquement : Dark Cocoa #3E211B, Red Velvet Crumb #5D281A, Vanilla Custard #F8DAB8, Caramel #F7AA54 + blanc --- */
+.cover.c0,.cover.c1{background:radial-gradient(circle at 50% 0%,rgba(247,170,84,.22),transparent 55%),radial-gradient(circle at 50% 38%,#5D281A 0%,#3E211B 78%)!important}
+.cv-m .dv:nth-of-type(1),.cv-m .dv:nth-of-type(2),.cv-m .dv:nth-of-type(3){color:inherit}
+.cover.c1 .b1{--tc:#F7AA54;--tf:#F7AA54;--tl:#3E211B}.cover.c1 .b2{--tc:#F8DAB8;--tf:#F8DAB8;--tl:#3E211B}.cover.c1 .b3{--tc:#FFFFFF;--tf:#5D281A;--tl:#F8DAB8}
+.cover.c1 .bl{background:var(--tf)!important;color:var(--tl)!important;box-shadow:0 4px 14px rgba(0,0,0,.35),inset 0 0 0 1px rgba(247,170,84,.55)!important}
+.cover.c1 .b1 .bl,.cover.c1 .b2 .bl{box-shadow:0 4px 14px rgba(0,0,0,.35)!important}
+.vB .b1 .pv,.vC .b1 .pv{--mx:38%}.vB .b2 .pv,.vC .b2 .pv{--mx:30%}.vB .b3 .pv,.vC .b3 .pv{--mx:100%}
+.vB .ob .pv{background:linear-gradient(180deg,color-mix(in srgb,var(--tf) var(--mx),transparent),color-mix(in srgb,var(--tf) 6%,transparent) 85%)!important}
+.vC .ob .pv{background:linear-gradient(135deg,color-mix(in srgb,var(--tf) var(--mx),transparent),color-mix(in srgb,var(--tf) 6%,transparent))!important}
+.vB .b3 .pv,.vC .b3 .pv{box-shadow:inset 0 0 0 1.5px #F7AA54,0 14px 24px rgba(0,0,0,.35)!important}
+.vC .b3 .pv{box-shadow:inset 5px 0 0 #F7AA54,inset 0 0 0 1px rgba(247,170,84,.5),0 10px 20px rgba(0,0,0,.3)!important}
+.vA .b3 .pv svg{box-shadow:0 0 0 3px #3E211B,0 0 0 5px #F7AA54,0 0 24px rgba(247,170,84,.4)!important}
+.vB .b3 .pv svg,.vC .b3 .pv svg{box-shadow:0 0 0 2px #F7AA54!important}
+.cover.c1 .b3 .pv em{color:#F7AA54!important}
+.cover.c1 .ob .pv.ph{--tc:#F7AA54}
+/* page 1 : plus grand, bouton plus discret */
+.bsm{font-size:clamp(32px,min(8vh,9.5vw),74px)!important}
+.cover .tr{font-size:clamp(13px,min(2.3vh,3.6vw),19px)!important}
+.cv-logo{width:clamp(200px,min(56vw,50vh),440px)!important;height:auto!important;max-width:none!important}
+.cv-t{font-size:clamp(26px,min(5.8vh,8.4vw),56px)!important}
+.cv-m{font-size:clamp(15px,min(3vh,4.6vw),26px)!important}
+.vs2 .ar{font-size:clamp(22px,min(5.2vh,6.4vw),48px)!important}
+.vs2 .ln{font-size:clamp(13px,min(2.4vh,3.6vw),20px)!important}.vs2 small{font-size:clamp(11px,1.7vh,14px)!important}
+.glass{gap:clamp(6px,1.6vh,16px)!important}
+.cv-b.go{font-size:clamp(13px,1.9vh,16px)!important;padding:clamp(8px,1.3vh,12px) 26px!important;margin-top:clamp(6px,1.6vh,16px)!important}
+@media(max-width:600px){.glass>.tr:first-of-type,.cover.c0 .vs2 small,.cover.c0 .vs2.du .ln{display:none!important}.bsm{font-size:clamp(28px,8.4vw,44px)!important}}
+
+/* page 1 : réglage fin pour remplir l'écran sans déborder */
+.bsm{font-size:clamp(30px,min(6.6vh,9vw),62px)!important}
+.cover .tr{font-size:clamp(12px,min(2vh,3.4vw),17px)!important}
+.cv-logo{width:clamp(180px,min(50vw,36vh),340px)!important}
+.cv-t{font-size:clamp(24px,min(4.8vh,8vw),46px)!important}
+.cv-m{font-size:clamp(14px,min(2.5vh,4.4vw),22px)!important}
+.vs2 .ar{font-size:clamp(21px,min(4.3vh,6vw),40px)!important;line-height:1.55!important}
+.vs2 .ln{font-size:clamp(12px,min(2vh,3.4vw),17px)!important}.vs2 small{font-size:clamp(10px,1.5vh,13px)!important}
+.glass{gap:clamp(4px,1.1vh,12px)!important}
+
 .kg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 10px}.kgb{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;background:#fff;border:2px solid #eadfce;border-top:5px solid var(--gc);border-radius:14px;padding:12px 14px;cursor:pointer;font-family:Inter,sans-serif;color:#3E211B;transition:transform .15s,box-shadow .15s}
 .kgb:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(62,33,27,.12)}.kgb .kgi{font-size:22px}.kgb b{font-size:15px}.kgb small{font-size:12px;opacity:.65;line-height:1.35}.kgb.on{background:var(--gc);color:#fff;border-color:var(--gc)}.kgb.on small{opacity:1;color:#fff}.kgb.on b{color:#fff}
 .kgs{padding:8px 10px;background:#fff;border-left:5px solid var(--gc);border-radius:10px;margin-bottom:12px}.kgs .chp.on{background:var(--gc);border-color:var(--gc);color:#fff}
