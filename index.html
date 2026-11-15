@@ -780,7 +780,7 @@ const STY={
  m7:{bg:'#C9A56B',x:'suit',body:'#1B1B1F'},
  m8:{bg:'#8A6FA8',x:'short',body:'#E9E4DA',gl:1}};
 const STYIDS=Object.keys(STY);
-const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Consultant pizza':'m6.0'};
+const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Hamza':'w9.8','Consultant pizza':'m6.0'};
 let AVC={},PH={};
 function lsPh(p){try{return localStorage.getItem('olba-photo-'+p)||''}catch(e){return ''}}
 const ICON_BG=['#8E2F45','#4F7F69','#2E4A78','#A87433','#3A2A20','#5B4A86','#25140E'];
@@ -824,7 +824,7 @@ function avSvg(sid,photo){const m=String(sid||'m7.1').match(/^([wm]\d)(?:\.(\d))
  if(a.x==='hijab')after=gl.replace(/<rect x="46.5" y="46"/,'<rect x="46.5" y="47"').replace(/<rect x="61.5" y="46"/,'<rect x="61.5" y="47"');
  if(a.pizza)after+=`<g transform="translate(94 98)"><circle r="14" fill="#F7AA54"/><circle r="11" fill="#D8452B"/><circle cx="-3" cy="-3" r="2.5" fill="#F8DAB8"/><circle cx="4" cy="2" r="2.5" fill="#F8DAB8"/><circle cx="-2" cy="6" r="2" fill="#F8DAB8"/></g>`;
  return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="60"/></clipPath>${defs}</defs><g clip-path="url(#${id})"><rect width="120" height="120" fill="${a.bg}"/>${b}${after}<rect x="60" y="0" width="60" height="120" fill="#000" opacity=".08"/></g></svg>`}
-function avatar(p){const ph=(me&&PH[p])||lsPh(p);return avSvg(AVC[p]||PDEF[p]||'m7.1',ph)}
+function avatar(p){const ph=(me&&PH[p])||lsPh(p);return avSvg((p==='Hamza'?PDEF[p]:AVC[p])||PDEF[p]||'m7.1',ph)}
 async function loadAv(){try{const r=await rpc('mgmt_avatars',{});if(r&&typeof r==='object'&&!Array.isArray(r)){AVC=r;const a=document.activeElement;if(!me&&!(a&&a.id==='lp'))render()}}catch(e){}}
 async function loadPh(){if(!me)return;try{const r=await rpc('mgmt_photos',{p_who:me.who,p_pin:me.pin});if(r&&typeof r==='object'&&!Array.isArray(r)){PH=r;if(PH[me.who])try{localStorage.setItem('olba-photo-'+me.who,PH[me.who])}catch(_){}else try{localStorage.removeItem('olba-photo-'+me.who)}catch(_){}render()}}catch(e){}}
 let selP='';try{selP=localStorage.getItem('olba-last')||''}catch(e){}
@@ -880,7 +880,7 @@ ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل و�
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
 function orgChart(){const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
- return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgPh('Kyrt Ryxl Llarenas',LX('Manager HACCP','HACCP Manager','مدير HACCP')))}</div>`}
+ return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+`<div class="pv">${iconSvg(7)}<div class="pt"><span>Kyrt Ryxl Llarenas</span><em>${esc(LX('Manager HACCP','HACCP Manager','مدير HACCP'))}</em></div></div>`)}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
 function cvBack(){cvStep=0;selOpen=false;cvAn=true;render()}
 function cvClose(){selOpen=false;cvAn=false;render()}
