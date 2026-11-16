@@ -1386,7 +1386,7 @@ function depView(k){const d=DEPS[k],w=d.o,r=ROLES[w],ts=T.filter(t=>t.o===w),op=
  if(d.g)b+=checklistView(d.g);else b+=`<div class="card"><p class="hint">${LX('Pas encore d’outil dédié pour ce département.','No dedicated tool for this department yet.','لا أداة مخصصة بعد.')}</p></div>`;
  if(k==='dfs'&&KC.acc!=='none')b+=`<p><button class="chp" onclick="goKit('hcp')">🛡️ ${LX('Plan HACCP, PRP et non-conformités (Cuisine)','HACCP plan, PRPs and non-conformities (Kitchen)','')}</button></p>`;
  return b}
-function homeView(){return homeView0()}
+function homeView(){return `<div dir="rtl" lang="ar" style="text-align:center;font-family:'Amiri','Scheherazade New','Traditional Arabic',serif;font-size:34px;line-height:1.6;color:#6B3A1E;margin:2px 0 10px;letter-spacing:0">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>`+homeView0()}
 function homeView0(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
   late=T.filter(isLate),nodl=open.filter(t=>nod(t)).length,bl=T.filter(t=>st(t.id).status==='Bloqué').length,td=today();
