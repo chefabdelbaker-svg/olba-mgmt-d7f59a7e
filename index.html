@@ -1247,7 +1247,7 @@ const STY={
  m7:{bg:'#C9A56B',x:'suit',body:'#1B1B1F'},
  m8:{bg:'#8A6FA8',x:'short',body:'#E9E4DA',gl:1}};
 const STYIDS=Object.keys(STY);
-const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Hamza':'w9.8','Kyrt':'w9.7','Consultant pizza':'m6.0'};
+const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Hamza':'w9.8','Kyrt':'w9.7','Manar':'w9.9','Consultant pizza':'m6.0'};
 let AVC={},PH={};
 function lsPh(p){try{return localStorage.getItem('olba-photo-'+p)||''}catch(e){return ''}}
 const ICON_BG=['#8E2F45','#4F7F69','#2E4A78','#A87433','#3A2A20','#5B4A86','#25140E'];
@@ -1347,7 +1347,7 @@ ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل و�
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
 function orgChart(){const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
- return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt'))}</div>`}
+ return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt')+orgNode('Manar'))}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
 function cvBack(){cvStep=0;selOpen=false;cvAn=true;render()}
 function cvClose(){selOpen=false;cvAn=false;render()}
@@ -1433,7 +1433,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261116zg';
+const BUILD='20261116zh';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
