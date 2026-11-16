@@ -902,7 +902,7 @@ function head(){const GS=groupSubs();const tabs=me?[['home','tab_home'],['me',ca
  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'}
 let GP={};
-function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(PU.acc!=='none')o.push('pur');if(SK.acc!=='none')o.push('stk');return{proj:p,ops:o,ag:['meet','day']}}
+function groupSubs(){if(!me)return{proj:[],ops:[],ag:[]};const p=['all','gantt'];if(canSeeAll())p.push('coh');const o=[];if(SK.acc!=='none')o.push('stk');if(PU.acc!=='none')o.push('pur');return{proj:p,ops:o,ag:['meet','day']}}
 const subL=k=>k==='pur'?pt('pur'):k==='stk'?pt('stk'):k==='meet'||k==='day'?agt(k):L('tab_'+k);
 
 function dkApply(){let d=0;try{d=+localStorage.getItem('olba_dk')||0}catch(e){}document.documentElement.classList.toggle('dk',!!d&&!!me)}
