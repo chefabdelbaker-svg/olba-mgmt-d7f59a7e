@@ -845,7 +845,9 @@ function docsView(){if(!me)return loginView();if(!docsLead())return `<div class=
 /* ===== Sous-sections rangées dans leur page parente ===== */
 const EMB={dmkt:['mkt'],kit:['alg'],dfs:['shf'],dfoh:['csk'],hr:['stm']},EMBS={};
 const EMBV={mkt:()=>mkView(),alg:()=>algView(),shf:()=>shfView(),csk:()=>cskView(),stm:()=>stmView()};
-function embWrap(par,main){return embWrap0(par,main)+docsPanel(DOCTAB[par])}
+function stkLink(par){if(par==='stk')return `<div class="filters" style="margin:0 0 10px"><button class="btn on">${LX('Articles · achats · fournisseurs','Items · buying · suppliers','الأصناف والمشتريات')}</button><button class="btn" onclick="KC.sec='inv';go('kit')">${LX('Inventaire · pertes · non-food (Cuisine) ›','Inventory · waste · non-food (Kitchen) ›','الجرد والفاقد (المطبخ) ›')}</button></div>`;
+ if(par==='kit'&&['inv','wst','nf'].includes(KC.sec))return `<div class="filters" style="margin:0 0 10px"><button class="btn" onclick="go('stk')">‹ ${LX('Articles · achats · fournisseurs (Stock)','Items · buying · suppliers (Stock)','الأصناف والمشتريات (المخزون)')}</button><button class="btn on">${LX('Inventaire · pertes · non-food','Inventory · waste · non-food','الجرد والفاقد')}</button></div>`;return ''}
+function embWrap(par,main){return stkLink(par)+embWrap0(par,main)+docsPanel(DOCTAB[par])}
 function embWrap0(par,main){const ks=(EMB[par]||[]).filter(k=>k!=='stm'||['Direction','Ahmed','Sayed'].includes(me&&me.who));if(!ks.length)return main();const cur=ks.includes(EMBS[par])?EMBS[par]:'';
  const lab=par==='hr'?LX('Registre RH','HR register','سجل الموارد'):subL(par);
  const strip=`<div class="filters" style="margin:6px 0 10px">${[['',lab],...ks.map(k=>[k,subL(k)])].map(([k,l])=>`<button class="btn${cur===k?' on':''}" onclick="EMBS['${par}']='${k}';render()">${l}</button>`).join('')}</div>`;
@@ -1213,7 +1215,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(!me||tab==='home'||tab==='gantt'||tab==='kit')return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261116e';
+const BUILD='20261116f';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
