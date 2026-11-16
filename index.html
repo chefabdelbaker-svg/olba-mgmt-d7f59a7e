@@ -1884,4 +1884,13 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  fillTr()}
 (async()=>{render();loadAv();await load();render();
  setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if((tab==='mg'&&MG.s==='pld')||!me)return;if(tab==='budget'){await loadBudget();render();return}if(await load())render()},30000)})();
+
+/* Bismillah audio : dès l'arrivée (au 1er contact si le navigateur bloque la lecture automatique) */
+(function(){let done=false;const TXT='بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+ function play(){if(done||!('speechSynthesis' in window))return;const vs=speechSynthesis.getVoices(),v=vs.find(x=>/^ar/i.test(x.lang));if(!v){if(!vs.length)return;done=true;return}
+  const u=new SpeechSynthesisUtterance(TXT);u.lang=v.lang;u.voice=v;u.rate=.72;u.pitch=1;u.volume=1;u.onstart=()=>{done=true;off()};try{speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+ function off(){['pointerdown','keydown','touchstart','click'].forEach(e=>document.removeEventListener(e,play,true))}
+ ['pointerdown','keydown','touchstart','click'].forEach(e=>document.addEventListener(e,play,true));
+ try{speechSynthesis.onvoiceschanged=()=>{if(!done)play()}}catch(e){}
+ window.addEventListener('load',()=>setTimeout(play,600))})();
 </script></body></html>
