@@ -2121,7 +2121,7 @@ function render(){document.body.classList.toggle('cvr',!me);head();const m=docum
  m.innerHTML=pgHero()+(tab==='meet'?agMeet():tab==='day'?agDay():tab==='pur'?purView():tab==='stk'?skView():tab==='kit'?kitView():tab==='chk'?checklistView():DEPS[tab]?depView(tab):tab==='home'?homeView():tab==='me'?meView():tab==='all'?allView():tab==='coh'&&canSeeAll()?cohView():tab==='mg'&&me&&isDir()?mgView():tab==='b2b'&&b2bAcc!=='none'?b2View():tab==='b2b'?`<div class="card"><p class="hint">${LX('Accès non autorisé.','Access not allowed.','غير مصرح.')}</p></div>`:tab==='mnt'?mntView():tab==='emg'?emgView():tab==='alg'?algView():tab==='shf'?shfView():tab==='csk'?cskView():tab==='stm'?stmView():tab==='mkt'?mkView():tab==='fin'?finView():tab==='budget'?budgetView():ganttView());
  const g=document.querySelector('.gw');if(g){if(sl){g.scrollLeft=sl[0];g.scrollTop=sl[1]}else{g.scrollLeft=Math.max(0,(+g.dataset.tx||0)-180)}}
  fillTr()}
-(async()=>{render();loadAv();await load();render();
+(async()=>{render();loadAv();await load();render();try{if((sessionStorage.getItem('olba-pv')||sessionStorage.getItem('olba-pvt'))&&savedMe&&savedMe.who==='Direction')await resume()}catch(_){}
  setInterval(async()=>{if(document.hidden)return;const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&a.type!=='checkbox')return;if((tab==='mg'&&MG.s==='pld')||!me)return;if(tab==='budget'){await loadBudget();render();return}if(await load())render()},30000)})();
 
 /* Bismillah + ambiance de travail (Coran) : flux depuis des CDN publics, lecture au 1er contact */
