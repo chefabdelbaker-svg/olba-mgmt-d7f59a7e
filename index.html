@@ -872,7 +872,7 @@ function finRow(r,ed){const td=today(),x=finRest(r),lt=x>0&&r.due&&r.due<td;
  if(!ed)return `<div class="card" style="padding:12px 14px;margin:8px 0${lt?';border-left:4px solid #b4412c':''}"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>${esc(r.creditor)||'—'}</b><span>${mny(x)} SAR</span></div><small class="hint">${esc(finT(FCAT,r.category))} · ${esc(r.item)}${r.due?' · '+esc(r.due):''} · ${esc(finT(FST,r.status))}${lt?' · ⚠':''}</small>${r.note?`<div class="hint">${esc(r.note)}</div>`:''}</div>`;
  const o=(M,v)=>Object.keys(M).map(k=>`<option value="${k}"${k===v?' selected':''}>${esc(finT(M,k))}</option>`).join('');
  return `<div class="card fnr" id="fn-${r.id}" style="padding:12px 14px;margin:8px 0${lt?';border-left:4px solid #b4412c':''}"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px">
-  <input class="f-cr" placeholder="${LX('Créancier','Creditor','الدائن')}" value="${esc(r.creditor)}" maxlength="120" onchange="finSave('${r.id}')">
+  <input class="f-cr" placeholder="${LX('Vendeur / fournisseur','Vendor / supplier','المورّد')}" value="${esc(r.creditor)}" maxlength="120" onchange="finSave('${r.id}')">
   <select class="f-ct" onchange="finSave('${r.id}')">${o(FCAT,r.category)}</select>
   <input class="f-it" placeholder="${LX('Objet','Item','البند')}" value="${esc(r.item)}" maxlength="200" onchange="finSave('${r.id}')">
   <input class="f-am" type="number" step="0.01" placeholder="${LX('Montant','Amount','المبلغ')}" value="${r.amount==null?'':r.amount}" onchange="finSave('${r.id}')">
@@ -892,9 +892,9 @@ function finDebtView(){if(!me)return loginView();if(!FINSET.includes(me.who))ret
  const a=finAgg(),ed=FINED.includes(me.who),td=today();
  const flt=[['all',LX('Tout','All','الكل')],['open',LX('À payer','Open','مستحق')],['late',LX('En retard','Late','متأخر')],['paid',LX('Payé','Paid','مدفوع')]];
  let rows=FN.rows.filter(r=>FN.f==='all'||(FN.f==='open'&&finRest(r)>0)||(FN.f==='late'&&finRest(r)>0&&r.due&&r.due<td)||(FN.f==='paid'&&finRest(r)===0));
- return `<div class="kpis">${[[LX('Reste à payer','Remaining to pay','المتبقي للدفع'),mny(a.open),''],[LX('En retard','Late','متأخر'),mny(a.late),a.late?'amb':''],[LX('À payer ce mois','Due this month','مستحق هذا الشهر'),mny(a.month),''],[LX('Dettes ouvertes','Open debts','ديون مفتوحة'),String(a.n),'cnt']].map(([k,v,c])=>`<div class="kp"><b class="${c==='cnt'?'':c}">${v}</b><small>${k}${c==='cnt'?'':' · SAR'}</small></div>`).join('')}</div>
- <div class="card"><div class="filters">${flt.map(([k,l])=>`<button class="btn${FN.f===k?' on':''}" onclick="FN.f='${k}';render()">${l}</button>`).join('')}${ed?`<button class="btn" style="margin-inline-start:auto" onclick="finAdd()">＋ ${LX('Ajouter une dette','Add a debt','إضافة دين')}</button>`:''}</div>
- ${rows.length?rows.map(r=>finRow(r,ed)).join(''):`<p class="hint">${LX('Aucune dette enregistrée.','No debt recorded.','لا توجد ديون مسجلة.')}</p>`}
+ return `<div class="kpis">${[[LX('Reste à payer','Remaining to pay','المتبقي للدفع'),mny(a.open),''],[LX('En retard','Late','متأخر'),mny(a.late),a.late?'amb':''],[LX('À payer ce mois','Due this month','مستحق هذا الشهر'),mny(a.month),''],[LX('Factures ouvertes','Open invoices','فواتير مفتوحة'),String(a.n),'cnt']].map(([k,v,c])=>`<div class="kp"><b class="${c==='cnt'?'':c}">${v}</b><small>${k}${c==='cnt'?'':' · SAR'}</small></div>`).join('')}</div>
+ <div class="card"><div class="filters">${flt.map(([k,l])=>`<button class="btn${FN.f===k?' on':''}" onclick="FN.f='${k}';render()">${l}</button>`).join('')}${ed?`<button class="btn" style="margin-inline-start:auto" onclick="finAdd()">＋ ${LX('Ajouter un vendeur / une facture','Add a vendor / invoice','إضافة مورّد / فاتورة')}</button>`:''}</div>
+ ${rows.length?rows.map(r=>finRow(r,ed)).join(''):`<p class="hint">${LX('Aucun vendeur enregistré.','No vendor recorded.','لا يوجد مورّدون مسجلون.')}</p>`}
  ${ed?'':`<p class="hint">${LX('Lecture seule.','Read only.','للقراءة فقط.')}</p>`}</div>`}
 
 
@@ -1567,7 +1567,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zy';
+const BUILD='20261117zz';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
