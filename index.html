@@ -852,7 +852,7 @@ en:{t:'Budget',hm:'Enter your quotes, purchases and payments here. You only see 
 ar:{t:'الميزانية',hm:'أدخل هنا عروض الأسعار والمشتريات والمدفوعات. ترى سطورك فقط، وترى الإدارة المجموع.',ha:'ملخص حسب الفئة وحسب المشروع. المبالغ قبل الضريبة تُحوَّل إلى شاملة الضريبة بنسبة 15٪. السطور المستبعدة لا تُحتسب.',add:'+ إضافة سطر',proj:'المشروع',fam:'الفئة',item:'ما الغرض',sup:'المورّد',amt:'المبلغ (ريال)',vat:'قبل/بعد الضريبة',bst:'عرض السعر',pay:'الدفع',paid:'المدفوع',note:'ملاحظة',own:'المسؤول',kq:'عروض مستلمة',ke:'ملتزم به',kp:'مدفوع',kr:'المتبقي للدفع',kt:'مطلوب / احتمالات',byf:'حسب الفئة',byp:'حسب المشروع',lines:'كل السطور',tot:'المجموع',n:'السطور',empty:'لا توجد سطور بعد.',allp:'كل المشاريع',allf:'كل الفئات',alls:'كل الحالات',allo:'كل المسؤولين',del:'حذف هذا السطر؟'}};
 const B=k=>BL[lang][k]||BL.fr[k]||k;const LIi=()=>({fr:0,en:1,ar:2}[lang]);
 let BPJ=[],BGN={n:'',b:''},BG=[],bgl=false,bf={p:'',f:'',s:'',o:''};
-let bgErr=false;async function loadBudget(){if(!me)return false;try{BG=await rpc('mgmt_budget_list',{p_who:me.who,p_pin:me.pin});try{BPJ=await rpc('mgmt_bproj_list',{p_who:me.who,p_pin:me.pin})||[];BPJ.forEach(x=>{if(x.name)PIDS[x.code]=x.name})}catch(e2){}bgl=true;bgErr=false;return true}catch(e){bgErr=true;bgl=true;return false}}
+let bgErr=false;async function loadBudget(){if(!me)return false;try{BG=await rpc('mgmt_budget_list',{p_who:me.who,p_pin:me.pin});BG.forEach(l=>{if(l.family&&!FAM[l.family])FAM[l.family]=[l.family,l.family,l.family]});try{BPJ=await rpc('mgmt_bproj_list',{p_who:me.who,p_pin:me.pin})||[];BPJ.forEach(x=>{if(x.name)PIDS[x.code]=x.name})}catch(e2){}bgl=true;bgErr=false;return true}catch(e){bgErr=true;bgl=true;return false}}
 const ttc=l=>{const a=+l.amount||0;return l.vat==='HT'?a*1.15:a};
 const bgPaid=l=>l.pay==='paye'?ttc(l):l.pay==='acompte'?(+l.paid_amount||0):0;
 const bgIsQ=l=>['recu','retenu','commande'].includes(l.status);
@@ -869,10 +869,10 @@ async function bgSave(id,el){const row=el.closest('tr'),g=c=>row.querySelector('
 async function bgAdd(){try{const r=await rpc('mgmt_budget_save',{p_who:me.who,p_pin:me.pin,p_line:{proj:bf.p||'W',family:bf.f||'oth'}});BG.push(r);render()}catch(e){}}
 async function bgDel(id){if(!confirm(B('del')))return;try{await rpc('mgmt_budget_del',{p_who:me.who,p_pin:me.pin,p_id:id});BG=BG.filter(x=>x.id!==id);render()}catch(e){}}
 function bgRow(l){const ad=canSeeAll();const dis=isRO()||(l.owner!==me.who&&!isEd());
- const r=`<tr><td><select class="b-proj" onchange="bgSave('${l.id}',this)">${opt(PIDS,l.proj,k=>pj(PIDS[k]))}</select></td>
- <td><select class="b-fam" onchange="bgSave('${l.id}',this)">${opt(FAM,l.family,k=>FAM[k][LIi()])}</select></td>
- <td><input class="t b-item" value="${esc(l.item)}" maxlength="200" onchange="bgSave('${l.id}',this)"></td>
- <td><input class="w b-sup" value="${esc(l.supplier)}" maxlength="120" onchange="bgSave('${l.id}',this)"></td>
+ const r=`<tr><td><select class="b-proj" onchange="bgPick('${l.id}',this,'p')">${opt(PIDS,l.proj,k=>pj(PIDS[k]))}<option value="__new">＋ ${LX('Nouveau projet…','New project…','')}</option></select></td>
+ <td><select class="b-fam" onchange="bgPick('${l.id}',this,'f')">${opt(FAM,l.family,k=>FAM[k][LIi()])}<option value="__new">✎ ${LX('Autre (écrire)…','Other (type)…','')}</option></select></td>
+ <td><input class="t b-item" list="bg-items" placeholder="${LX('Choisir ou écrire','Pick or type','')}" value="${esc(l.item)}" maxlength="200" onchange="bgSave('${l.id}',this)"></td>
+ <td><input class="w b-sup" list="bg-sups" placeholder="${LX('Choisir ou écrire','Pick or type','')}" value="${esc(l.supplier)}" maxlength="120" onchange="bgSave('${l.id}',this)"></td>
  <td><input class="n b-amt" type="number" step="0.01" value="${l.amount==null?'':l.amount}" onchange="bgSave('${l.id}',this)"></td>
  <td><select class="b-vat" onchange="bgSave('${l.id}',this)">${['','HT','TTC'].map(v=>`<option value="${v}"${v===l.vat?' selected':''}>${v||'—'}</option>`).join('')}</select></td>
  <td><select class="b-st" onchange="bgSave('${l.id}',this)">${opt(BST,l.status,k=>BST[k][LIi()])}</select></td>
@@ -1469,9 +1469,14 @@ function bpjCard(){const ed=canSeeAll(),bm=Object.fromEntries(BPJ.map(x=>[x.code
   return `<tr><td><b>${esc(pj(PIDS[k]))}</b></td><td class="r">${ed?`<input type="number" step="any" value="${bu==null?'':bu}" placeholder="—" style="width:100px;text-align:end" onchange="bpjSave('${k}','',this.value)">`:(bu==null?'—':mny(bu))}</td><td class="r">${mny(a.e)}</td><td class="r">${mny(a.p)}</td><td class="r" style="color:${bu!=null&&a.e>bu?'#b23a2a':'inherit'}"><b>${bu==null?'—':mny(bu-a.e)}</b></td><td class="r">${pc==null?'':pc+'%'}</td><td>${ed&&custom&&!a.n?`<a href="#" onclick="bpjDel('${k}');return false">✕</a>`:''}</td></tr>`}).join('');
  return `<div class="card"><h3>🗂️ ${LX('Projets & budgets','Projects & budgets','المشاريع والميزانيات')}</h3>${ed?`<div class="filters"><input placeholder="${LX('Nom du nouveau projet (ex. Cuisine commune)','New project name','')}" value="${esc(BGN.n)}" oninput="BGN.n=this.value" style="flex:1;min-width:180px"><input type="number" step="any" placeholder="${LX('Budget SAR','Budget SAR','')}" value="${esc(BGN.b)}" oninput="BGN.b=this.value" style="width:120px"><button class="b" style="padding:7px 14px;font-size:14px" onclick="bpjAdd()">＋ ${LX('Ajouter un projet','Add a project','')}</button></div>`:''}
  <div class="scroll"><table class="bgt"><thead><tr><th>${LX('Projet','Project','')}</th><th class="r">${LX('Budget','Budget','')}</th><th class="r">${LX('Engagé','Committed','')}</th><th class="r">${LX('Payé','Paid','')}</th><th class="r">${LX('Reste budget','Left','')}</th><th class="r">%</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="hint">${LX('Les achats qui servent à plusieurs choses : crée un projet dédié, fixe son budget, puis ajoute les lignes de dépense avec ce projet.','Purchases serving several things: create a dedicated project, set its budget, then add expense lines under it.','')}</p></div>`}
+async function bgPick(id,el,k){if(el.value!=='__new'){bgSave(id,el);return}const prev=BG.find(x=>x.id===id),n=(prompt(k==='f'?LX('Nom de la famille','Family name',''):LX('Nom du nouveau projet','New project name',''))||'').trim();if(!n){el.value=prev?(k==='f'?prev.family:prev.proj):'';return}
+ if(k==='f'){FAM[n]=[n,n,n];el.insertAdjacentHTML('afterbegin','<option value="'+esc(n)+'">'+esc(n)+'</option>');el.value=n;bgSave(id,el)}
+ else{try{const r=await rpc('mgmt_bproj_save',{p_who:me.who,p_pin:me.pin,p_code:'',p_name:n,p_budget:null});PIDS[r.code]=n;el.insertAdjacentHTML('afterbegin','<option value="'+esc(r.code)+'">'+esc(n)+'</option>');el.value=r.code;bgl=false;await bgSave(id,el)}catch(e){alert(LX('Impossible.','Could not.',''));el.value=prev?prev.proj:''}}}
+function bgLists(){const it=[...new Set([...(IO.cat||[]).map(x=>x.name),...(SK.items||[]).map(x=>x.name),...BG.map(l=>l.item)].filter(Boolean))].sort(),su=[...new Set([...(SK.sup||[]).map(x=>x.name),...BG.map(l=>l.supplier)].filter(Boolean))].sort();return `<datalist id="bg-items">${it.slice(0,1500).map(x=>`<option value="${esc(x)}">`).join('')}</datalist><datalist id="bg-sups">${su.map(x=>`<option value="${esc(x)}">`).join('')}</datalist>`}
 function budgetView(){if(!me)return loginView();if(!bgl){loadBudget().then(render);return `<div class="card">…</div>`}
+ if(!IO.catOk&&!IO.catBusy){IO.catBusy=true;ioCatLoad()}if(!SK.ok&&!SK.busy&&!SK.err)loadStk().then(render);
  if(bgErr)return `<div class="card"><h2 class="serif">${B('t')}</h2><p class="hint">${lang==='ar'?'الميزانية غير متاحة حاليًا. أعد المحاولة بعد قليل.':lang==='en'?'Budget is not available right now. Please retry shortly.':'Le budget n\'est pas disponible pour le moment. Réessaie dans un instant.'}</p></div>`;
- const ad=canSeeAll();let h='';
+ const ad=canSeeAll();let h=bgLists();
  if(ad){const t=bgAgg(BG);
   h+=`<div class="card"><h2 class="serif">${B('t')}</h2><p class="hint">${B('ha')}</p></div><div class="kpis">${[['kq',t.q,''],['ke',t.e,''],['kp',t.p,'grn'],['kr',t.r,t.r?'amb':''],['kt',t.t,'']].map(([k,v,c])=>`<div class="kp"><b class="${c}">${k==='kt'?v:mny(v)}</b><small>${B(k)}${k==='kt'?'':' · SAR'}</small></div>`).join('')}</div>
   ${bpjCard()}<div class="two"><div class="card"><h3>${B('byp')}</h3>${bgSum(Object.keys(PIDS),k=>pj(PIDS[k]),l=>l.proj,'p')}</div><div class="card"><h3>${B('byf')}</h3>${bgSum(Object.keys(FAM),k=>FAM[k][LIi()],l=>l.family,'f')}</div></div>`}
@@ -1691,7 +1696,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzzq';
+const BUILD='20261117zzzr';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
