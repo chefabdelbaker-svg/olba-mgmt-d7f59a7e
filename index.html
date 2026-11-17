@@ -1433,7 +1433,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zg';
+const BUILD='20261117zh';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -1441,7 +1441,7 @@ function toolsCard(me1){if(!me)return '';const w=me.who,A=['Direction','Ahmed','
  const I=[['📅',LX('Mon calendrier','My calendar','تقويمي'),'calOpen()',1],['✅',LX('Mes tâches','My tasks','مهامي'),"go('me')",!me1],
  ['📣',LX('Plan marketing','Marketing plan','خطة التسويق'),"goDep('dmkt','mkt')",is('Rima')],
  ['🍞',LX('Recettes · food cost','Recipes · food cost','الوصفات'),"go('kit')",is('Chef Omar','Kyrt')],
- ['📦',LX('Stock','Stock','المخزون'),"go('stk')",is('Chef Omar','Hafiz')],['🛒',LX('Achats','Purchasing','المشتريات'),"PS.s='p';go('pur')",is('Hafiz')],['📨',LX('Commandes internes','Internal orders','الطلبات الداخلية'),"PS.s='o';go('pur')",is('Hamza','Chef Omar','Hafiz','Sayed')],['🏪',LX('Stock département','Department stock','مخزون القسم'),"PS.s='ds';go('pur')",is('Hamza','Chef Omar')],['🥐',LX('Production','Production','الإنتاج'),"PS.s='pd';go('pur')",is('Hamza','Chef Omar')],
+ ['📦',LX('Stock','Stock','المخزون'),"go('stk')",is('Chef Omar','Hafiz')],['🛒',LX('Achats','Purchasing','المشتريات'),"PS.s='p';go('pur')",is('Hafiz')],['📨',LX('Commandes internes','Internal orders','الطلبات الداخلية'),"PS.s='o';go('pur')",is('Hamza','Chef Omar','Hafiz','Sayed','Kyrt')],['🏪',LX('Stock département','Department stock','مخزون القسم'),"PS.s='ds';go('pur')",is('Hamza','Chef Omar','Kyrt')],['🥐',LX('Production','Production','الإنتاج'),"PS.s='pd';go('pur')",is('Hamza','Chef Omar')],
  ['⚠️',LX('Allergènes','Allergens','مسببات الحساسية'),"goDep('kit','alg')",is('Chef Omar','Kyrt','Hamza')],
  ['🧊',LX('Food Safety','Food Safety','سلامة الغذاء'),"go('dfs')",is('Kyrt','Hamza','Chef Omar')],['📋','Checklists',"go('chk')",is('Kyrt','Hamza')],
  ['🍽',LX('Salle · KPI','Floor · KPI','الصالة'),"goDep('dfoh','csk')",is('Hamza')],['🤝','B2B',"go('b2b')",is('Ossama')],
@@ -1741,7 +1741,7 @@ function supForm(x){const v=k=>esc(x[k]==null?'':x[k]);return `<tr><td><input id
 
 /* ===== Commandes internes (Bar / Cuisine -> Achats) ===== */
 const IO={ok:false,busy:false,err:false,rows:[],cat:[],catOk:false,fam:'',q:'',bk:[],st:'open',dp:'',fm:{dept:'bar',item:'',qty:'',unit:'',urgency:'normal',needed_by:'',note:''},open:false,ed:null};
-const ioRole=()=>!me?'none':['Hafiz','Direction','Sayed'].includes(me.who)?'pur':me.who==='Ahmed'?'view':me.who==='Hamza'?'bar':me.who==='Chef Omar'?'kit':'none';
+const ioRole=()=>!me?'none':['Hafiz','Direction','Sayed'].includes(me.who)?'pur':me.who==='Ahmed'?'view':me.who==='Hamza'?'bar':me.who==='Chef Omar'?'kit':me.who==='Kyrt'?'hyg':'none';
 const IOS=k=>({requested:['🕓',LX('Demandée','Requested','مطلوبة'),'#b9770e'],ordered:['🛒',LX('Commandée','Ordered','تم الطلب'),'#2563a8'],delivered:['✅',LX('Approuvée · servie','Approved · served','تمت الموافقة'),'#2f7d4f'],cancelled:['✕',LX('Annulée','Cancelled','ملغاة'),'#8a7f78']})[k];
 async function ioLoad(){if(IO.busy)return;IO.busy=true;try{const r=await rpc('io_list',{p_who:me.who,p_pin:me.pin});IO.rows=(r&&r.rows)||[];IO.err=false}catch(e){IO.err=true}IO.ok=true;IO.busy=false}
 async function ioSave(p){try{const r=await rpc('io_save',{p_who:me.who,p_pin:me.pin,p:p});const i=IO.rows.findIndex(x=>x.id===r.id);if(i>=0)IO.rows[i]=r;else IO.rows.unshift(r);return true}catch(e){alert(LX('Enregistrement impossible.','Could not save.','تعذر الحفظ.'));return false}}
@@ -1751,7 +1751,7 @@ async function ioSet(id,st){const r=IO.rows.find(x=>x.id===id);if(!r)return;cons
 async function ioDel(id){if(!confirm(LX('Supprimer cette demande ?','Delete this request?','حذف هذا الطلب؟')))return;try{await rpc('io_del',{p_who:me.who,p_pin:me.pin,p_id:id});IO.rows=IO.rows.filter(x=>x.id!==id);render()}catch(e){alert(LX('Suppression impossible.','Could not delete.','تعذر الحذف.'))}}
 async function ioNote(id,v){const r=IO.rows.find(x=>x.id===id);if(!r)return;r.pur_note=v;await ioSave({id:id,pur_note:v})}
 async function ioCatLoad(){if(IO.catOk)return;try{IO.cat=await rpc('io_cat_list',{p_who:me.who,p_pin:me.pin})||[];IO.catOk=true}catch(e){IO.cat=[]}render()}
-function ioDeptOf(){const r=ioRole();return r==='bar'?'bar':r==='kit'?'kitchen':(IO.fm&&IO.fm.dept)||'bar'}
+function ioDeptOf(){const r=ioRole();return r==='bar'?'bar':r==='kit'?'kitchen':r==='hyg'?'hygiene':(IO.fm&&IO.fm.dept)||'bar'}
 function ioItemsHtml(){const q=IO.q.trim().toLowerCase(),dp=ioDeptOf();const L=IO.cat.filter(x=>(IO.all||!x.use||x.use==='none'||x.use==='both'||x.use===dp)&&(!IO.fam||x.cat===IO.fam)&&(!q||String(x.name).toLowerCase().includes(q)||String(x.code).toLowerCase().includes(q)));
  if(!IO.catOk)return `<p class="b2z">…</p>`;
  if(!L.length)return `<p class="b2z">${LX('Aucun article dans cette famille.','No item in this family.','لا يوجد صنف.')} <button class="btn" onclick="ioFree()">＋ ${LX('Article hors liste','Item not in the list','صنف خارج القائمة')}</button></p>`;
@@ -1774,12 +1774,12 @@ function ioStockLine(x){const it=SK.ok&&SK.items.find(i=>i.code===x.code);if(!it
 const ioOpenN=()=>IO.rows.filter(x=>x.status==='requested'||x.status==='ordered').length;
 function ioView(){const role=ioRole();if(role==='none')return '';if(!IO.ok){if(!IO.busy)ioLoad().then(render);return `<div class="card">…</div>`}
  if(IO.err)return `<div class="card"><div class="err">${LX('Chargement impossible.','Could not load.','تعذر التحميل.')}</div><button class="b" onclick="IO.ok=false;render()">↻</button></div>`;
- if(role==='pur'&&SK.acc!=='none'&&!SK.ok&&!SK.busy)loadStk().then(render);const P=role==='pur',can=role!=='view',f=IO.fm,dl=d=>d==='bar'?'🍹 Bar':'🍳 '+LX('Cuisine','Kitchen','المطبخ'),loc=lang==='ar'?'ar-SA':lang==='en'?'en-GB':'fr-FR',fd=d=>d?new Date(String(d).slice(0,10)+'T12:00:00').toLocaleDateString(loc,{day:'numeric',month:'short'}):'';
+ if(role==='pur'&&SK.acc!=='none'&&!SK.ok&&!SK.busy)loadStk().then(render);const P=role==='pur',can=role!=='view',f=IO.fm,dl=d=>d==='bar'?'🍹 Bar':d==='hygiene'?'🧼 '+LX('Hygiène & nettoyage','Hygiene & cleaning','النظافة والتنظيف'):'🍳 '+LX('Cuisine','Kitchen','المطبخ'),loc=lang==='ar'?'ar-SA':lang==='en'?'en-GB':'fr-FR',fd=d=>d?new Date(String(d).slice(0,10)+'T12:00:00').toLocaleDateString(loc,{day:'numeric',month:'short'}):'';
  let L=IO.rows.filter(x=>IO.st==='open'?(x.status==='requested'||x.status==='ordered'):IO.st==='done'?(x.status==='delivered'||x.status==='cancelled'):true);if(IO.dp&&(P||role==='view'))L=L.filter(x=>x.dept===IO.dp);
  const ch=(a,b,t,n)=>`<button class="btn${a===b?' on':''}" onclick="${t}">${n}</button>`;
  const fams=[...new Set(IO.cat.map(x=>x.cat))].sort();if(can&&IO.open&&!IO.catOk&&!IO.catBusy){IO.catBusy=true;ioCatLoad()}
  const form=can?(IO.open?`<div class="card" style="background:rgba(255,255,255,.5);margin:8px 0"><h3 style="margin:0 0 8px">${LX('Nouvelle demande','New request','طلب جديد')}</h3>
-  ${P?`<div class="filters" style="margin:0 0 8px">${ch(f.dept,'bar',"IO.fm.dept='bar';render()",'🍹 Bar')}${ch(f.dept,'kitchen',"IO.fm.dept='kitchen';render()",'🍳 '+LX('Cuisine','Kitchen','المطبخ'))}</div>`:`<p class="hint" style="margin:0 0 8px">${dl(role==='bar'?'bar':'kitchen')}</p>`}
+  ${P?`<div class="filters" style="margin:0 0 8px">${ch(f.dept,'bar',"IO.fm.dept='bar';render()",'🍹 Bar')}${ch(f.dept,'kitchen',"IO.fm.dept='kitchen';render()",'🍳 '+LX('Cuisine','Kitchen','المطبخ'))}${ch(f.dept,'hygiene',"IO.fm.dept='hygiene';render()",'🧼 '+LX('Hygiène','Hygiene','النظافة'))}</div>`:`<p class="hint" style="margin:0 0 8px">${dl(role==='bar'?'bar':role==='hyg'?'hygiene':'kitchen')}</p>`}
   <div class="filters" style="margin:0 0 6px"><button class="btn${IO.all?'':' on'}" onclick="IO.all=false;render()">${LX('Articles de mon département','My department items','أصناف قسمي')}</button><button class="btn${IO.all?' on':''}" onclick="IO.all=true;render()">${LX('Tout le stock','All stock','كل المخزون')}</button></div>
   <select class="inp" onchange="IO.fam=this.value;ioRef()" style="width:100%;margin-bottom:6px"><option value="">${LX('Toutes les familles','All families','كل الفئات')}</option>${fams.map(c=>`<option value="${esc(c)}"${IO.fam===c?' selected':''}>${esc(skc(c))}</option>`).join('')}</select>
   <input class="inp" placeholder="🔎 ${LX('Rechercher (lait, riz, sirop…)','Search (milk, rice, syrup…)','بحث')}" value="${esc(IO.q)}" oninput="IO.q=this.value;ioRef()" style="width:100%;margin-bottom:6px">
@@ -1795,7 +1795,7 @@ function ioView(){const role=ioRole();if(role==='none')return '';if(!IO.ok){if(!
   ${P&&x.code&&(x.status==='requested'||x.status==='ordered')?ioStockLine(x):''}
   ${P?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">${SK.acc==='edit'&&(x.status==='requested'||x.status==='ordered')?`<button class="b" onclick="ioApprove('${x.id}')">✅ ${LX('Approuver','Approve','موافقة')}</button>`:''}${['requested','ordered','delivered','cancelled'].filter(k=>k!==x.status).map(k=>`<button class="btn" onclick="ioSet('${x.id}','${k}')">${IOS(k)[0]} ${IOS(k)[1]}</button>`).join('')}<button class="btn" style="color:#b23a2a" onclick="ioDel('${x.id}')">🗑</button></div><input class="inp" placeholder="${LX('Note Achats (fournisseur, délai…)','Purchasing note (supplier, ETA…)','ملاحظة المشتريات')}" value="${esc(x.pur_note||'')}" onchange="ioNote('${x.id}',this.value)" style="width:100%;margin-top:6px">`:(x.pur_note?`<div class="hint" style="margin-top:4px">🛒 ${esc(x.pur_note)}</div>`:'')}
   ${mine?`<div style="margin-top:6px"><button class="btn" onclick="ioSet('${x.id}','cancelled')">✕ ${LX('Annuler ma demande','Cancel my request','إلغاء طلبي')}</button></div>`:''}</div>`}).join('');
- return `<div class="card"><h2>📨 ${LX('Commandes internes','Internal orders','الطلبات الداخلية')}</h2><p class="b2z">${LX('Demandes du Bar et de la Cuisine vers les Achats.','Requests from the Bar and the Kitchen to Purchasing.','طلبات البار والمطبخ إلى المشتريات.')}</p>${form}
+ return `<div class="card"><h2>📨 ${LX('Commandes internes','Internal orders','الطلبات الداخلية')}</h2><p class="b2z">${LX('Demandes du Bar, de la Cuisine et de l\'Hygiène vers les Achats.','Requests from the Bar, Kitchen and Hygiene to Purchasing.','طلبات البار والمطبخ إلى المشتريات.')}</p>${form}
  <div class="filters" style="margin:8px 0">${ch(IO.st,'open',"IO.st='open';render()",LX('En cours','Open','جارية')+' ('+ioOpenN()+')')}${ch(IO.st,'done',"IO.st='done';render()",LX('Clôturées','Closed','مغلقة'))}${ch(IO.st,'all',"IO.st='all';render()",LX('Toutes','All','الكل'))}${(P||role==='view')?ch(IO.dp,'',"IO.dp='';render()",LX('Bar + Cuisine','Bar + Kitchen','الكل'))+ch(IO.dp,'bar',"IO.dp='bar';render()",'🍹 Bar')+ch(IO.dp,'kitchen',"IO.dp='kitchen';render()",'🍳 '+LX('Cuisine','Kitchen','المطبخ')):''}</div>
  ${rows||`<p class="b2z">${LX('Aucune demande.','No requests.','لا توجد طلبات.')}</p>`}</div>`}
 
@@ -1845,8 +1845,8 @@ function soView(){if(SK.acc==='none')return '';if(!SK.ok){if(!SK.busy)loadStk().
 
 const DS={ok:false,busy:false,err:false,rows:[],moves:[],scope:[],role:'',dp:'',q:''};
 async function dsLoad(){DS.busy=true;try{const r=await rpc('dsk_list',{p_who:me.who,p_pin:me.pin});DS.rows=r.rows||[];DS.moves=r.moves||[];DS.scope=r.scope||[];DS.role=r.role||'';DS.err=false}catch(e){DS.err=true}DS.ok=true;DS.busy=false}
-const dsDn=d=>d==='bar'?'🍹 Bar':'🍳 '+LX('Cuisine','Kitchen','المطبخ');
-function dsRowsHtml(){const E=DS.role==='bar'||DS.role==='kit'||DS.role==='pur',q=(DS.q||'').toLowerCase(),L=[];
+const dsDn=d=>d==='bar'?'🍹 Bar':d==='hygiene'?'🧼 '+LX('Hygiène & nettoyage','Hygiene & cleaning','النظافة والتنظيف'):'🍳 '+LX('Cuisine','Kitchen','المطبخ');
+function dsRowsHtml(){const E=DS.role==='bar'||DS.role==='kit'||DS.role==='hyg'||DS.role==='pur',q=(DS.q||'').toLowerCase(),L=[];
  DS.rows.forEach((x,i)=>{if(x.dept===DS.dp&&(!q||(x.name||'').toLowerCase().includes(q)||(x.cat||'').toLowerCase().includes(q)))L.push([x,i])});
  if(!L.length)return `<tr><td colspan="6" class="empty">${LX('Aucun article. Le stock du département se remplit à chaque commande interne approuvée.','No items yet. Department stock fills with every approved internal order.','لا توجد أصناف. يمتلئ مخزون القسم عند الموافقة على كل طلب داخلي.')}</td></tr>`;
  return L.map(([x,i])=>{const low=x.min_qty!=null&&+x.qty<=+x.min_qty;return `<tr><td>${esc(skc(x.cat))}</td><td><b>${esc(x.name)}</b></td><td class="nw" style="${low?'color:#b23a2a;font-weight:700':''}">${skN(x.qty,1)} ${esc(x.unit||'')}${low?' ⚠':''}</td><td class="nw">${x.min_qty==null?'—':skN(x.min_qty,1)}</td>${E?`<td class="nw"><input class="inp" id="ds-i${i}" type="number" step="any" min="0" style="width:74px" placeholder="qté"> <button class="b2o" onclick="dsAct(${i},'use')">${LX('Consommé','Used','مستهلك')}</button> <button class="b2o" onclick="dsAct(${i},'count')">${LX('Compté','Counted','جرد')}</button></td>`:'<td></td>'}</tr>`}).join('')}
@@ -1896,9 +1896,9 @@ function pdView(){if(!PD.ok){if(!PD.busy)pdLoad().then(render);return `<div clas
   <h3 style="margin:14px 0 6px">${LX('Production des 7 derniers jours','Production, last 7 days','إنتاج آخر 7 أيام')}</h3>${hist||`<p class="hint">—</p>`}</div>`}
 const PS={s:''};
 function psView(){const pa=typeof PU!=='undefined'&&PU.acc!=='none',sa=typeof SK!=='undefined'&&SK.acc!=='none',oa=ioRole()!=='none';if(tab==='stk'){PS.s='s'}
- const okS={p:pa,s:sa,o:oa,so:sa,ds:oa,pd:oa};if(!PS.s||!okS[PS.s])PS.s=pa?'p':sa?'s':oa?'o':'p';
- const n=[pa,sa,oa,sa,oa,oa].filter(Boolean).length,oc=IO.ok?ioOpenN():0,sc=SO.ok?soOpenN():0,b=(k,i,l,c)=>`<button class="btn${PS.s===k?' on':''}" onclick="PS.s='${k}';render()">${i} ${l}${c?` (${c})`:''}</button>`;
- const sw=n>1?`<div class="filters" style="margin:0 0 10px">${pa?b('p','🛒',LX('Achats · fournisseurs','Purchasing · suppliers','المشتريات · الموردون')):''}${oa?b('o','📨',LX('Commandes internes','Internal orders','الطلبات الداخلية'),oc):''}${sa?b('so','🚚',LX('Commandes fournisseurs','Supplier orders','طلبات الموردين'),sc):''}${sa?b('s','📦',LX('Stock mère','Main stock','المخزون الرئيسي')):''}${oa?b('ds','🏪',LX('Stock département','Department stock','مخزون القسم')):''}${oa?b('pd','🥐',LX('Production','Production','الإنتاج')):''}</div>`:'';
+ const okS={p:pa,s:sa,o:oa,so:sa,ds:oa,pd:oa&&ioRole()!=='hyg'};if(!PS.s||!okS[PS.s])PS.s=pa?'p':sa?'s':oa?'o':'p';
+ const n=[pa,sa,oa,sa,oa,oa&&ioRole()!=='hyg'].filter(Boolean).length,oc=IO.ok?ioOpenN():0,sc=SO.ok?soOpenN():0,b=(k,i,l,c)=>`<button class="btn${PS.s===k?' on':''}" onclick="PS.s='${k}';render()">${i} ${l}${c?` (${c})`:''}</button>`;
+ const sw=n>1?`<div class="filters" style="margin:0 0 10px">${pa?b('p','🛒',LX('Achats · fournisseurs','Purchasing · suppliers','المشتريات · الموردون')):''}${oa?b('o','📨',LX('Commandes internes','Internal orders','الطلبات الداخلية'),oc):''}${sa?b('so','🚚',LX('Commandes fournisseurs','Supplier orders','طلبات الموردين'),sc):''}${sa?b('s','📦',LX('Stock mère','Main stock','المخزون الرئيسي')):''}${oa?b('ds','🏪',LX('Stock département','Department stock','مخزون القسم')):''}${oa&&ioRole()!=='hyg'?b('pd','🥐',LX('Production','Production','الإنتاج')):''}</div>`:'';
  return sw+(PS.s==='p'?purView():PS.s==='o'?ioView():PS.s==='so'?soView():PS.s==='ds'?dsView():PS.s==='pd'?pdView():skView())}
 function purView(){if(!mgOK()||PU.acc==='none')return `<div class="card"><p class="b2z">${pt('pv')}</p></div>`;
  if(!PU.ok){loadPur().then(render);return `<div class="card">…</div>`}
