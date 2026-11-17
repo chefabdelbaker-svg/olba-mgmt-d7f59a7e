@@ -586,6 +586,20 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 .cover.c1.vD .ob .pv em{color:var(--tc)!important;font-size:clamp(10px,calc(var(--rh)*.24),12px)!important;font-style:normal;font-weight:600}
 .cover.c1.vD .ob .pv:active,.cover.c1.vD .ob .pv:hover{filter:brightness(1.18)}
 .cover.c1.vD .ob .pv.ph{display:none}
+/* D v2 : cartes verre + filet doré, connecteurs fins */
+.cover.c1.vD .bl{background:none!important;color:#F7AA54!important;box-shadow:none!important;padding:0!important;width:100%!important;display:flex!important;align-items:center;gap:10px;font-weight:700;letter-spacing:.24em;margin:0 0 calc(var(--rh)*.14)!important}
+.cover.c1.vD .bl::before,.cover.c1.vD .bl::after{display:block!important;content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(247,170,84,.55))}.cover.c1.vD .bl::after{transform:scaleX(-1)}
+.cover.c1.vD .ob .pv{background:linear-gradient(160deg,rgba(255,246,234,.10),rgba(255,246,234,.03))!important;box-shadow:0 8px 18px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,246,234,.14)!important;border:1px solid color-mix(in srgb,var(--tc) 55%,transparent)!important;border-radius:16px!important;backdrop-filter:blur(2px)}
+.cover.c1.vD .ob .pv svg{box-shadow:0 0 0 2px #F7AA54,0 0 0 4px rgba(247,170,84,.18),0 4px 12px rgba(0,0,0,.4)!important}
+.cover.c1.vD .ob .pv span{color:#FFF6EA!important;letter-spacing:.01em}
+.cover.c1.vD .ob .pv em{color:#F7AA54!important;text-transform:uppercase;letter-spacing:.1em;font-size:clamp(9px,calc(var(--rh)*.2),11px)!important;font-weight:700}
+.cover.c1.vD .ob .pv::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--tc) 70%,transparent)}
+.cover.c1.vD .ob .pv:active,.cover.c1.vD .ob .pv:hover{filter:none;background:linear-gradient(160deg,rgba(247,170,84,.28),rgba(247,170,84,.08))!important;transform:translateY(-1px)}
+.cover.c1.vD .b1 .pv{background:linear-gradient(160deg,rgba(247,170,84,.22),rgba(255,246,234,.04))!important;border-color:rgba(247,170,84,.7)!important}
+.cover.c1.vD .dar{position:relative;height:calc(var(--rh)*.42)!important;font-size:0!important;color:transparent}
+.cover.c1.vD .dar::before{content:"";position:absolute;left:50%;top:0;bottom:6px;width:1px;background:linear-gradient(#F7AA54,rgba(247,170,84,.25))}
+.cover.c1.vD .dar::after{content:"";position:absolute;left:50%;bottom:0;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#F7AA54;box-shadow:0 0 8px rgba(247,170,84,.7)}
+.cover.c1.vD .dg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}.cover.c1.vD .ob .bn{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}.cover.c1.vD .b2 .bn,.cover.c1.vD .b4 .bn{grid-template-columns:minmax(0,1fr)!important}.cover.c1.vD .ob .pv .pt{min-width:0;overflow:hidden}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="hclk" id="hclk" onclick="calOpen()" style="cursor:pointer" title="Calendrier"><b></b><small></small></span><span class="tools"><button id="envb" onclick="go('msg')" title="Messages" style="display:none;position:relative">✉<span class="badge pulse" id="envn" style="position:absolute;top:-6px;inset-inline-end:-6px;display:none"></span></button><button id="srchb" onclick="srOpen()" title="Search">⌕</button><button id="dkb" onclick="dkTog()" title="Dark">☾</button></span><span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span id="ambtab" style="flex:1 1 150px;max-width:280px;display:flex"></span><span class="who" id="who"></span><div id="ambbar"></div></header>
@@ -1480,7 +1494,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zr';
+const BUILD='20261117zs';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
