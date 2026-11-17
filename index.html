@@ -914,7 +914,7 @@ function finDebtView(){if(!me)return loginView();if(!FINSET.includes(me.who))ret
  if(FN.err)return `<div class="card"><p class="hint">${LX('Finance indisponible pour le moment. Réessaie dans un instant.','Finance is not available right now. Please retry shortly.','المالية غير متاحة حاليًا. أعد المحاولة بعد قليل.')}</p></div>`;
  const a=finAgg(),ed=FINED.includes(me.who),td=today();
  const flt=[['all',LX('Tout','All','الكل')],['open',LX('À payer','Open','مستحق')],['late',LX('En retard','Late','متأخر')],['paid',LX('Payé','Paid','مدفوع')]];
- let rows=FN.rows.filter(r=>FN.f==='all'||(FN.f==='open'&&finRest(r)>0)||(FN.f==='late'&&finRest(r)>0&&r.due&&r.due<td)||(FN.f==='paid'&&finRest(r)===0))&&(!FN.cat||r.category===FN.cat));
+ let rows=FN.rows.filter(r=>(FN.f==='all'||(FN.f==='open'&&finRest(r)>0)||(FN.f==='late'&&finRest(r)>0&&r.due&&r.due<td)||(FN.f==='paid'&&finRest(r)===0))&&(!FN.cat||r.category===FN.cat));
  return `<div class="kpis">${[[LX('Reste à payer','Remaining to pay','المتبقي للدفع'),mny(a.open),''],[LX('En retard','Late','متأخر'),mny(a.late),a.late?'amb':''],[LX('À payer ce mois','Due this month','مستحق هذا الشهر'),mny(a.month),''],[LX('Factures ouvertes','Open invoices','فواتير مفتوحة'),String(a.n),'cnt']].map(([k,v,c])=>`<div class="kp"><b class="${c==='cnt'?'':c}">${v}</b><small>${k}${c==='cnt'?'':' · SAR'}</small></div>`).join('')}</div>
  <div class="card"><div class="filters">${flt.map(([k,l])=>`<button class="btn${FN.f===k?' on':''}" onclick="FN.f='${k}';FN.cat='';render()">${l}</button>`).join('')}${FN.cat?`<span class="hint" style="align-self:center">${esc(finT(FCAT,FN.cat))} ✕ <a href="#" onclick="FN.cat='';render();return false">${LX('tout voir','show all','عرض الكل')}</a></span>`:''}${ed?`<button class="btn" style="margin-inline-start:auto" onclick="finAdd()">＋ ${LX('Ajouter un vendeur / une facture','Add a vendor / invoice','إضافة مورّد / فاتورة')}</button>`:''}</div>
  ${rows.length?rows.map(r=>finRow(r,ed)).join(''):`<p class="hint">${LX('Aucun vendeur enregistré.','No vendor recorded.','لا يوجد مورّدون مسجلون.')}</p>`}
@@ -2386,7 +2386,7 @@ function ownBoard(){if(!me||!DIRSET.includes(me.who))return '';
   tile(mny(lateT),LX('En retard · SAR','Overdue · SAR','متأخر'),lateT?'red':'',"FN.sec='debt';FN.f='late';FN.cat='';go('fin')",LX('salaires oct. '+mny(salL)+' · fournisseurs & autres '+mny(lateT-salL),'Oct. salaries '+mny(salL)+' · suppliers & other '+mny(lateT-salL),''))+
   tile(mny(+B.sup_open||0),LX('Fournisseurs impayés · SAR','Unpaid suppliers · SAR','موردون غير مدفوعين'),(+B.sup_open)?'amb':'',"FN.sec='debt';FN.f='open';FN.cat='fournisseur';go('fin')",LX('factures septembre/octobre, échéance 30 nov.','','')) +
   tile(mny(salL),LX('Salaires impayés · SAR','Unpaid salaries · SAR','رواتب غير مدفوعة'),salL?'amb':'',"FN.sec='debt';FN.f='late';FN.cat='salaire';go('fin')",LX('octobre uniquement','October only',''))+
-  tile(mny(d15),LX('À payer sous 15 jours · SAR','Due in 15 days · SAR','خلال 15 يومًا'),'',"FN.sec='plan';go('fin')",LX('dont salaires novembre (fin de mois)','incl. November salaries (month end)',''))+
+  tile(mny(d15),LX('À payer sous 15 jours · SAR','Due in 15 days · SAR','خلال 15 يومًا'),'',"FN.sec='plan';go('fin')",LX('dont salaires novembre (fin de mois)','incl. November salaries (month end)','')))+
  sec(LX('Personnel','Staff','الموظفون'),
   tile(S.active,LX('Effectif actif','Active staff','الموظفون'),'',hrGo)+
   tile(S.iq_exp,LX('Iqamas expirées','Expired iqamas','إقامات منتهية'),S.iq_exp?'red':'grn',hrGo)+
