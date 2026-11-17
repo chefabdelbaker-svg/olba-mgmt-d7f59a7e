@@ -1655,7 +1655,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzza';
+const BUILD='20261117zzzb';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2396,7 +2396,7 @@ function ownBoard(){if(!me||!DIRSET.includes(me.who))return '';
   tile(mny(lateT),LX('En retard · SAR','Overdue · SAR','متأخر'),lateT?'red':'',"FN.sec='debt';FN.f='late';FN.cat='';go('fin')",LX('salaires oct. '+mny(salL)+' · fournisseurs & autres '+mny(lateT-salL),'Oct. salaries '+mny(salL)+' · suppliers & other '+mny(lateT-salL),''))+
   tile(mny(+B.sup_open||0),LX('Fournisseurs impayés · SAR','Unpaid suppliers · SAR','موردون غير مدفوعين'),(+B.sup_open)?'amb':'',"FN.sec='debt';FN.f='open';FN.cat='fournisseur';go('fin')",LX('factures septembre/octobre, échéance 30 nov.','','')) +
   tile(mny(salL),LX('Salaires impayés · SAR','Unpaid salaries · SAR','رواتب غير مدفوعة'),salL?'amb':'',"FN.sec='debt';FN.f='late';FN.cat='salaire';go('fin')",LX('octobre uniquement','October only',''))+
-  (odOn&&OD.ok&&!OD.err?tile(mny(odT),LX('🔒 Dû à Chef Abdelhafid Arbi, COO · SAR','🔒 Owed to Chef Abdelhafid Arbi, COO · SAR',''),odL?'amb':'',"FN.sec='od';go('fin')",LX('dont déjà échu '+mny(odL),'of which overdue '+mny(odL),'')):'')+
+  (odOn&&OD.ok&&!OD.err?tile('🔒',LX('Dû à Chef Abdelhafid Arbi, COO','Owed to Chef Abdelhafid Arbi, COO',''),odT?'red':'grn',"FN.sec='od';go('fin')",LX('Touche pour voir','Tap to view','')):'')+
   tile(mny(d15),LX('À payer sous 15 jours · SAR','Due in 15 days · SAR','خلال 15 يومًا'),'',"FN.sec='plan';go('fin')",LX('dont salaires novembre (fin de mois)','incl. November salaries (month end)','')))+
  sec(LX('Personnel','Staff','الموظفون'),
   tile(S.active,LX('Effectif actif','Active staff','الموظفون'),'',hrGo)+
