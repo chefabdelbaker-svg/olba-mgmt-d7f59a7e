@@ -746,7 +746,7 @@ function buildT(rows){if(!rows.length)return;const st0=new Map(T0.map((t,i)=>[t.
   return{p:PIDS[r.proj]||(b&&b.p)||r.proj||'',id:r.id,n:nm||(b&&b.n)||r.id,en:same?b.en:(TRX[nm]?TRX[nm][0]:nm),ar:same?b.ar:(TRX[nm]?TRX[nm][1]:nm),o:r.owner||(b&&b.o)||'Direction',dep:r.dep!=null?r.dep:(b&&b.dep)||'',s:r.pstart||(b&&b.s)||today(),e:r.pend||(b&&b.e)||today(),ms:/(GO|OP)$/.test(r.id),_i:i}});
  out.sort((x,y)=>x._i-y._i);T=out}
 const PVOK=/(_list|_acc|_access|_get|_person)$|^(mgmt_check|mgmt_avatars|mgmt_photos|mgmt_activity|mgmt_vault_key)$/;
-async function rpc(fn,b){if(me&&me.pv){if(fn==='mgmt_ping')return true;if(!PVOK.test(fn))throw new Error('Aperçu en lecture seule')}const r=await fetch(URL_+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json()}
+async function rpc(fn,b){if(me&&me.pv){if(fn==='mgmt_ping')return true;if(!PVOK.test(fn))throw new Error('Aperçu en lecture seule')}const r=await fetch(URL_+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b)});const tx=await r.text();if(!r.ok)throw new Error(tx);if(!tx)return null;try{return JSON.parse(tx)}catch(e){return null}}
 const st=id=>S[id]||{deadline:null,status:'À faire',comment:''};
 const nod=t=>{const x=st(t.id);return !x.deadline||!!x.dl_auto};
 const isLate=t=>{const x=st(t.id);return x.deadline&&x.deadline<today()&&x.status!=='Terminé'};
@@ -1564,7 +1564,10 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zw';
+
+/* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
+{const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
+const BUILD='20261117zx';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
