@@ -1269,13 +1269,13 @@ const STY={
  m7:{bg:'#C9A56B',x:'suit',body:'#1B1B1F'},
  m8:{bg:'#8A6FA8',x:'short',body:'#E9E4DA',gl:1}};
 const STYIDS=Object.keys(STY);
-const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Hamza':'w9.8','Kyrt':'w9.7','Manar':'w9.9','Finance':'w9.9','Consultant pizza':'m6.0'};
+const PDEF={'Rima':'w9.0','Chef Omar':'w9.1','Sayed':'w9.2','Hafiz':'w9.3','Ossama':'w9.6','Direction':'w9.4','Ahmed':'w9.5','Hamza':'w9.8','Kyrt':'w9.7','Manar':'w9.9','Finance':'w9.10','Consultant pizza':'m6.0'};
 let AVC={},PH={};
 function lsPh(p){try{return localStorage.getItem('olba-photo-'+p)||''}catch(e){return ''}}
 const ICON_BG=['#8E2F45','#4F7F69','#2E4A78','#A87433','#3A2A20','#5B4A86','#25140E'];
 function iconSvg(n){const id='ic'+n+'x'+(++avN);
  return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="59"/></clipPath></defs><g clip-path="url(#${id})"><rect width="120" height="120" fill="#25140E"/><image href="avatars/a${n}.jpg" x="-1.5" y="-1.5" width="123" height="123" preserveAspectRatio="xMidYMid slice"/></g><circle cx="60" cy="60" r="58.6" fill="none" stroke="#E6C477" stroke-width="1.2" opacity=".85"/></svg>`}
-function avSvg(sid,photo){const m=String(sid||'m7.1').match(/^([wm]\d)(?:\.(\d))?$/)||['','m7','1'];const a=STY[m[1]]||STY.m7,sk=SKIN[+m[2]||0]||SKIN[1],id='cp'+(++avN);
+function avSvg(sid,photo){const m=String(sid||'m7.1').match(/^([wm]\d)(?:\.(\d+))?$/)||['','m7','1'];const a=STY[m[1]]||STY.m7,sk=SKIN[+m[2]||0]||SKIN[1],id='cp'+(++avN);
  if(!photo&&m[1]==='w9')return iconSvg(+m[2]||0);
  if(photo)return `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><clipPath id="${id}"><circle cx="60" cy="60" r="60"/></clipPath></defs><image href="${photo}" x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#${id})"/></svg>`;
  const dk=(h,f)=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.substr(i,2),16)*f).toString(16).padStart(2,'0')).join('');
@@ -1456,7 +1456,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zl';
+const BUILD='20261117zm';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
