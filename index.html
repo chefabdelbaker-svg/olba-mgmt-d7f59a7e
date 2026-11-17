@@ -1655,7 +1655,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzu';
+const BUILD='20261117zzv';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2403,6 +2403,7 @@ function ownBoard(){if(!me||!DIRSET.includes(me.who))return '';
   tile(S.iq_exp,LX('Iqamas expirées','Expired iqamas','إقامات منتهية'),S.iq_exp?'red':'grn',hrGo)+
   tile(S.iq_soon,LX('Expirent sous 60 j','Expiring in 60 d','تنتهي خلال 60 يوم'),S.iq_soon?'amb':'grn',hrGo)+
   tile(S.spons_not,LX('Hors sponsor (not under)','Not under sponsorship','غير مكفولين'),S.spons_not?'amb':'',hrGo,LX('Sous sponsor : '+S.spons_under,'Under sponsorship: '+S.spons_under,''))+
+  tile(S.bal_none||0,LX('Cartes Baladia manquantes','Missing Baladia cards','بطاقات بلدي ناقصة'),(S.bal_none||0)?'red':'grn',hrGo,LX('54 000 SAR à prévoir (1 200 / carte)','SAR 54,000 to budget (1,200 / card)',''))+
   tile((S.iq_none||0)+(S.bal_exp||0),LX('Iqama manquante · Baladia expirée','No iqama · Baladia expired','إقامة ناقصة · بلدية'),((S.iq_none||0)+(S.bal_exp||0))?'amb':'grn',hrGo,LX((S.iq_none||0)+' · '+(S.bal_exp||0),(S.iq_none||0)+' · '+(S.bal_exp||0),'')))+
  sec(LX('Projets & exécution','Projects & execution','المشاريع والتنفيذ'),
   tile(nx===null?'—':'J-'+nx,LX('Prochaine ouverture','Next opening','الافتتاح القادم'),'',"go('all')")+
