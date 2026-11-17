@@ -1433,7 +1433,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zf';
+const BUILD='20261117zg';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -1751,7 +1751,8 @@ async function ioSet(id,st){const r=IO.rows.find(x=>x.id===id);if(!r)return;cons
 async function ioDel(id){if(!confirm(LX('Supprimer cette demande ?','Delete this request?','حذف هذا الطلب؟')))return;try{await rpc('io_del',{p_who:me.who,p_pin:me.pin,p_id:id});IO.rows=IO.rows.filter(x=>x.id!==id);render()}catch(e){alert(LX('Suppression impossible.','Could not delete.','تعذر الحذف.'))}}
 async function ioNote(id,v){const r=IO.rows.find(x=>x.id===id);if(!r)return;r.pur_note=v;await ioSave({id:id,pur_note:v})}
 async function ioCatLoad(){if(IO.catOk)return;try{IO.cat=await rpc('io_cat_list',{p_who:me.who,p_pin:me.pin})||[];IO.catOk=true}catch(e){IO.cat=[]}render()}
-function ioItemsHtml(){const q=IO.q.trim().toLowerCase();const L=IO.cat.filter(x=>(!IO.fam||x.cat===IO.fam)&&(!q||String(x.name).toLowerCase().includes(q)||String(x.code).toLowerCase().includes(q)));
+function ioDeptOf(){const r=ioRole();return r==='bar'?'bar':r==='kit'?'kitchen':(IO.fm&&IO.fm.dept)||'bar'}
+function ioItemsHtml(){const q=IO.q.trim().toLowerCase(),dp=ioDeptOf();const L=IO.cat.filter(x=>(IO.all||!x.use||x.use==='none'||x.use==='both'||x.use===dp)&&(!IO.fam||x.cat===IO.fam)&&(!q||String(x.name).toLowerCase().includes(q)||String(x.code).toLowerCase().includes(q)));
  if(!IO.catOk)return `<p class="b2z">…</p>`;
  if(!L.length)return `<p class="b2z">${LX('Aucun article dans cette famille.','No item in this family.','لا يوجد صنف.')} <button class="btn" onclick="ioFree()">＋ ${LX('Article hors liste','Item not in the list','صنف خارج القائمة')}</button></p>`;
  return L.slice(0,80).map(x=>{const on=IO.bk.some(b=>b.code===x.code);return `<button class="btn${on?' on':''}" style="display:flex;justify-content:space-between;gap:8px;width:100%;text-align:start;margin:2px 0" onclick="ioAdd('${esc(x.code)}')"><span>${on?'✓ ':'＋ '}${esc(x.name)}</span><span style="opacity:.6">${esc(x.unit||'')}</span></button>`}).join('')+(L.length>80?`<p class="hint">${LX('Affine avec la recherche…','Refine with the search…','حدّد بالبحث…')}</p>`:'')}
@@ -1779,6 +1780,7 @@ function ioView(){const role=ioRole();if(role==='none')return '';if(!IO.ok){if(!
  const fams=[...new Set(IO.cat.map(x=>x.cat))].sort();if(can&&IO.open&&!IO.catOk&&!IO.catBusy){IO.catBusy=true;ioCatLoad()}
  const form=can?(IO.open?`<div class="card" style="background:rgba(255,255,255,.5);margin:8px 0"><h3 style="margin:0 0 8px">${LX('Nouvelle demande','New request','طلب جديد')}</h3>
   ${P?`<div class="filters" style="margin:0 0 8px">${ch(f.dept,'bar',"IO.fm.dept='bar';render()",'🍹 Bar')}${ch(f.dept,'kitchen',"IO.fm.dept='kitchen';render()",'🍳 '+LX('Cuisine','Kitchen','المطبخ'))}</div>`:`<p class="hint" style="margin:0 0 8px">${dl(role==='bar'?'bar':'kitchen')}</p>`}
+  <div class="filters" style="margin:0 0 6px"><button class="btn${IO.all?'':' on'}" onclick="IO.all=false;render()">${LX('Articles de mon département','My department items','أصناف قسمي')}</button><button class="btn${IO.all?' on':''}" onclick="IO.all=true;render()">${LX('Tout le stock','All stock','كل المخزون')}</button></div>
   <select class="inp" onchange="IO.fam=this.value;ioRef()" style="width:100%;margin-bottom:6px"><option value="">${LX('Toutes les familles','All families','كل الفئات')}</option>${fams.map(c=>`<option value="${esc(c)}"${IO.fam===c?' selected':''}>${esc(skc(c))}</option>`).join('')}</select>
   <input class="inp" placeholder="🔎 ${LX('Rechercher (lait, riz, sirop…)','Search (milk, rice, syrup…)','بحث')}" value="${esc(IO.q)}" oninput="IO.q=this.value;ioRef()" style="width:100%;margin-bottom:6px">
   <div id="io-cl" style="max-height:230px;overflow:auto;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:4px;margin-bottom:8px">${ioItemsHtml()}</div>
