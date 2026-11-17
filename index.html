@@ -574,10 +574,11 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 .cover.c1.vD .bl{margin:0 0 calc(var(--rh)*.1)!important;font-size:clamp(10px,1.5vh,12px)!important;letter-spacing:.14em;width:max-content;padding:3px 12px!important;margin-right:auto!important}
 .cover.c1.vD .bl::before,.cover.c1.vD .bl::after{display:none}
 .cover.c1.vD .ob .bn{display:grid!important;grid-template-columns:1fr 1fr!important;gap:calc(var(--rh)*.1)!important}
-.cover.c1.vD .b1 .bn{grid-template-columns:repeat(3,1fr)!important}.cover.c1.vD .b2 .bn{grid-template-columns:1fr!important}
+.cover.c1.vD .b1 .bn{grid-template-columns:repeat(3,1fr)!important}.cover.c1.vD .b2 .bn{grid-template-columns:1fr 1fr!important}
 .cover.c1.vD .ob .pv{width:100%!important;min-width:0!important;height:var(--rh);flex-direction:row!important;align-items:center!important;gap:9px!important;padding:0 8px 0 6px!important;border-radius:12px!important;position:relative;cursor:pointer;text-align:left;background:linear-gradient(135deg,color-mix(in srgb,var(--tf) 60%,transparent),color-mix(in srgb,var(--tf) 12%,transparent))!important;box-shadow:inset 4px 0 0 var(--tc),inset 0 0 0 1px rgba(248,218,184,.22)!important}
 .cover.c1.vD .b1 .pv{height:calc(var(--rh)*2.15);flex-direction:column!important;justify-content:center;gap:3px!important;padding:4px!important;text-align:center}
 .cover.c1.vD .b1 .pt{align-items:center!important;width:100%}.cover.c1.vD .b1 .pv span{text-align:center;width:100%}
+.cover.c1.vD .ob .b1 .pv span,.cover.c1.vD .ob .b1 .pv em{text-align:center!important;width:100%;display:block}.cover.c1.vD .ob .b1 .pv span{display:-webkit-box}
 .cover.c1.vD .ob .pv svg{width:calc(var(--rh) - 10px)!important;height:calc(var(--rh) - 10px);flex:none;box-shadow:0 0 0 2px var(--tc)!important}
 .cover.c1.vD .b1 .pv svg{width:calc(var(--rh)*.95)!important;height:calc(var(--rh)*.95)}
 .cover.c1.vD .pt{align-items:flex-start!important;gap:0!important;min-width:0}
@@ -1390,9 +1391,9 @@ ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل و�
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
 function orgChartD(){const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
- return `<div class="ob">${bd('b1',T.h1,['Direction','Ahmed','Finance'].map(orgNode).join(''))}${bd('b2',T.h2,orgNode('Sayed'))}${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt','Manar'].map(orgNode).join(''))}</div>`}
+ return `<div class="ob">${bd('b1',T.h1,['Direction','Ahmed','Finance'].map(orgNode).join(''))}${bd('b2',T.h2+' · '+LX('RH','HR','الموارد'),orgNode('Manar')+orgNode('Sayed'))}${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt'].map(orgNode).join(''))}</div>`}
 function orgChart(){if(cvVar==='D')return orgChartD();const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
- return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2,orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt')+orgNode('Manar')+orgNode('Finance'))}</div>`}
+ return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2+' · '+LX('RH','HR','الموارد'),orgNode('Manar')+orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt')+orgNode('Manar')+orgNode('Finance'))}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
 function cvBack(){cvStep=0;selOpen=false;cvAn=true;render()}
 function cvClose(){selOpen=false;cvAn=false;render()}
@@ -1479,7 +1480,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zp';
+const BUILD='20261117zq';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
