@@ -600,6 +600,27 @@ html[dir=rtl] .hero::before{right:auto;left:18px}
 .cover.c1.vD .dar::before{content:"";position:absolute;left:50%;top:0;bottom:6px;width:1px;background:linear-gradient(#F7AA54,rgba(247,170,84,.25))}
 .cover.c1.vD .dar::after{content:"";position:absolute;left:50%;bottom:0;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#F7AA54;box-shadow:0 0 8px rgba(247,170,84,.7)}
 .cover.c1.vD .dg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}.cover.c1.vD .ob .bn{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}.cover.c1.vD .b2 .bn,.cover.c1.vD .b4 .bn{grid-template-columns:minmax(0,1fr)!important}.cover.c1.vD .ob .pv .pt{min-width:0;overflow:hidden}
+/* D v3 : organigramme à 4 colonnes */
+.cover.c1.vD .dg2{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:10px;row-gap:0;align-items:stretch}
+.cover.c1.vD .dg2>.bl{margin-bottom:calc(var(--rh)*.12)!important}
+.cover.c1.vD .gc .pv{height:100%!important}
+.cover.c1.vD .gc.sm .pv{height:calc(var(--rh)*1.75);flex-direction:column!important;justify-content:center;gap:2px!important;padding:4px!important;text-align:center}
+.cover.c1.vD .gc.sm .pt,.cover.c1.vD .gc.sm .pv span,.cover.c1.vD .gc.sm .pv em{align-items:center!important;text-align:center!important;width:100%;display:block}
+.cover.c1.vD .gc.sm .pv span{display:-webkit-box}
+.cover.c1.vD .gc.sm .pv svg{width:calc(var(--rh)*.72)!important;height:calc(var(--rh)*.72)}
+.cover.c1.vD .gc.b1 .pv{height:calc(var(--rh)*2.1)!important}
+.cover.c1.vD .gc.lkhr .pv::before{content:"";position:absolute;left:-12px;top:50%;width:12px;height:4px;margin-top:-2px;background:#F7AA54;border-radius:2px;box-shadow:0 0 8px rgba(247,170,84,.6)}
+.cover.c1.vD .gc.lkhr{position:relative}
+.cover.c1.vD .lk{position:relative;height:calc(var(--rh)*.42)}
+.cover.c1.vD .lk.v::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;border-radius:2px;background:#F7AA54;box-shadow:0 0 8px rgba(247,170,84,.5)}
+.cover.c1.vD .lk.v.dn::after{content:"";position:absolute;left:50%;bottom:-2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#F7AA54}
+.cover.c1.vD .lk.v[style*="3/5"]::before{left:75%}.cover.c1.vD .lk.v:not(.dn)[style*="1/5"]::before{left:12.5%}
+.cover.c1.vD .lk.v[style*="grid-column:1"]:not([style*="/"])::before{left:50%}
+.cover.c1.vD .lk.br{height:calc(var(--rh)*.5)}
+.cover.c1.vD .lk.br::before{content:"";position:absolute;left:12.5%;right:25%;top:0;height:10px;border:2px dashed rgba(247,170,84,.8);border-top:0;border-radius:0 0 8px 8px;transform:translateY(0)}
+.cover.c1.vD .lk.br::after{content:"";position:absolute;right:25%;top:-0px;height:0}
+.cover.c1.vD .gt{padding-top:0}.cover.c1.vD .gt .bn{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+.cover.c1.vD .lgd{text-align:center;color:rgba(248,218,184,.7);font-size:10px;letter-spacing:.06em;margin-top:6px}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="hclk" id="hclk" onclick="calOpen()" style="cursor:pointer" title="Calendrier"><b></b><small></small></span><span class="tools"><button id="envb" onclick="go('msg')" title="Messages" style="display:none;position:relative">✉<span class="badge pulse" id="envn" style="position:absolute;top:-6px;inset-inline-end:-6px;display:none"></span></button><button id="srchb" onclick="srOpen()" title="Search">⌕</button><button id="dkb" onclick="dkTog()" title="Dark">☾</button></span><span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span id="ambtab" style="flex:1 1 150px;max-width:280px;display:flex"></span><span class="who" id="who"></span><div id="ambbar"></div></header>
@@ -1404,8 +1425,8 @@ en:{bsm:'In the name of Allah, the Most Gracious, the Most Merciful.',v:'“And 
 ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل ونتقن كل تفصيل، والتوفيق من الله.',d:'',dr:'سورة الكهف، ١٨:١٠',dl:'نسأل الله أن ييسّر مشروعنا ويبارك في فريقنا ويرزقنا التوفيق.',go:'المس للمتابعة',h1:'القيادة',h2:'مدير المتجر',h3:'مديرو الفرق',free:'شاغر'}};
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
-function orgChartD(){const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`,ar=c=>`<div class="dar" style="grid-column:${c}">↓</div>`;
- return `<div class="ob dg">${bd('b1',T.h1,orgNode('Direction')+orgNode('Ahmed'))}${ar(1)}${ar(2)}${bd('b2',LX('Opérations','Operations','العمليات'),orgNode('Sayed'))}${bd('b4',LX('RH · Finance','HR · Finance','الموارد · المالية'),orgNode('Manar')+orgNode('Finance'))}${ar(1)}${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt'].map(orgNode).join(''))}</div>`}
+function orgChartD(){const T=CVT[lang]||CVT.fr,g=(c,col,p)=>`<div class="gc ${c}" style="grid-column:${col}">${orgNode(p)}</div>`,lk=(cls,col)=>`<div class="lk ${cls}" style="grid-column:${col}"></div>`;
+ return `<div class="ob dg2"><span class="bl" style="grid-column:1/5">${esc(T.h1)}</span>${g('b1',"1/3",'Direction')}${g('b1',"3/5",'Ahmed')}${lk('v',"1")}${lk('v',"3/5")}${g('b2 sm',"1",'Sayed')}${g('b4 sm lkhr',"2",'Manar')}${g('b4 sm',"3/5",'Finance')}${lk('v dn',"1")}${lk('br',"1/5")}<span class="bl" style="grid-column:1/5">${esc(T.h3)}</span><div class="bd b3 gt" style="grid-column:1/5"><div class="bn">${['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt'].map(orgNode).join('')}</div></div><small class="lgd" style="grid-column:1/5">${LX('━ ligne directe  ┄ lien','━ direct line  ┄ link','━ مباشر  ┄ ارتباط')}</small></div>`}
 function orgChart(){if(cvVar==='D')return orgChartD();const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
  return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2+' · '+LX('RH','HR','الموارد'),orgNode('Manar')+orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt')+orgNode('Manar')+orgNode('Finance'))}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
@@ -1494,7 +1515,7 @@ function projStrip(){if(!me)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.
 function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].filter(p=>PJ[p]);if(!ps.length)return '';if(OPN['ps']===undefined)OPN['ps']=true;const late=mt.filter(isLate).length,op=!!OPN['ps'];
  return `<div class="card lk" style="padding:10px 14px;margin:0 0 10px" onclick="tgP('ps')"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📊 ${LX('Projets en cours','Projects in progress','المشاريع الجارية')} · ${ps.length}</b><span class="hint">${late?`<b style="color:#c0392b">${late} ${LX('en retard','late','متأخر')}</b> · `:''}${op?'⌃':'⌄'}</span></div></div>`+(op?projStrip():'')}
 /* ===== Mise à jour automatique : recharge si une nouvelle version est publiée ===== */
-const BUILD='20261117zs';
+const BUILD='20261117zt';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
