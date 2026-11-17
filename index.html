@@ -1696,7 +1696,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzzr';
+const BUILD='20261117zzzs';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2493,7 +2493,10 @@ async function wqSave(){const g=i=>document.getElementById('wq-'+i).value;if(!g(
  try{const r=await rpc('wst_quick_save',{p_who:me.who,p_pin:me.pin,p:{day:g('d'),product:g('p'),qty:g('q'),unit:g('u'),reason:g('r'),note:g('n')}});WQ.rows.unshift(r);render()}catch(e){alert(LX('Enregistrement impossible.','Could not save.','تعذر الحفظ.'))}}
 function wqCard(){if(!me||me.who!=='Hamza')return '';if(!WQ.ok){if(!WQ.busy)wqLoad();return ''}
  return `<div class="card"><h3>🗑️ ${LX('Wastage · pertes du jour','Wastage · daily losses','الفاقد اليومي')}</h3><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px"><input id="wq-d" type="date" value="${today()}" max="${today()}"><input id="wq-p" placeholder="${LX('Produit (ex. croissant)','Product','المنتج')}"><input id="wq-q" type="number" step="any" min="0" placeholder="${LX('Quantité','Quantity','الكمية')}"><input id="wq-u" value="pc" placeholder="${LX('Unité','Unit','الوحدة')}"><select id="wq-r">${Object.keys(KR).map(k=>`<option value="${k}">${kR(k)}</option>`).join('')}</select><input id="wq-n" placeholder="Note"></div><div style="margin-top:8px"><button class="btn on" onclick="wqSave()">✔ ${LX('Enregistrer','Save','حفظ')}</button></div>${WQ.rows.length?`<div style="margin-top:10px">${WQ.rows.slice(0,10).map(w=>`<div class="li"><span>${esc(w.day)} · <b>${esc(w.product)}</b> × ${esc(w.qty)} ${esc(w.unit)}<br><small>${kR(w.reason)}${w.note?' · '+esc(w.note):''}</small></span></div>`).join('')}</div>`:''}</div>`}
-function homeView(){return homeView1()+(me?gfpBand()+wqCard()+trCard():'')}
+function nextMeet(){if(!me||!AG.ok)return null;const n=new Date(),td=today(),hm=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');return (AG.meet||[]).filter(m=>(!(m.attendees||[]).length||(m.attendees||[]).includes(me.who))&&(m.mdate>td||(m.mdate===td&&String(m.mtime||'').slice(0,5)>=hm.slice(0,5)||m.mdate===td&&false))).sort((a,b)=>(a.mdate+a.mtime).localeCompare(b.mdate+b.mtime))[0]||null}
+function meetBand(){if(!me)return '';if(!AG.ok){if(!AG.busy)loadAg().then(()=>{if(tab==='home'||tab==='me')render()});return ''}const m=nextMeet();if(!m)return '';const td=today(),tm=new Date(Date.now()+864e5).toISOString().slice(0,10),loc=lang==='ar'?'ar-SA':lang==='en'?'en-GB':'fr-FR',dl=m.mdate===td?LX('Aujourd\'hui','Today','اليوم'):m.mdate===tm?LX('Demain','Tomorrow','غدًا'):new Date(m.mdate+'T12:00:00').toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long'});
+ return `<div class="card" onclick="go('meet')" style="cursor:pointer;border-inline-start:4px solid ${m.mdate===td?'#b4412c':'#c9a24a'};display:flex;gap:12px;align-items:center"><span style="font-size:28px">📅</span><div style="flex:1;min-width:0"><div class="hint" style="margin:0">${LX('Prochain meeting','Next meeting','الاجتماع القادم')}${m.mdate===td?' · <b style="color:#b4412c">'+LX('aujourd\'hui','today','اليوم')+'</b>':''}</div><b>${esc(m.title)}</b><div class="hint" style="margin:2px 0 0">${esc(dl)} · ${esc(String(m.mtime||'').slice(0,5))}${m.place?' · '+esc(m.place):''}</div></div><span>›</span></div>`}
+function homeView(){return (me?meetBand():'')+homeView1()+(me?gfpBand()+wqCard()+trCard():'')}
 function homeView1(){if(me&&!MT.ok&&!MT.busy)loadMt().then(()=>{if(tab==='home')render()});return homeView0()}
 function homeView0(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
@@ -2536,7 +2539,7 @@ function teamView(){if(me&&!AG.ok)loadAg();loadAct();const ord=t=>st(t.id).statu
   ${actLine(p)}
   ${nx.length?`<small style="display:block;color:#8a7a68;margin-bottom:2px">${L('tm_nx')}</small>${nx.map(t=>`<div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:2px 0"><span>${esc(t.n?tn(t):(t.name||''))}</span><b style="white-space:nowrap">${fd(st(t.id).deadline)}</b></div>`).join('')}`:''}</div>`}).join('');
  return strip+cohAlert()+`<div class="grid">${cards}</div>`+codesCard()}
-function meView(){const x=meView0();return x+(me&&!(canSeeAll()&&tmv)?gfpBand():'')}
+function meView(){const x=meView0();return (me&&!(canSeeAll()&&tmv)?meetBand():'')+x+(me&&!(canSeeAll()&&tmv)?gfpBand():'')}
 function meView0(){if(!me)return loginView();
  if(canSeeAll()&&tmv)return teamView();
  const W=canSeeAll()&&vas?vas:me.who;
