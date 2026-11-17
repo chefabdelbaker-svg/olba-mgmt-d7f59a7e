@@ -1654,7 +1654,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzq';
+const BUILD='20261117zzr';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2410,7 +2410,14 @@ function ownBoard(){if(!me||!DIRSET.includes(me.who))return '';
   tile(nodl,LX('Dates à confirmer','Dates to confirm','مواعيد للتأكيد'),nodl?'amb':'grn',"goTasks({nodl:true})")+
   tile(open.length+'/'+n,LX('Actions ouvertes','Open actions','مفتوحة'),'',"go('all')"))+
  `</div>`}
-function homeView(){return homeView1()+(me?gfpBand():'')}
+const TR={to:'en',busy:false,out:''};
+async function trChunks(t,to){const parts=[];let cur='';t.split(/(?<=[.!?\n])\s*/).forEach(x=>{if((cur+' '+x).length>450&&cur){parts.push(cur);cur=x}else cur=cur?cur+' '+x:x});if(cur)parts.push(cur);const o=[];
+ for(const c of parts.flatMap(c=>c.length>450?c.match(/.{1,450}/gs):[c])){const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(c)+'&langpair=fr|'+to);const j=await r.json();if(!j.responseData)throw 0;o.push(j.responseData.translatedText)}return o.join(' ')}
+async function trGo(){const t=document.getElementById('tr-in').value.trim();if(!t)return;TR.busy=true;TR.out='…';render();
+ try{if('Translator' in self){try{const tr=await self.Translator.create({sourceLanguage:'fr',targetLanguage:TR.to});TR.out=await tr.translate(t)}catch(e){TR.out=await trChunks(t,TR.to)}}else TR.out=await trChunks(t,TR.to)}catch(e){TR.out='Traduction indisponible pour le moment (limite gratuite atteinte ou pas de connexion). Réessaie plus tard.'}
+ TR.busy=false;render();const i=document.getElementById('tr-in');if(i)i.value=t}
+function trCard(){if(!me)return '';return `<div class="card"><h3 style="margin:0 0 6px">🌐 Traducteur (français → …)</h3><textarea id="tr-in" rows="4" placeholder="Écris en français…" style="width:100%;box-sizing:border-box"></textarea><div style="display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap"><select onchange="TR.to=this.value;"><option value="en"${TR.to==='en'?' selected':''}>English</option><option value="ar"${TR.to==='ar'?' selected':''}>العربية</option></select><button class="btn on" onclick="trGo()">Traduire</button>${TR.out&&!TR.busy?`<button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('tr-out').innerText);this.textContent='Copié ✓'">Copier</button>`:''}</div>${TR.out?`<div id="tr-out" dir="${TR.to==='ar'?'rtl':'ltr'}" style="white-space:pre-wrap;background:#f7f1e8;border-radius:10px;padding:10px">${esc(TR.out)}</div>`:''}<p class="hint">Gratuit. Les textes sont envoyés à un service de traduction : ne mets rien de confidentiel (chiffres, salaires).</p></div>`}
+function homeView(){return homeView1()+(me?gfpBand()+trCard():'')}
 function homeView1(){if(me&&!MT.ok&&!MT.busy)loadMt().then(()=>{if(tab==='home')render()});return homeView0()}
 function homeView0(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
