@@ -1655,7 +1655,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzy';
+const BUILD='20261117zzz';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2940,7 +2940,7 @@ function pgHero(){if(!me||tab==='home'||tab==='mg'||(tab==='me'&&!canSeeAll()))r
  else if(tab==='pur'||tab==='stk'){ic='ops';tt=LX('Achats & Stock','Purchasing & Stock','المشتريات والمخزون');sb=LX('Commandes, fournisseurs et inventaire','Orders, suppliers and inventory','الطلبات والموردون والمخزون')}
  else return '';
  const AC={chk:"#6B2E1F",kit:"#C4693A",pur:"#7C8A3E",stk:"#7C8A3E",meet:"#D9B38A",day:"#D9B38A",budget:"#D9B38A",b2b:"#9A6A3A",all:"#F7AA54",gantt:"#F7AA54",coh:"#F7AA54",me:"#F7AA54"}[tab]||"#F7AA54";
- return `<div class="hero pgh" style="--ac:${AC}"><div class="pgi">${ico(ic,'ti')}</div><div><div class="k">OLBA Bakehouse</div><h1>${tt}</h1><p>${sb}</p></div>${mt?`<div class="pgm"><b>${mt}</b><small>${tab==='all'||tab==='gantt'||tab==='coh'?LX('prochaine ouverture','next opening','الافتتاح القادم'):tab==='me'?LX('rapports reçus','reports in','تقارير مستلمة'):tab==='budget'?LX('SAR engagés','SAR committed','ريال ملتزم به'):tab==='b2b'?LX('prospects suivis','prospects tracked','عملاء محتملون'):tab==='kit'?LX('SAR perdus · 7 j','SAR lost · 7 d','ريال فاقد · 7 أيام'):LX('réunion','meeting','اجتماع')}</small></div>`:''}</div>`}
+ return `<div class="hero pgh" style="--ac:${AC}"><div class="pgi">${ico(ic,'ti')}</div><div><div class="k">OLBA Bakehouse</div><h1>${tt}</h1><p>${sb}</p></div>${mt?`<div class="pgm"><b>${mt}</b><small>${tab==='all'||tab==='gantt'||tab==='coh'?LX('prochaine ouverture','next opening','الافتتاح القادم'):tab==='me'?LX('rapports reçus','reports in','تقارير مستلمة'):tab==='budget'?LX('SAR engagés','SAR committed','ريال ملتزم به'):tab==='b2b'?LX('prospects suivis','prospects tracked','عملاء محتملون'):tab==='kit'?LX('SAR perdus · 7 j','SAR lost · 7 d','ريال فاقد · 7 أيام'):(tab==='fin'||tab==='dfin')?LX('SAR restant à payer','SAR left to pay','ريال متبقي للدفع'):LX('réunion','meeting','اجتماع')}</small></div>`:''}</div>`}
 function ckT(id,b){const row=b.closest('tr'),sel=row.querySelector('.i-st');sel.value=sel.value==='Terminé'?'À faire':'Terminé';row.classList.toggle('isdone',sel.value==='Terminé');save(id,sel)}
 
 /* My Staff : équipe + planning hebdomadaire (Hamza = bar/salle, Chef Omar = cuisine) */
