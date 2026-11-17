@@ -1567,7 +1567,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261117zzc';
+const BUILD='20261117zzd';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2849,7 +2849,7 @@ function ambUi(){const t=document.getElementById('ambtab'),p=document.getElement
 (function(){let done=false,pre=false;try{if(Date.now()-(+localStorage.getItem('olba-bism')||0)<6*36e5)pre=true}catch(e){}const TXT='بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
  function tts(){if(!('speechSynthesis' in window))return;const v=speechSynthesis.getVoices().find(x=>/^ar/i.test(x.lang));if(!v)return;const u=new SpeechSynthesisUtterance(TXT);u.lang=v.lang;u.voice=v;u.rate=.72;try{speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
  function after(){if(AMB.on&&me)ambPlay()}
- function play(){if(done)return;if(pre){done=true;off();setTimeout(after,0);return}done=true;off();try{localStorage.setItem('olba-bism',String(Date.now()))}catch(e){}const a=new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3');a.volume=.9;a.onended=after;a.play().catch(()=>{const b=new Audio('https://everyayah.com/data/Alafasy_128kbps/001001.mp3');b.onended=after;b.play().catch(()=>{tts();after()})})}
+ function play(){if(done)return;if(pre){done=true;off();return}done=true;off();try{localStorage.setItem('olba-bism',String(Date.now()))}catch(e){}const a=new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3');a.volume=.9;a.onended=after;a.play().catch(()=>{const b=new Audio('https://everyayah.com/data/Alafasy_128kbps/001001.mp3');b.onended=after;b.play().catch(()=>{tts();after()})})}
  function off(){['pointerdown','keydown','touchstart','click'].forEach(e=>document.removeEventListener(e,play,true))}
  ['pointerdown','keydown','touchstart','click'].forEach(e=>document.addEventListener(e,play,true));
  window.addEventListener('load',()=>setTimeout(()=>{if(done||pre)return;const a=new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3');a.volume=.9;a.onended=after;a.play().then(()=>{done=true;off();try{localStorage.setItem('olba-bism',String(Date.now()))}catch(e){}}).catch(()=>{})},700))})();
