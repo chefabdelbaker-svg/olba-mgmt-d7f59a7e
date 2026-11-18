@@ -1936,7 +1936,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261118s';
+const BUILD='20261118t';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2843,7 +2843,7 @@ function wqCard(){if(!me||me.who!=='Hamza')return '';if(!WQ.ok){if(!WQ.busy)wqLo
 function nextMeet(){if(!me||!AG.ok)return null;const n=new Date(),td=today(),hm=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');return (AG.meet||[]).filter(m=>(!(m.attendees||[]).length||(m.attendees||[]).includes(me.who))&&(m.mdate>td||(m.mdate===td&&String(m.mtime||'').slice(0,5)>=hm.slice(0,5)||m.mdate===td&&false))).sort((a,b)=>(a.mdate+a.mtime).localeCompare(b.mdate+b.mtime))[0]||null}
 function meetBand(){if(!me)return '';if(!AG.ok){if(!AG.busy)loadAg().then(()=>{if(tab==='home'||tab==='me')render()});return ''}const m=nextMeet();if(!m)return '';const td=today(),tm=new Date(Date.now()+864e5).toISOString().slice(0,10),loc=lang==='ar'?'ar-SA':lang==='en'?'en-GB':'fr-FR',dl=m.mdate===td?LX('Aujourd\'hui','Today','اليوم'):m.mdate===tm?LX('Demain','Tomorrow','غدًا'):new Date(m.mdate+'T12:00:00').toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long'});
  return `<div class="card" onclick="go('meet')" style="cursor:pointer;border-inline-start:4px solid ${m.mdate===td?'#b4412c':'#c9a24a'};display:flex;gap:12px;align-items:center"><span style="font-size:28px">📅</span><div style="flex:1;min-width:0"><div class="hint" style="margin:0">${LX('Prochain meeting','Next meeting','الاجتماع القادم')}${m.mdate===td?' · <b style="color:#b4412c">'+LX('aujourd\'hui','today','اليوم')+'</b>':''}</div><b>${esc(m.title)}</b><div class="hint" style="margin:2px 0 0">${esc(dl)} · ${esc(String(m.mtime||'').slice(0,5))}${m.place?' · '+esc(m.place):''}</div></div><span>›</span></div>`}
-function homeView(){const mb=me?meetBand():'',cb=me?cdBand():'';return (mb&&cb?`<div class="mcd">${mb}${cb}</div>`:mb+cb)+homeView1()+(me?gfpBand()+wqCard()+trCard():'')}
+function homeView(){return (me?topBands():'')+homeView1()+(me?gfpBand()+wqCard()+trCard():'')}
 function homeView1(){if(mtVis()&&!MT.ok&&!MT.busy)loadMt().then(()=>{if(tab==='home')render()});return homeView0()}
 function homeView0(){const projs=Object.keys(PJ).filter(p=>T.some(t=>t.p===p));
  const n=T.length,open=T.filter(t=>st(t.id).status!=='Terminé'),done=n-open.length,doing=T.filter(t=>st(t.id).status==='En cours').length,
@@ -2886,7 +2886,9 @@ function teamView(){if(me&&!AG.ok)loadAg();loadAct();const ord=t=>st(t.id).statu
   ${nx.length?`<small style="display:block;color:#8a7a68;margin-bottom:2px">${L('tm_nx')}</small>${nx.map(t=>`<div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:2px 0"><span>${esc(t.n?tn(t):(t.name||''))}</span><b style="white-space:nowrap">${fd(st(t.id).deadline)}</b></div>`).join('')}`:''}</div>`}).join('');
  const ahm=savedMe&&savedMe.who==='Direction'&&me&&!me.pv?`<div class="card" style="display:flex;align-items:center;gap:12px">${avatar('Ahmed').replace('<svg','<svg style="width:52px;height:52px;flex:none"')}<div><b>${esc(pnm('Ahmed'))}</b><div class="hint" style="margin:0">${LX('Partenaire · co-fondateur','Partner · co-founder','شريك · مؤسس مشارك')}</div></div><button class="l" style="margin-inline-start:auto" onclick="pvGo('Ahmed')">👁 ${LX('Voir le site comme','See site as','عرض كـ')}</button></div>`:'';
  return strip+cohAlert()+`<div class="grid">${cards}</div>`+ahm+codesCard()}
-function meView(){const x=meView0();return (me&&!(canSeeAll()&&tmv)?meetBand():'')+x+(me&&!(canSeeAll()&&tmv)?gfpBand():'')}
+function agBannerAs(W){if(!AG.ok){loadAg();return ''}if(NOREP.includes(W)||agRow(W,today()))return '';return `<div class="card agbn"><div><b>${agt('bn')}</b><div class="hint" style="margin:2px 0 0">${agt('dl7')}</div></div><button class="b" onclick="AG.fo='${W}';AG.fd=null;render()">${agt('bnb')}</button></div>`}
+function topBands(){const mb=meetBand(),cb=cdBand();return mb&&cb?`<div class="mcd">${mb}${cb}</div>`:mb+cb}
+function meView(){const x=meView0();return (me&&!(canSeeAll()&&tmv)?topBands()+(canSeeAll()&&vas?agBannerAs(vas):''):'')+x+(me&&!(canSeeAll()&&tmv)?gfpBand():'')}
 function meView0(){if(!me)return loginView();
  if(canSeeAll()&&tmv)return teamView();
  const W=canSeeAll()&&vas?vas:me.who;
