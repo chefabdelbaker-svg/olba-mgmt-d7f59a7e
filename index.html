@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261119g"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261119h"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -1948,7 +1948,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261119g';
+const BUILD='20261119h';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -3507,7 +3507,7 @@ const evOk=()=>me&&!me.pv&&['Direction','Sayed'].includes(me.who);
 const ALR={ok:false,busy:false,d:null,err:false,t:0};
 const ALRC=[['docs','📄',['Documents & iqama à renouveler (30 jours)','Documents & iqama to renew (30 days)','وثائق وإقامات للتجديد']],['debt','🧾',['Factures fournisseurs en retard ou à 7 jours','Supplier invoices late or due in 7 days','فواتير متأخرة أو خلال 7 أيام']],['budget','💰',['Budget en attente d’approbation depuis plus de 48 h','Budget awaiting approval > 48 h','ميزانية بانتظار الموافقة']],['sal','👥',['Salaires du mois non payés (après le 28)','Unpaid salaries (after the 28th)','رواتب غير مدفوعة']]];
 async function alrLoad(){if(ALR.busy)return;ALR.busy=true;try{ALR.d=await rpc('mgmt_alerts',{p_who:me.who,p_pin:me.pin});ALR.err=false}catch(e){ALR.err=true}ALR.ok=true;ALR.t=Date.now();ALR.busy=false}
-const alrOk=()=>!!me&&!me.pv&&['Direction','Sayed','Ahmed'].includes(me.who);
+const alrOk=()=>!!me&&['Direction','Sayed','Ahmed'].includes(me.who);
 const alrN=()=>ALR.d?ALRC.reduce((a,c)=>a+((ALR.d[c[0]]||[]).length),0):0;
 function alrLine(c,i){const d=i.d?String(i.d).slice(0,10):'';const n=i.n;const late=typeof n==='number'?(n<0?`<b style="color:#b23a2a">${LX('en retard de '+(-n)+' j','late by '+(-n)+' d','متأخر '+(-n)+' يوم')}</b>`:n===0?`<b style="color:#c8873a">${LX('aujourd’hui','today','اليوم')}</b>`:c==='budget'?`<span class="hint">${n} ${LX('j','d','يوم')}</span>`:`<span class="hint">${LX('dans '+n+' j','in '+n+' d','بعد '+n+' يوم')}</span>`):'';return `<div style="padding:5px 0;border-top:1px solid #eee">${esc(i.t||'')} ${d?`<small class="hint">${d}</small>`:''} ${late}</div>`}
 function alrDocs(a){const soon=a.filter(i=>i.n>=0),ex=a.filter(i=>i.n<0).sort((x,y)=>String(y.d).localeCompare(String(x.d)));return (soon.length?`<div class="hint" style="margin:6px 0 0">${LX('Expirent sous 30 jours','Expiring within 30 days','تنتهي خلال 30 يومًا')} (${soon.length})</div>${soon.map(i=>alrLine('docs',i)).join('')}`:'')+(ex.length?`<details style="margin-top:6px"><summary style="cursor:pointer" class="hint">${LX('Déjà expirées','Already expired','منتهية')} (${ex.length}) — ${LX('plus récentes en premier','most recent first','الأحدث أولًا')}</summary>${ex.map(i=>alrLine('docs',i)).join('')}</details>`:'')}
