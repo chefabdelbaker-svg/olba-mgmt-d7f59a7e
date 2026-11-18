@@ -1802,7 +1802,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261118b';
+const BUILD='20261118c';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -1845,7 +1845,7 @@ function out(){try{sessionStorage.removeItem('olba-tab');localStorage.removeItem
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* ===== B2B module (data lives in the protected DB; access checked server-side) ===== */
-let b2bAcc='none',B2={p:[],c:[],r:[],t:[],ok:false,err:false,busy:false},b2s={sub:'tsk',q:'',cat:'',pri:'',st:'',typ:'',due:false,n:60};
+let b2bAcc='none',B2={p:[],c:[],r:[],t:[],ok:false,err:false,busy:false},b2s={sub:'tsk',q:'',cat:'',pri:'',st:'',typ:'',due:false,k:'',n:60};
 const b2Edit=()=>b2bAcc==='edit';
 const b2ui=k=>{const r=B2.t.find(t=>t.grp==='ui'&&t.title===k);return r?(lang==='en'?r.formats:lang==='ar'?r.note:r.hook):''};
 const B2ST=['À qualifier','Contact vérifié','Premier e-mail envoyé','Relance 1','Relance 2','Dégustation planifiée','Échange en cours','Partenaire','Écarté'];
@@ -1887,6 +1887,7 @@ async function loadB2B(){if(b2bAcc==='none'||!me||B2.busy)return false;B2.busy=t
 async function loadB2Acc(){b2bAcc='none';if(!me)return;try{const a=await rpc('b2b_access',{p_who:me.who,p_pin:me.pin});b2bAcc=(a==='edit'||a==='view')?a:'none'}catch(e){b2bAcc='none'}head();if(tab==='b2b')render()}
 function b2Sub(s){b2s.sub=s;render()}
 function b2F(k,v){b2s[k]=v;b2s.n=60;render()}
+function b2K(k){if(k==='all'){Object.assign(b2s,{k:'',cat:'',st:'',pri:'',typ:'',due:false,q:'',n:60})}else if(k==='due'){b2s.due=!b2s.due;b2s.n=60}else{b2s.k=b2s.k===k?'':k;b2s.n=60}render()}
 function b2Plan(){const R=B2.t.filter(t=>t.grp==='plan').sort((a,b)=>a.ord-b.ord);if(!R.length)return `<div class="card empty">—</div>`;
  const pj=(x,k)=>{try{return JSON.parse(x)}catch(e){return null}};
  return R.map(r=>{const d=lang==='fr'?pj(r.hook):pj(r.formats)||pj(r.hook);if(!d)return '';
@@ -1907,18 +1908,22 @@ const B2XZ=[[/Riyad\b/g,'Riyadh'],[/Quartier diplomatique/g,'Diplomatic Quarter'
 const b2x=v=>{if(lang!=='en'||!v)return v;if(B2X[v])return B2X[v];let r=v;B2XZ.forEach(([a,b])=>{r=r.replace(a,b)});return r};
 function b2Pipe(){const P=B2.p,cats=[...new Set(P.map(p=>p.cat).filter(Boolean))].sort(),typs=[...new Set(P.map(p=>p.typ).filter(Boolean))].sort();
  const ct=P.filter(p=>!['À qualifier','Contact vérifié','Écarté'].includes(p.status)).length;
- const kp=[[bt('k_tot'),P.length],[bt('k_mail'),P.filter(p=>b2mail(p.contact)).length],[bt('k_ct'),ct],[bt('k_ex'),P.filter(p=>['Dégustation planifiée','Échange en cours'].includes(p.status)).length],[bt('k_pa'),P.filter(p=>p.status==='Partenaire').length],[bt('k_due'),P.filter(b2due).length]];
+ const isWa=p=>p.src==='whatsapp',isCt=p=>!['À qualifier','Contact vérifié','Écarté'].includes(p.status),isEx=p=>['Dégustation planifiée','Échange en cours'].includes(p.status);
+ const kp=[[bt('k_tot'),P.length,'all'],[bt('k_mail'),P.filter(p=>b2mail(p.contact)).length,'mail'],['WhatsApp',P.filter(isWa).length,'wa'],[bt('k_ct'),P.filter(isCt).length,'ct'],[bt('k_ex'),P.filter(isEx).length,'ex'],[bt('k_pa'),P.filter(p=>p.status==='Partenaire').length,'pa'],[bt('k_due'),P.filter(b2due).length,'due']];
+ const kOk=p=>!b2s.k||(b2s.k==='mail'?!!b2mail(p.contact):b2s.k==='wa'?isWa(p):b2s.k==='ct'?isCt(p):b2s.k==='ex'?isEx(p):b2s.k==='pa'?p.status==='Partenaire':true);
+ const catN={};P.forEach(p=>{if(p.cat)catN[p.cat]=(catN[p.cat]||0)+1});
  const q=b2s.q.toLowerCase();
- const L2=P.filter(p=>(!b2s.cat||p.cat===b2s.cat)&&(!b2s.pri||p.pri===b2s.pri)&&(!b2s.st||p.status===b2s.st)&&(!b2s.typ||p.typ===b2s.typ)&&(!b2s.due||b2due(p))&&(!q||(p.org+' '+p.zone+' '+p.contact+' '+p.cat+' '+p.note).toLowerCase().includes(q)));
+ const L2=P.filter(p=>(!b2s.cat||p.cat===b2s.cat)&&(!b2s.pri||p.pri===b2s.pri)&&(!b2s.st||p.status===b2s.st)&&(!b2s.typ||p.typ===b2s.typ)&&(!b2s.due||b2due(p))&&kOk(p)&&(!q||(p.org+' '+p.zone+' '+p.contact+' '+p.cat+' '+p.note).toLowerCase().includes(q)));
  const cnt={};P.forEach(p=>cnt[p.status]=(cnt[p.status]||0)+1);
  const opt=(a,v,all)=>`<option value="">${all}</option>`+a.map(x=>`<option value="${esc(x)}"${x===v?' selected':''}>${esc(b2x(x))}</option>`).join('');
  const rows=L2.slice(0,b2s.n).map(p=>{const m=b2mail(p.contact);
-  return `<tr class="${b2due(p)?'late':''}"><td><span class="b2pri ${p.pri}">${esc(p.pri)}</span></td><td><b>${esc(p.org)}</b><div class="b2z">${esc(b2x(p.zone))}</div></td><td>${esc(b2x(p.cat))}${p.typ?`<div class="b2z">${esc(b2x(p.typ))}</div>`:''}</td>
-  <td class="b2c">${m?`<a href="mailto:${esc(m)}">${esc(m)}</a>`:`<span class="b2z">${esc(String(p.contact).split(' · ')[0].slice(0,60))}</span>`}</td>
+  return `<tr class="${b2due(p)?'late':''}"><td><span class="b2pri ${p.pri}">${esc(p.pri)}</span></td><td><b>${esc(p.org)}</b><div class="b2z">${esc(b2x(p.zone))}${p.rating?' · ★'+p.rating+(p.reviews?' ('+p.reviews+')':''):''}</div></td><td>${esc(b2x(p.cat))}${p.typ?`<div class="b2z">${esc(b2x(p.typ))}</div>`:''}</td>
+  <td class="b2c">${m?`<a href="mailto:${esc(m)}">${esc(m)}</a>`:p.src==='whatsapp'&&p.phone?`<a href="https://wa.me/${esc(p.phone.replace(/[^0-9]/g,''))}" target="_blank" rel="noopener">💬 ${esc(p.phone)}</a>`:`<span class="b2z">${esc(String(p.contact).split(' · ')[0].slice(0,60))}</span>`}</td>
   <td>${b2Edit()?`<select class="b2s" style="border-color:${B2STC[p.status]||'#ccc'}" onchange="b2St(${p.id},this.value)">${B2ST.map(s=>`<option value="${esc(s)}"${s===p.status?' selected':''}>${esc(b2stl(s))}</option>`).join('')}</select>`:`<span class="pill" style="background:#f3ece2;color:${B2STC[p.status]||'#555'}">${esc(b2stl(p.status))}</span>`}</td>
   <td>${b2Edit()?`<input type="date" class="b2d" value="${esc(p.next_action||'')}" onchange="b2Na(${p.id},this.value)">`:esc(p.next_action||'')}</td>
   <td><button class="b2o" onclick="b2Open(${p.id})">${bt('open')}</button></td></tr>`}).join('');
- return `<div class="b2kp">${kp.map(([l,v])=>`<div class="b2k"><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+ return `<div class="b2kp">${kp.map(([l,v,k])=>{const on=k==='due'?b2s.due:k==='all'?(!b2s.k&&!b2s.cat&&!b2s.st&&!b2s.due&&!b2s.pri&&!b2s.typ&&!b2s.q):b2s.k===k;return `<div class="b2k${on?' on':''}" style="cursor:pointer${on?';border-color:#8a5a2b;background:#f8efe2':''}" onclick="b2K('${k}')"><b>${v}</b><span>${l}</span></div>`}).join('')}</div>
+ <div class="b2fn">${Object.keys(catN).sort((a,b)=>catN[b]-catN[a]).map(c=>`<button class="${b2s.cat===c?'on':''}" onclick="b2F('cat','${b2s.cat===c?'':c.replace(/'/g,"\\'")}')">${esc(b2x(c))} <b>${catN[c]}</b></button>`).join('')}</div>
  <div class="b2fn">${B2ST.map(s=>`<button style="--c:${B2STC[s]}" class="${b2s.st===s?'on':''}" onclick="b2F('st','${b2s.st===s?'':s}')">${esc(b2stl(s))} <b>${cnt[s]||0}</b></button>`).join('')}</div>
  <div class="card"><div class="filters"><input class="b2q" placeholder="${bt('q')}" value="${esc(b2s.q)}" oninput="b2s.q=this.value;b2s.n=60;clearTimeout(window._b2t);window._b2t=setTimeout(()=>{render();const i=document.querySelector('.b2q');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},350)">
  <select onchange="b2F('cat',this.value)">${opt(cats,b2s.cat,bt('all_c'))}</select><select onchange="b2F('pri',this.value)">${opt(['P1','P2','P3'],b2s.pri,bt('all_p'))}</select><select onchange="b2F('typ',this.value)">${opt(typs,b2s.typ,bt('all_t'))}</select>
