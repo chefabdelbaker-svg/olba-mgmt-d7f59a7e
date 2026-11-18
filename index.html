@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261119g"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -1898,7 +1898,7 @@ function srGo(q){q=(q||'').trim().toLowerCase();const o=document.getElementById(
 document.addEventListener('keydown',e=>{if(e.key==='Escape')srClose();if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();srOpen()}});
 function goTasks(f,id){fl={p:'',o:'',s:'',late:false,nodl:false,week:false,q:'',...(f||{})};lsx=true;go('all');if(id)setTimeout(()=>{const r=document.getElementById('r-'+id);if(r){r.scrollIntoView({behavior:'smooth',block:'center'});r.classList.add('flash');const i=r.querySelector('.i-dl,.i-st');if(i&&!i.disabled)setTimeout(()=>i.focus({preventScroll:true}),400)}},120)}
 function goKit(sec,over){KC.sec=sec;KC.over=!!over;KC.dr=null;KC.cat='';KC.q='';go('kit')}
-function go(t){if(t==='alr')ALR.ok=false;evStamp(t==='stk'?'pur':t);try{if(evOk()&&Date.now()-(EV._t||0)>15000){EV._t=Date.now();evPoll()}}catch(_){}if(t==='mg')MG.s='home';if(t==='stk'){PS.s='s';t='pur'}tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();fx();window.scrollTo(0,0)}
+function go(t){if(t==='alr')ALR.ok=false;evStamp(t==='stk'?'pur':t);try{if(evOk()&&Date.now()-(EV._t||0)>30000){EV._t=Date.now();evPoll()}}catch(_){}if(t==='mg')MG.s='home';if(t==='stk'){PS.s='s';t='pur'}tab=t;const s=groupSubs();for(const g in s)if(s[g].includes(t))GP[g]=t;render();fx();window.scrollTo(0,0)}
 
 try{document.documentElement.style.setProperty('--logo','url('+LOGO+')')}catch(e){}
 document.addEventListener('change',e=>{const el=e.target;if(el&&el.classList&&el.classList.contains('i-st')&&el.value==='Terminé'){const tr=el.closest('tr');if(tr){tr.classList.add('donefx','isdone');setTimeout(()=>tr.classList.remove('donefx'),1600)}}else if(el&&el.classList&&el.classList.contains('i-st')){const tr=el.closest('tr');if(tr)tr.classList.remove('isdone')}});
@@ -1948,8 +1948,8 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261119f';
-let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store'});if(!r.ok)return;const t=await r.text(),m=t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
+const BUILD='20261119g';
+let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
 function toolsCard(me1){if(!me)return '';const w=me.who,A=['Direction','Ahmed','Sayed'],is=(...x)=>A.includes(w)||x.includes(w);
