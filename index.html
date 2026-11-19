@@ -720,6 +720,46 @@ h3{font-family:Georgia,serif;font-weight:400;font-size:13px;letter-spacing:.16em
 #qmen{position:fixed;inset-inline-end:16px;bottom:80px;z-index:41;background:#fffaf1;border:1px solid #e3d3b5;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.28);padding:6px;display:none;min-width:210px}#qmen button{display:block;width:100%;text-align:start;background:none;border:0;padding:10px 12px;font:inherit;color:#3a2a1d;border-radius:9px;cursor:pointer}#qmen button:hover{background:#f4ead9}
 @media(max-width:600px){#mnub{display:inline-flex}header:not(.hopen) .who .l:not(.pvx),header:not(.hopen) #ambtab,header:not(.hopen) #alrtab{display:none}header:not(.hopen) .who{font-size:12px}
 #tabs{-webkit-mask-image:linear-gradient(to right,#000 86%,transparent);mask-image:linear-gradient(to right,#000 86%,transparent)}[dir=rtl] #tabs{-webkit-mask-image:linear-gradient(to left,#000 86%,transparent);mask-image:linear-gradient(to left,#000 86%,transparent)}.fgl{min-width:100%}}
+</style><style id="dsg">
+/* ===== OLBA design pass (look only) ===== */
+:root{--ink:#2a1d14;--cream:#f8f4ee;--sand:#efe7db;--line:#e4d9ca;--gold:#a8702f;--gold2:#d6a65a;--mut:#5c4a38}
+body{font-size:15px;line-height:1.5;background:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2{font-family:Georgia,"Noto Naskh Arabic",serif;letter-spacing:-.01em;color:var(--ink)}h2{font-size:20px}
+main{padding:18px 16px 90px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 1px 2px rgba(42,29,20,.05),0 8px 22px rgba(42,29,20,.045);margin-bottom:14px}
+@media(max-width:600px){.card{padding:14px 15px;border-radius:16px}main{padding:12px 10px 90px}}
+header{background:linear-gradient(180deg,#2a1d14,#36261a);box-shadow:0 2px 14px rgba(0,0,0,.22)}
+.tab{font-size:14.5px;padding:9px 14px;border-radius:12px;color:#e8dbc6;min-height:40px}
+.tab:hover{background:rgba(255,255,255,.08)}
+.tab.on{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.tools button{width:38px;height:38px;border:0;background:#f6efe2;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+button.b{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#fff;border-radius:12px;min-height:44px;padding:10px 20px;font-weight:600;box-shadow:0 3px 10px rgba(168,112,47,.35)}
+button.b:active{transform:translateY(1px);box-shadow:0 1px 4px rgba(168,112,47,.35)}
+.b2o{background:#fff;border:1.5px solid var(--gold);color:var(--gold);border-radius:12px;padding:8px 15px;font-size:14px;font-weight:600;min-height:40px}
+.b2o:hover{background:#fbf3e6}
+.btn{border-radius:999px;min-height:38px}
+.chp{border:1px solid #d8c8ae;border-radius:999px;padding:8px 15px;font-size:14px;min-height:38px;color:#4f3d2d}
+.chp.on{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:600}
+.mgsub button,.sbar button{border-radius:999px;padding:9px 16px;font-size:14px;min-height:40px}
+.mgsub button.on,.sbar button.on{font-weight:700}
+h3{font-size:12.5px;letter-spacing:.18em;color:#9a6428}
+.hint{color:var(--mut)}
+.pill{font-size:12px;padding:4px 11px}
+.badge{font-size:11.5px;min-width:18px;text-align:center;font-weight:700}
+.hero{border-radius:22px}.hero.hc h1{padding-inline-end:88px}.hero.hc{padding-top:18px;padding-bottom:18px}
+.hero.pgh{padding:22px 24px}.hero.pgh h1{font-size:26px}
+.htiles{gap:10px}
+.htl{border:1px solid var(--line);border-radius:16px;padding:12px 8px;box-shadow:0 1px 2px rgba(42,29,20,.05);transition:transform .15s,box-shadow .2s}
+.htl:active{transform:scale(.98)}
+.htl .hti{font-size:22px}.htl .htv{font-size:26px;line-height:1.15}.htl .htl2{font-size:12.5px;color:var(--mut)}
+.htl.hot{border-color:#c98a1b;background:#fff4dd;box-shadow:0 4px 14px rgba(201,138,27,.22)}
+.ndd{border-radius:18px;padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.32)}.ndd>button{padding:12px 12px;border-radius:12px}.ndd>button b{font-size:15px}
+input[type=text],input[type=number],input[type=date],input[type=password],input:not([type]),select,textarea{border-radius:10px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold2);outline-offset:1px}
+.li{padding:10px 4px}
+table{font-variant-numeric:tabular-nums}
+a{color:var(--gold)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
 <span class="hclk" id="hclk" onclick="calOpen()" style="cursor:pointer" title="Calendrier"><b></b><small></small></span><span class="tools"><button id="envb" onclick="go('msg')" title="Messages" style="display:none;position:relative">✉<span class="badge pulse" id="envn" style="position:absolute;top:-6px;inset-inline-end:-6px;display:none"></span></button><button id="hlp" onclick="guideHelp()" title="Aide / Help" style="display:none">❓</button><button id="apb" onclick="go('appr')" title="À approuver / To approve" style="display:none;position:relative">✅<span class="badge pulse" id="apn" style="position:absolute;top:-6px;inset-inline-end:-6px;display:none"></span></button><button id="evb" onclick="evTog()" title="Notifications" style="display:none;position:relative">🔔<span class="badge pulse" id="evn" style="position:absolute;top:-6px;inset-inline-end:-6px;display:none"></span></button><button id="srchb" onclick="srOpen()" title="Search">⌕</button><button id="mnub" onclick="document.querySelector('header').classList.toggle('hopen')" title="Menu">⋯</button><button id="dkb" onclick="dkTog()" title="Dark">☾</button></span><span class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button><button data-l="ar">عربي</button></span><span id="ambtab" style="flex:1 1 150px;max-width:280px;display:flex"></span><span id="alrtab" style="flex:1 1 150px;max-width:280px;display:flex"></span><span class="who" id="who"></span><div id="ambbar"></div></header>
@@ -1965,7 +2005,7 @@ function navItems(g){const i=lang==='en'?1:lang==='ar'?2:0,adm=canSeeAll();
 function navDd(g,btn){const old=document.getElementById('ndd');if(old&&old.dataset.g===g){ndClose();return}ndClose();const t=g==='ops'?'hubo':'huba',its=navItems(g);
  const d=document.createElement('div');d.id='ndd';d.className='ndd';d.dataset.g=g;
  d.innerHTML=its.map(x=>`<button onclick="ndClose();${x.a}"><span style="font-size:20px">${x.ic}</span><span style="flex:1;min-width:0"><b>${esc(x.l)}</b><small style="display:block;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(x.d||'')}</small></span><span>${x.bd||''}</span></button>`).join('')+(g==='ops'||g==='adm'?`<button onclick="ndClose();go('${t}')" style="border-top:1px solid rgba(0,0,0,.1)"><span style="font-size:20px">⊞</span><b>${LX('Voir en tuiles','View as tiles','عرض البلاطات')}</b></button>`:'');
- document.body.appendChild(d);const r=btn.getBoundingClientRect(),w=Math.min(300,window.innerWidth-16);d.style.width=w+'px';let l=lang==='ar'?r.right-w:r.left;l=Math.max(8,Math.min(l,window.innerWidth-w-8));d.style.left=l+'px';d.style.top=(r.bottom+6)+'px'}
+ document.body.appendChild(d);const vw=Math.min(window.innerWidth,document.documentElement.clientWidth||window.innerWidth),r=btn.getBoundingClientRect(),w=Math.min(300,vw-16);d.style.width=w+'px';let l=lang==='ar'?r.right-w:r.left;l=Math.max(8,Math.min(l,vw-w-8));d.style.left=l+'px';d.style.top=(r.bottom+6)+'px'}
 document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#ndd'))ndClose()});document.addEventListener('keydown',e=>{if(e.key==='Escape')ndClose()});
 function nav2Html(GS){const b=(on,oc,ik,lab,bd)=>`<button class="tab${on?' on':''}" onclick="${oc}">${ico(ik)}<span>${lab}</span>${bd||''}</button>`,pu=miss(),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;let h='';
  h+=b(tab==='home',"go('home')",'home',L('tab_home'));
@@ -2046,7 +2086,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zu';
+const BUILD='20261120zv';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
