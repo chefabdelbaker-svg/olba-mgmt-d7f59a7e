@@ -1424,7 +1424,7 @@ function iddView(){if(!me)return loginView();if(!iddOk())return `<div class="car
 /* ===== Logement du personnel ===== */
 const LGM={ok:false,err:false,busy:false,sites:[],rooms:[],persons:[],bus:[],issues:[],meta:{},pr:false,s:'who',q:'',f:'open',_fs:[],_on:null,_del:null,_pid:0};
 const lgmVis=()=>!!me&&['Direction','Sayed','Ahmed','Chef Omar','Ossama','Manar','Hamza'].includes(me.who),lgmRep=()=>lgmVis()&&!me.pv;
-const lgmEd=()=>!!me&&!me.pv&&['Direction','Sayed','Chef Omar','Ossama','Manar'].includes(me.who);
+const lgmEd=()=>!!me&&!me.pv&&['Direction','Sayed'].includes(me.who);
 const lgmOpenN=()=>LGM.ok&&!LGM.err?LGM.issues.filter(i=>i.status!=='resolu').length:0;
 async function lgmLoad(){if(!lgmVis()||LGM.busy)return;LGM.busy=true;try{const r=await rpc('acc_list',{p_who:me.who,p_pin:me.pin});Object.assign(LGM,{sites:r.sites||[],rooms:r.rooms||[],persons:r.persons||[],bus:r.bus||[],issues:r.issues||[],meta:r.meta||{},pr:!!r.pr,err:false})}catch(e){LGM.err=true}LGM.ok=true;LGM.busy=false}
 async function lgmSave(t,row){const r=await rpc('acc_save',{p_who:me.who,p_pin:me.pin,p_tbl:t,p_row:row});LGM.busy=false;await lgmLoad();return r}
@@ -1987,7 +1987,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120h';
+const BUILD='20261120i';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
