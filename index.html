@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261119w"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261119x"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -1984,7 +1984,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261119w';
+const BUILD='20261119x';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;location.reload()}}catch(_){}}
 setInterval(buildCheck,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)buildCheck()});
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -3050,12 +3050,40 @@ dir:{n:['Direction','Management'],i:'🧭',f:[
  ['Budget','Budget','Lignes par projet et famille, approbations (une approbation en attente depuis plus de 48 h remonte en alerte), budget par projet.','Lines per project and family, approvals (pending over 48 h raises an alert), per-project budget.'],
  ['Voir comme','View as','Direction peut prévisualiser l’app comme un collaborateur, en lecture seule.','Direction can preview the app as a team member, read-only.'],
  ['Responsabilités d’Ahmed','Ahmed’s responsibilities','Ahmed a l’accès Finance et la visibilité sur tout, mais seuls Direction et Sayed peuvent créer projets et tâches.','Ahmed has Finance access and visibility on everything, but only Direction and Sayed can create projects and tasks.']]}};
+const GDA={gen:'للجميع',prj:'المشاريع',kit:'المطبخ وسلامة الغذاء',pur:'المشتريات والمخزون',mkt:'التسويق',foh:'الصالة والمتجر',b2b:'B2B',hr:'الموارد البشرية والرواتب',fin:'المالية',mnt:'الصيانة والطوارئ',dir:'الإدارة'};
+const GDT={
+'Home and My page':['الرئيسية وصفحتي','لوحة التحكم الخاصة بك: المهام القريبة واجتماعات اليوم والعدّ التنازلي للإطلاق. تعرض «صفحتي» كل مهامك؛ غيّر حالتها (للتنفيذ، قيد التنفيذ، منتهية، متوقفة) وأضف تاريخاً وتعليقاً.'],
+'Daily alerts':['تنبيهات اليوم','تُظهر ما هو متأخر أو منسي في قسمك. يمكنك الرد على التنبيه (تم، أو تأجيل حتى تاريخ، أو ملاحظة) فيختفي أو ينتقل إلى «المؤجلة». زر اللغة يترجم التنبيهات.'],
+'Messages and Agenda':['الرسائل وجدول الأعمال','الرسائل: راسل فريقك. جدول الأعمال: الاجتماعات وتقرير اليوم.'],
+'Language and feedback':['اللغة والملاحظات','اختر FR أو EN أو AR في الأعلى. خلال المرحلة التجريبية اضغط على شريط «قبل الإطلاق» لإرسال فكرة أو مشكلة.'],
+'Overview and Gantt':['نظرة عامة وجدول غانت','كل مشاريع الإطلاق وإجراءاتها وتأخيراتها وتواريخها. المرشحات: «مهامي» و«متأخرة» و«هذا الأسبوع».'],
+'Create a project and tasks':['إنشاء مشروع ومهام','للإدارة وSayed فقط: «＋ مشروع جديد» (الاسم، الوصف، النهاية، ميزانية اختيارية) ثم «＋ مهمة» (العنوان، المسؤول، الموعد، الاعتماد). يتلقى المسؤول تنبيه «مهمة جديدة». يرى Ahmed كل شيء دون تعديل.'],
+'Checklists and HACCP':['قوائم المراجعة وHACCP','املأ قوائم اليوم (درجات الحرارة، pH وTDS للماء، النظافة). ما لم يُنجز يظهر كتنبيه.'],
+'Non-conformities':['عدم المطابقة','أبلغ عن مشكلة (الملاحظة، المنطقة، الإجراء). تبقى في التنبيهات حتى تُحل.'],
+'Storage and allergens':['التخزين والمسببات','مدد الحفظ وتقسيم غرفة التبريد (الرفوف) وجدول مسببات الحساسية.'],
+'Prices and suppliers':['الأسعار والموردون','قارن الأسعار حسب الصنف والمورد؛ بطاقة المورد: جهة الاتصال والهاتف والبريد والشروط.'],
+'Request a statement':['طلب كشف حساب','تبويب الموردين: «📄 طلب كشف حساب». اختر اللغة ثم واتساب أو بريد لكل مورد: الرسالة جاهزة، فقط اضغط إرسال. يظهر السجل وتنبيه 30 يوماً.'],
+'Payments status':['حالة الدفعات','لكل مورد: المبلغ المتبقي والدفعات القادمة وآخر الطلبات (من قسم المالية).'],
+'Orders (PO)':['أوامر الشراء','أنشئ أمر شراء؛ فوق الحد ينتظر موافقة الإدارة. الإرسال عبر واتساب أو البريد مع ملف PDF.'],
+'Stock and storage plan':['المخزون وخريطة التخزين','الأصناف والحد الأدنى والمشتريات والجرد. «🗺 خريطة التخزين»: مكان كل صنف (المنطقة والرف والمستوى)؛ ✎ لنقله.'],
+'Marketing plan':['خطة التسويق','تقويم المحتوى حسب اليوم والمنصة. المحتوى المخطط وغير المنشور يصبح تنبيهاً.'],
+'Daily service':['الخدمة اليومية','شكاوى وتقييمات العملاء ومؤشرات الخدمة والمسببات وقوائم الصالة.'],
+'Clients and prospects':['العملاء والعملاء المحتملون','تابع عملاءك (تاريخ المتابعة) وعملاءك المحتملين (محادثات جارية). ما يلزم متابعته يظهر كتنبيه.'],
+'Staff files and documents':['ملفات الموظفين والمستندات','ملفات الموظفين والإقامة (تنبيه قبل 30 يوماً من الانتهاء) والسكن والعقود.'],
+'Payroll':['الرواتب','متابعة رواتب الشهر والمدفوعات. بعد يوم 28 يُبلَّغ عن الرواتب غير المدفوعة.'],
+'Supplier debts':['ديون الموردين','سجل الديون: المبلغ والمدفوع والمحوّل والاستحقاق والحالة؛ «للتأكيد» يعني سطراً يحتاج مراجعة. الاستحقاقات خلال 7 أيام والمتأخرة تظهر كتنبيهات.'],
+'Finance access code':['رمز دخول المالية','يمكن لـ Ahmed (الرئيس التنفيذي) أو الإدارة إنشاء رمز جديد لمنح شخص ما صلاحية المالية. Ahmed مسؤول عنه.'],
+'Issues and equipment':['الأعطال والمعدات','أبلغ عن عطل وتابع الإصلاحات وقائمة المعدات. الأعطال غير المحلولة تبقى في التنبيهات.'],
+'Emergency':['الطوارئ','جهات اتصال الطوارئ في متناول اليد.'],
+'Budget':['الميزانية','البنود حسب المشروع والفئة والموافقات (موافقة معلّقة أكثر من 48 ساعة تظهر كتنبيه) وميزانية كل مشروع.'],
+'View as':['العرض كـ','يمكن للإدارة معاينة التطبيق كأحد أعضاء الفريق للقراءة فقط.'],
+'Ahmed’s responsibilities':['مسؤوليات Ahmed','لدى Ahmed صلاحية المالية والرؤية الكاملة، لكن الإدارة وSayed فقط يمكنهما إنشاء المشاريع والمهام.']};
 const GDP={Rima:['mkt'],'Chef Omar':['kit','pur'],Hafiz:['pur'],Hamza:['foh','kit'],Kyrt:['kit'],Ossama:['b2b'],Manar:['hr'],Finance:['fin']};
 let GD={k:''};
-function guideView(){if(!me)return '';const adm=['Direction','Ahmed','Sayed'].includes(me.who)&&!me.pv||['Direction','Ahmed','Sayed'].includes(me.who),en=lang!=='fr',ks=adm?Object.keys(GDX):['gen','prj'].concat(GDP[me.who]||[]).concat(['mnt']);
+function guideView(){if(!me)return '';const adm=['Direction','Ahmed','Sayed'].includes(me.who),en=lang!=='fr',ar=lang==='ar',gn=k=>ar?GDA[k]:GDX[k].n[en?1:0],ks=adm?Object.keys(GDX):['gen','prj'].concat(GDP[me.who]||[]).concat(['mnt']);
  const sel=GD.k&&ks.includes(GD.k)?GD.k:'';const show=sel?[sel]:ks;
- const chips=`<div class="chips"><button class="chp${sel?'':' on'}" onclick="GD.k='';render()">${LX('Tout','All','الكل')}</button>${ks.map(k=>`<button class="chp${sel===k?' on':''}" onclick="GD.k='${k}';render()">${GDX[k].i} ${esc(GDX[k].n[en?1:0])}</button>`).join('')}</div>`;
- return `<div class="card"><h2>📖 ${LX('Guide d’utilisation','User guide','دليل الاستخدام')}</h2><p class="b2z">${adm?LX('Tu vois tous les départements. Touche un département pour le filtrer.','You see every department. Tap one to filter.','يمكنك رؤية كل الأقسام.'):LX('Ce que tu peux faire dans l’app, et comment, pour ton département.','What you can do in the app, and how, for your department.','ما يمكنك فعله في التطبيق.')}</p>${chips}</div>`+show.map(k=>`<div class="card"><h3>${GDX[k].i} ${esc(GDX[k].n[en?1:0])}</h3>${GDX[k].f.map(f=>`<div style="margin:8px 0"><b>${esc(f[en?1:0])}</b><div class="b2z" style="font-size:13px;line-height:1.45">${esc(f[en?3:2])}</div></div>`).join('')}</div>`).join('')}
+ const chips=`<div class="chips"><button class="chp${sel?'':' on'}" onclick="GD.k='';render()">${LX('Tout','All','الكل')}</button>${ks.map(k=>`<button class="chp${sel===k?' on':''}" onclick="GD.k='${k}';render()">${GDX[k].i} ${esc(gn(k))}</button>`).join('')}</div>`;
+ return `<div class="card"><h2>📖 ${LX('Guide d’utilisation','User guide','دليل الاستخدام')}</h2><p class="b2z">${adm?LX('Tu vois tous les départements. Touche un département pour le filtrer.','You see every department. Tap one to filter.','يمكنك رؤية كل الأقسام.'):LX('Ce que tu peux faire dans l’app, et comment, pour ton département.','What you can do in the app, and how, for your department.','ما يمكنك فعله في التطبيق.')}</p>${chips}</div>`+show.map(k=>`<div class="card"><h3>${GDX[k].i} ${esc(gn(k))}</h3>${GDX[k].f.map(f=>`<div style="margin:8px 0"><b>${esc(ar&&GDT[f[1]]?GDT[f[1]][0]:f[en?1:0])}</b><div class="b2z" style="font-size:13px;line-height:1.45">${esc(ar&&GDT[f[1]]?GDT[f[1]][1]:f[en?3:2])}</div></div>`).join('')}</div>`).join('')}
 function allView(){const projs=[...new Set(T.map(t=>t.p).concat(PEXT.map(e=>e.name)))];
  const chip=(on,fn,lab)=>`<button class="chp${on?' on':''}" onclick="${fn};lsx=true;render()">${lab}</button>`;
  const anyF=fl.p||fl.o||fl.s||fl.late||fl.nodl||fl.week||fl.q;
