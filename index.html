@@ -955,6 +955,19 @@ body[data-pg=mg] .mgrail button.on,body[data-pg=mg] .mgrail button:hover{backgro
 body[data-pg=mg] .mgrail button.on .ti{color:#fff}
 body[data-pg=mg] .mgrail button .ti{color:var(--pc)}
 .mgrail button:nth-child(5n+1) .ti{color:#5476a6}.mgrail button:nth-child(5n+2) .ti{color:#b07d16}.mgrail button:nth-child(5n+3) .ti{color:#8a5ea0}.mgrail button:nth-child(5n+4) .ti{color:#2f7f74}.mgrail button:nth-child(5n+5) .ti{color:#2e7d5b}
+/* menus deroules: lignes entierement colorees, couleur par page */
+.ndd[data-g=tk]{--gc:#b4562b}.ndd[data-g=proj]{--gc:#2f7f74}.ndd[data-g=ops]{--gc:#c99a2e}.ndd[data-g=adm]{--gc:#8a5ea0}.ndd[data-g=mg]{--gc:#5476a6}
+.ndd[data-g] .nhero{box-shadow:inset 0 -5px 0 var(--gc)}
+.ndd[data-g=tk] .nr:nth-of-type(1){--dc:#b4562b}.ndd[data-g=tk] .nr:nth-of-type(2){--dc:#8a5ea0}.ndd[data-g=tk] .nr:nth-of-type(3){--dc:#b07d16}.ndd[data-g=tk] .nr:nth-of-type(4){--dc:#2e7d5b}
+.ndd .nr[onclick*="go('all')"]{--dc:#2f7f74}.ndd .nr[onclick*="go('gantt')"]{--dc:#3f5d8a}.ndd .nr[onclick*="go('coh')"]{--dc:#b4412c}.ndd .nr[onclick*="go('budget')"]{--dc:#2e7d5b}.ndd .nr[onclick*="go('idd')"]{--dc:#7a4a8c}.ndd .nr[onclick*="go('cal')"]{--dc:#b07d16}.ndd .nr[onclick*="go('imp')"]{--dc:#6b7a2e}
+.ndd .nr[onclick*="MG.s='vis'"]{--dc:#3f5d8a}.ndd .nr[onclick*="MG.s='pld'"]{--dc:#b07d16}.ndd .nr[onclick*="MG.s='org'"]{--dc:#8a5ea0}.ndd .nr[onclick*="MG.s='kpi'"]{--dc:#2f7f74}.ndd .nr[onclick*="MG.s='acc'"]{--dc:#2e7d5b}
+.ndd .nr{margin:4px 0;background:linear-gradient(135deg,color-mix(in srgb,var(--dc) 15%,#fff),color-mix(in srgb,var(--dc) 5%,#fff))!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--dc) 28%,transparent),inset 5px 0 0 var(--dc)}
+.ndd .nr b{color:color-mix(in srgb,var(--dc) 85%,#1e140c)}
+.ndd .nr small{opacity:1;color:color-mix(in srgb,var(--dc) 40%,#4a3a2a)}
+.ndd .nr:hover,.ndd .nr:active{background:linear-gradient(135deg,color-mix(in srgb,var(--dc) 26%,#fff),color-mix(in srgb,var(--dc) 10%,#fff))!important;transform:translateX(2px)}
+.ndd .nr.on{box-shadow:inset 0 0 0 2px var(--dc),inset 5px 0 0 var(--dc)}
+.ndd .nr .nfg{background:color-mix(in srgb,var(--dc) 14%,#fff);border-color:color-mix(in srgb,var(--dc) 40%,transparent);color:color-mix(in srgb,var(--dc) 80%,#1e140c)}
+.ndd .nh{color:var(--gc,#a8702f)}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
@@ -2302,7 +2315,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzl';
+const BUILD='20261120zzm';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
