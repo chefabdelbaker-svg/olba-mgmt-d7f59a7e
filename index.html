@@ -788,6 +788,12 @@ body{padding-bottom:84px}
 .cover.c1.vD.sD .gc.lkhr .pv::before{border-top-color:#B4562B}
 .cover.c1.vD .lgd{font-size:12px}
 .cover.c1.vD .lk.br::before{border-style:solid!important}
+.cover.c1.vD .lk.v[style*="3/5"]::before{left:50%}
+.cover.c1.vD .lk .dx{position:absolute;pointer-events:none;font-style:normal}
+.cover.c1.vD .lk .dx.h{left:-50%;width:100%;top:50%;border-top:3px dashed #5fb0a4}
+.cover.c1.vD .lk .dx.vv{left:-50%;top:0;height:50%;border-left:3px dashed #5fb0a4}
+.cover.c1.vD .lk .dx.t{left:0;top:50%;transform:translate(-50%,-125%);font-size:11px;letter-spacing:.06em;color:#8fd0c6;background:transparent}
+.cover.c1.vD.sD .lk .dx.t{color:#2f7f74}.cover.c1.vD.sD .lk .dx.h{border-top-color:#2f7f74}.cover.c1.vD.sD .lk .dx.vv{border-left-color:#2f7f74}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
@@ -1982,7 +1988,7 @@ ar:{bsm:'',v:'',vr:'سورة الطلاق، ٦٥:٣',ln:'نخطط ونعمل و�
 function orgNode(p){return `<button class="pv${selP===p&&selOpen?' on':''}${selOpen&&selP&&selP!==p?' dim':''}" onclick="pickP('${p}')">${avatar(p)}<div class="pt"><span>${esc(pnm(p))}</span><em>${esc(rl(p))}</em></div></button>`}
 function orgPh(n,r){return `<div class="pv ph"><div class="phc">+</div><div class="pt"><span>${esc(n)}</span><em>${esc(r)}</em></div></div>`}
 function orgChartD(){const T=CVT[lang]||CVT.fr,g=(c,col,p)=>`<div class="gc ${c}" style="grid-column:${col}">${orgNode(p)}</div>`,lk=(cls,col)=>`<div class="lk ${cls}" style="grid-column:${col}"></div>`;
- return `<div class="ob dg2"><span class="bl" style="grid-column:1/5">${esc(T.h1)}</span>${g('b1',"1/3",'Direction')}${g('b1',"3/5",'Ahmed')}${lk('v',"1")}${lk('v',"2")}${lk('v',"3/5")}${g('b2 sm',"1",'Sayed')}${g('b4 sm lkhr',"2",'Manar')}${g('b4 sm',"3/5",'Finance')}${lk('v dn',"1")}${lk('br',"1/5")}<span class="bl" style="grid-column:1/5">${esc(T.h3)}</span><div class="bd b3 gt" style="grid-column:1/5"><div class="bn">${['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt'].map(orgNode).join('')}</div></div><small class="lgd" style="grid-column:1/5">${LX('━ rattachement direct  ┄ échanges · Finance rapporte au CEO, échanges avec le COO','━ direct report  ┄ exchanges · Finance reports to the CEO, exchanges with the COO','━ مباشر  ┄ تواصل · المالية تتبع الرئيس التنفيذي وتتواصل مع COO')}</small></div>`}
+ return `<div class="ob dg2"><span class="bl" style="grid-column:1/5">${esc(T.h1)}</span>${g('b1',"1/3",'Direction')}${g('b1',"3/5",'Ahmed')}${lk('v',"1")}${lk('v',"2")}<div class="lk v" style="grid-column:3/5"><i class="dx vv"></i><i class="dx h"></i><em class="dx t">${LX('échanges','exchanges','تواصل')}</em></div>${g('b2 sm',"1",'Sayed')}${g('b4 sm lkhr',"2",'Manar')}${g('b4 sm',"3/5",'Finance')}${lk('v dn',"1")}${lk('br',"1/5")}<span class="bl" style="grid-column:1/5">${esc(T.h3)}</span><div class="bd b3 gt" style="grid-column:1/5"><div class="bn">${['Rima','Chef Omar','Hafiz','Hamza','Ossama','Kyrt'].map(orgNode).join('')}</div></div><small class="lgd" style="grid-column:1/5">${LX('━ rattachement direct  ┄ échanges (sans lien hiérarchique)','━ direct report  ┄ exchanges (no reporting line)','━ مباشر  ┄ تواصل (بدون تبعية)')}</small></div>`}
 function orgChart(){if(1)return orgChartD();const T=CVT[lang]||CVT.fr,bd=(c,l,inner)=>`<div class="bd ${c}"><span class="bl">${esc(l)}</span><div class="bn">${inner}</div></div>`;
  return `<div class="ob${cvAn?' an':''}">${bd('b1',T.h1,orgNode('Direction')+'<i class="hln"></i>'+orgNode('Ahmed'))}<i class="vln"></i>${bd('b2',T.h2+' · '+LX('RH','HR','الموارد'),orgNode('Manar')+orgNode('Sayed'))}<i class="vln"></i>${bd('b3',T.h3,['Rima','Chef Omar','Hafiz','Hamza','Ossama'].map(orgNode).join('')+orgNode('Kyrt')+orgNode('Manar')+orgNode('Finance'))}</div>`}
 function cvGo(){cvStep=1;cvAn=true;render();window.scrollTo(0,0)}
@@ -2135,7 +2141,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzb';
+const BUILD='20261120zzc';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
