@@ -898,6 +898,22 @@ header .brand,header .brand span{color:#f6e8d0}
 .msb,.msb *{color:#f3dfb5!important}
 .msb div:last-child{line-height:1.5}
 
+/* menus deroulants : couleur par departement */
+.ndd .nr{--dc:#9a6428}
+.ndd .nr[onclick*="'kit'"],.ndd .nr[onclick*="'pd'"],.ndd .nr[onclick*="'prodx'"]{--dc:var(--d-kit)}
+.ndd .nr[onclick*="'pur'"],.ndd .nr[onclick*="'qty'"]{--dc:var(--d-pur)}
+.ndd .nr[onclick*="'dshop'"]{--dc:var(--d-shop)}
+.ndd .nr[onclick*="'dmkt'"]{--dc:var(--d-mkt)}
+.ndd .nr[onclick*="'dfs'"]{--dc:var(--d-fs)}
+.ndd .nr[onclick*="'b2b'"],.ndd .nr[onclick*="'sls'"]{--dc:var(--d-b2b)}
+.ndd .nr[onclick*="'mys'"],.ndd .nr[onclick*="'dhr'"],.ndd .nr[onclick*="'hrm'"]{--dc:var(--d-hr)}
+.ndd .nr[onclick*="'dfin'"],.ndd .nr[onclick*="'fin'"]{--dc:var(--d-fin)}
+.ndd .nr[onclick*="'dlg'"],.ndd .nr[onclick*="'docs'"]{--dc:var(--d-leg)}
+.ndd .nr[onclick*="'lgm'"],.ndd .nr[onclick*="'mnt'"],.ndd .nr[onclick*="'eql'"],.ndd .nr[onclick*="'eqp'"]{--dc:var(--d-mnt)}
+.ndd .nr[onclick*="'emg'"],.ndd .nr[onclick*="'alr'"]{--dc:var(--d-alr)}
+.ndd .nr .ixc{background:var(--dc);border:0;color:#fff;box-shadow:0 6px 12px -6px var(--dc)}
+.ndd .nr b{color:color-mix(in srgb,var(--dc) 70%,#1e140c)}
+.ndd .nr:hover,.ndd .nr:active{background:color-mix(in srgb,var(--dc) 10%,#fff)}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
@@ -2245,7 +2261,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzi';
+const BUILD='20261120zzj';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
