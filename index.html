@@ -2384,7 +2384,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261121a';
+const BUILD='20261121b';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -3872,7 +3872,7 @@ function ganttView(){const projs=[...new Set(T.map(t=>t.p))],td=today(),dw=22,LW
  let mn=td,mx=td;Q.forEach(t=>{const[a,b]=span(t);if(a<mn)mn=a;if(b>mx)mx=b});
  const D0=U(mn)-864e5,days=Math.round((U(mx)-D0)/864e5)+3,W=days*dw,X=s=>Math.round((U(s)-D0)/864e5)*dw;
  const loc=lang==='ar'?'ar-u-ca-gregory-nu-latn':lang==='en'?'en-GB':'fr-FR';const mf=new Intl.DateTimeFormat(loc,{month:'long',year:'numeric',timeZone:'UTC'});
- let mo='',dy='',cur=null,cw=0,ml='';const flush=()=>{if(cur!==null)mo+=`<div style="width:${cw*dw}px">${ml}</div>`};
+ let mo='',dy='',cur=null,cw=0,ml='';const flush=()=>{if(cur!==null){let t=ml;if(cw*dw<150){t=String(ml).replace(/\s*\d{4}\s*$/,'');if(cw*dw<70&&lang!=='ar')t=t.slice(0,3)}mo+=`<div style="width:${cw*dw}px;white-space:nowrap"><span style="position:sticky;inset-inline-start:${LW+6}px">${t}</span></div>`}};
  for(let i=0;i<days;i++){const d=new Date(D0+i*864e5),k=d.getUTCFullYear()*12+d.getUTCMonth();if(k!==cur){flush();cur=k;cw=0;ml=mf.format(d)}cw++;
   const w=d.getUTCDay();dy+=`<div class="${w===5||w===6?'we':''}" style="width:${dw}px">${d.getUTCDate()}</div>`}flush();
  let ov='';for(let i=0;i<days;i++){const w=new Date(D0+i*864e5).getUTCDay();if(w===5||w===6)ov+=`<i style="left:${i*dw}px;width:${dw}px"></i>`}
