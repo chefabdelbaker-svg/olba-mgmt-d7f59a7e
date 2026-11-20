@@ -2145,7 +2145,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzf';
+const BUILD='20261120zzg';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -3507,9 +3507,9 @@ function qyView(){if(!me)return '';if(!QY.ok){if(!QY.busy)qyLoad().then(render);
  ${QY.edit?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><input id="qt-p" maxlength="80" placeholder="${LX('Autre produit','Other product','منتج آخر')}" style="flex:1;min-width:140px;min-height:44px;border:1px solid var(--line);border-radius:8px;padding:0 10px"><input id="qt-q" type="text" inputmode="decimal" placeholder="${LX('Qté','Qty','الكمية')}" style="width:84px;min-height:44px;border:1px solid var(--line);border-radius:8px;text-align:center"><select id="qt-u" aria-label="unit" style="min-height:44px;border:1px solid var(--line);border-radius:8px;background:#fff"><option value="pcs">${qyUL('pcs')}</option><option value="kg">kg</option><option value="L">L</option></select><button class="b" onclick="qyAdd()">${LX('Ajouter','Add','إضافة')}</button></div>`:''}
  <p class="hint" style="margin-top:12px">${LX('Suggestion = moyenne par jour × coefficient du jour de la semaine (ventes août à octobre). C’est un repère, la décision reste à Chef Omar.','Suggestion = daily average × weekday factor (Aug–Oct sales). It is a guide; Chef Omar decides.','الاقتراح = المتوسط اليومي × معامل اليوم.')}</p></div>`}
 const BX={m:''};
-const bxMode=()=>BX.m||(+new Date(Date.now()+3*36e5).toISOString().slice(11,13)>=15?'close':'open');
+const bxH=()=>+new Date(Date.now()+3*36e5).toISOString().slice(11,13);const bxDay=()=>{const d=new Date();if(bxH()<5)d.setDate(d.getDate()-1);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};const bxMode=()=>BX.m||((bxH()>=15||bxH()<5)?'close':'open');
 const bxIds=m=>m==='close'?['bar_close','foh_close']:['bar_open','foh_open'];
-const bxDone=id=>!!CK.runs&&CK.runs.some(r=>r.tpl===id&&r.day===today());
+const bxDone=id=>!!CK.runs&&CK.runs.some(r=>r.tpl===id&&r.day===bxDay());
 const bxTitle=m=>m==='close'?LX('Fermeture Bar & FOH','Bar & FOH closing','إغلاق البار والصالة'):LX('Ouverture Bar & FOH','Bar & FOH opening','افتتاح البار والصالة');
 function bxCard(){if(!me||me.who!=='Hamza')return '';
  if(!CK.ok&&!CK.busy)loadCk().then(()=>{if(tab==='home')render()});
@@ -3524,7 +3524,7 @@ function bxCard(){if(!me||me.who!=='Hamza')return '';
 function bxsView(){if(!me)return '';if(!CK.ok){if(!CK.busy)loadCk();return ldWait()}
  if(CK.err)return `<div class="card"><p class="hint">${LX('Checklists indisponibles pour le moment.','Checklists unavailable right now.','غير متاح حاليًا.')}</p></div>`;
  if(CK.t)return ckForm();
- const m=bxMode(),td=today(),blk=(ttl,id)=>{const t=ckTpl(id),tr=CK.runs.filter(r=>r.tpl===id&&r.day===td),last=CK.runs.find(r=>r.tpl===id);
+ const m=bxMode(),td=bxDay(),blk=(ttl,id)=>{const t=ckTpl(id),tr=CK.runs.filter(r=>r.tpl===id&&r.day===td),last=CK.runs.find(r=>r.tpl===id);
   return `<div class="hr" style="align-items:center"><b>${t.ic}</b><span style="flex:1"><b>${ttl}</b> · ${ckN(t)}<br><small>${tr.length?LX('Fait aujourd’hui','Done today','تم اليوم')+(tr.some(r=>ckStat(r).no)?' · ⚠ '+tr.reduce((a,r)=>a+ckStat(r).no,0)+' NC':''):last?LX('Dernier','Last','آخر')+' '+last.day:LX('Jamais rempli','Never filled','لم يُملأ')}</small></span><button class="btn" onclick="ckOpen('${id}')">${CK.can?LX('Remplir','Fill in','تعبئة'):LX('Ouvrir','Open','فتح')}</button></div>`};
  const ids=bxIds(m);
  return `<div class="card"><p><button class="chp" onclick="go('home')">← ${LX('Accueil','Home','الرئيسية')}</button></p><h3 style="margin-top:0">${m==='close'?'🌙':'☀️'} ${bxTitle(m)}</h3><p class="hint">${LX('Une seule étape pour le département : la partie bar, puis la partie salle.','One step for the department: the bar part, then the floor part.','خطوة واحدة للقسم: البار ثم الصالة.')}</p>
@@ -3869,7 +3869,7 @@ const ckN=t=>LX(...t.n),ckTpl=id=>CKT.find(t=>t.id===id);
 const ckTotal=t=>(t.s||[]).reduce((a,s)=>a+s[1].length,0);
 async function loadCk(force){if(CK.busy||(CK.ok&&!force)||!me)return;if(!CK.gi){CK.gi=1;CK.g=({Hamza:'foh',Kyrt:'haccp','Chef Omar':'kit'})[me.who]||''}CK.busy=true;try{const d=await rpc('chk_list',{p_who:me.who,p_pin:me.pin,p_days:60});CK.runs=d.runs||[];CK.can=!!d.can;if(me.pv){const a=await pvAcc();if(a)CK.can=!!a.chk}CK.err=false}catch(e){CK.err=true}CK.ok=true;CK.busy=false;render()}
 function ckFold(o){const t=ckTpl(CK.t);CK.op={};if(o&&t&&t.s)t.s.forEach((x,i)=>CK.op[i]=true);render()}
-function ckOpen(id,rid){const t=ckTpl(id);CK.t=id;CK.op={};const r=rid&&CK.runs.find(x=>x.id===rid);CK.d=r?{id:r.id,day:r.day,shift:r.shift,items:Object.assign({},r.items),vals:Object.assign({},r.vals),note:r.note}:{id:null,day:today(),shift:t.sh===1?'AM':(t.sh===3||t.sh===4)?'07:00':'',items:{},vals:{},note:''};render();window.scrollTo(0,0)}
+function ckOpen(id,rid){const t=ckTpl(id);CK.t=id;CK.op={};const r=rid&&CK.runs.find(x=>x.id===rid);CK.d=r?{id:r.id,day:r.day,shift:r.shift,items:Object.assign({},r.items),vals:Object.assign({},r.vals),note:r.note}:{id:null,day:/_close$/.test(id)?bxDay():today(),shift:t.sh===1?'AM':(t.sh===3||t.sh===4)?'07:00':'',items:{},vals:{},note:''};render();window.scrollTo(0,0)}
 function ckSet(k,v){CK.d.items[k]=CK.d.items[k]===v?'':v;render()}
 function ckAll(si,v){const t=ckTpl(CK.t);t.s[si][1].forEach((_,i)=>CK.d.items[si+'.'+i]=v);render()}
 function ckVal(k,v){CK.d.vals[k]=v;const e=document.getElementById('ckw');if(e)e.innerHTML=ckWarn()}
