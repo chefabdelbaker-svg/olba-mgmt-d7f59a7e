@@ -1024,6 +1024,10 @@ body[data-pg]:not([data-pg=home]) .hl .hr .btn,body[data-pg]:not([data-pg=home])
 /* barre du haut PC plus compacte: liens perso derriere le menu ... */
 @media(min-width:601px){#mnub{display:inline-flex!important}header:not(.hopen) .who .l:not(.pvx){display:none}#ambtab,#alrtab{max-width:200px!important;flex:0 1 200px!important}}
 .hero.hc{background:linear-gradient(90deg,#b4562b 0 16.6%,#c99a2e 0 33.3%,#6b7a2e 0 50%,#2f7f74 0 66.6%,#3f5d8a 0 83.3%,#8a5ea0 0) bottom/100% 6px no-repeat,radial-gradient(70% 100% at 100% 0%,rgba(201,154,46,.35),transparent 65%),linear-gradient(135deg,#2a1d14,#45301f)!important}
+.ndd .nhero{position:sticky;top:-6px;z-index:3}
+.ndd .nhero .nx{position:absolute;top:10px;inset-inline-end:10px;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid rgba(246,232,208,.45);background:rgba(246,232,208,.16);color:#f6e8d0;display:grid;place-items:center;cursor:pointer;z-index:4;transition:background .15s,transform .15s}
+.ndd .nhero .nx:hover,.ndd .nhero .nx:focus-visible{background:#f6e8d0;color:#2a1d14;transform:scale(1.08);outline:0}
+.ndd .nhero .nx svg{display:block}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
@@ -2281,7 +2285,7 @@ function navDd(g,btn){const old=document.getElementById('ndd');if(old&&old.datas
  const gt={tk:LX('Mes tâches','My tasks','مهامي'),proj:LX('Projets','Projects','المشاريع'),ops:LX('Opérations','Operations','العمليات'),adm:LX('Administration','Administration','الإدارة'),mg:LX('Management','Management','الإدارة العليا')}[g]||'';
  let late=0;if(g==='ops'||g==='adm')its.forEach(x=>{try{if(x.k)late+=opN(x.k)||0}catch(e){}});
  const gs=g==='tk'?LX('Ton espace de travail','Your workspace','مساحة عملك'):g==='mg'?LX('Pilotage de la Direction','Management oversight','قيادة الإدارة'):its.length+' '+LX('pages','pages','صفحات')+(late?' · '+late+' '+LX('à traiter','to handle','للمعالجة'):'');
- const hero=`<div class="nhero"><small>OLBA BAKEHOUSE</small><b>${esc(gt)}</b><span>${esc(gs)}</span></div>`;
+ const hero=`<div class="nhero"><button class="nx" type="button" onclick="event.stopPropagation();ndClose()" title="${LX('Fermer','Close','إغلاق')}" aria-label="${LX('Fermer','Close','إغلاق')}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><small>OLBA BAKEHOUSE</small><b>${esc(gt)}</b><span>${esc(gs)}</span></div>`;
  let body='';const gr=NGR[g];if(gr){const used=new Set();gr.forEach(([ti,ks])=>{const a=ks.map(k=>its.find(x=>x.k===k)).filter(Boolean);a.forEach(x=>used.add(x));if(a.length)body+=`<div class="nh">${esc(ti[i3])}</div>`+a.map(row).join('')});const rest=its.filter(x=>!used.has(x));if(rest.length)body+=`<div class="nh">${LX('Autres','Other','أخرى')}</div>`+rest.map(row).join('')}else body=its.map(row).join('');
   body+=(g==='mg'?`<button class="nr" onclick="ndClose();MG.s='home';go('mg')" style="border-top:1px solid rgba(168,112,47,.25);margin-top:6px">${ix('⊞')}<span style="flex:1"><b>${LX('Voir en tuiles','View as tiles','عرض البلاطات')}</b></span></button>`:g==='ops'||g==='adm'?`<button class="nr" onclick="ndClose();go('${t}')" style="border-top:1px solid rgba(168,112,47,.25);margin-top:6px">${ix('⊞')}<span style="flex:1"><b>${LX('Voir en tuiles','View as tiles','عرض البلاطات')}</b></span></button>`:'');
  const vw=Math.min(window.innerWidth,document.documentElement.clientWidth||window.innerWidth),mob=vw<=600;
@@ -2371,7 +2375,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzs';
+const BUILD='20261120zzt';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
