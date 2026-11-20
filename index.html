@@ -914,6 +914,41 @@ header .brand,header .brand span{color:#f6e8d0}
 .ndd .nr .ixc{background:var(--dc);border:0;color:#fff;box-shadow:0 6px 12px -6px var(--dc)}
 .ndd .nr b{color:color-mix(in srgb,var(--dc) 70%,#1e140c)}
 .ndd .nr:hover,.ndd .nr:active{background:color-mix(in srgb,var(--dc) 10%,#fff)}
+/* pages colorees par departement */
+body[data-pg]{--pc:#9a6428}
+body[data-pg=tk],body[data-pg=me],body[data-pg=meet],body[data-pg=day],body[data-pg=resp]{--pc:#b4562b}
+body[data-pg=proj],body[data-pg=all],body[data-pg=gantt],body[data-pg=coh],body[data-pg=budget],body[data-pg=idd],body[data-pg=cal],body[data-pg=imp],body[data-pg=appr]{--pc:#2f7f74}
+body[data-pg=ops],body[data-pg=hubo]{--pc:#c99a2e}
+body[data-pg=adm],body[data-pg=huba]{--pc:#8a5ea0}
+body[data-pg=mg],body[data-pg=msg],body[data-pg=guide]{--pc:#5476a6}
+body[data-pg=kit],body[data-pg=prodx],body[data-pg=pd]{--pc:#b4562b}
+body[data-pg=pur],body[data-pg=stk],body[data-pg=qty]{--pc:#6b7a2e}
+body[data-pg=dshop]{--pc:#9c5440}
+body[data-pg=dfoh],body[data-pg=bxs],body[data-pg=chk]{--pc:#9a6428}
+body[data-pg=dmkt],body[data-pg=mkt]{--pc:#6f5478}
+body[data-pg=dfs],body[data-pg=csk],body[data-pg=fb]{--pc:#2f7f74}
+body[data-pg=b2b],body[data-pg=sls],body[data-pg=shf]{--pc:#3f5d8a}
+body[data-pg=mys],body[data-pg=dhr],body[data-pg=hrm],body[data-pg=stm]{--pc:#b07d16}
+body[data-pg=fin],body[data-pg=dfin]{--pc:#2e7d5b}
+body[data-pg=dlg],body[data-pg=docs],body[data-pg=lgm]{--pc:#3b4f7a}
+body[data-pg=mnt],body[data-pg=eql],body[data-pg=eqp],body[data-pg=emg]{--pc:#5d6b78}
+body[data-pg=alr],body[data-pg=dal],body[data-pg=alg]{--pc:#b4412c}
+body:not(.cvr)[data-pg]:not([data-pg=home]){--u:var(--pc)}
+/* bandeau */
+body[data-pg]:not([data-pg=home]) .hero.pgh{--hc:var(--pc)!important;border-bottom-color:var(--pc)}
+body[data-pg]:not([data-pg=home]) .hero.pgh .k{color:color-mix(in srgb,var(--pc) 40%,#f6e8d0)}
+/* cartes : liseré + titre + fond teinte */
+body[data-pg]:not([data-pg=home]) .card:not(.dy){border-top:3px solid var(--pc);background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 6%,#fff),#fff 70%)}
+body[data-pg]:not([data-pg=home]) .card>h2,body[data-pg]:not([data-pg=home]) .card>h3,body[data-pg]:not([data-pg=home]) .card>div>h3{color:color-mix(in srgb,var(--pc) 78%,#2a1d14)}
+body[data-pg]:not([data-pg=home]) .card>h3::before{background:var(--pc)}
+body[data-pg]:not([data-pg=home]) .hero.pgh+div>button.card{border-top:0;background:linear-gradient(165deg,color-mix(in srgb,var(--dc) 15%,#fff),color-mix(in srgb,var(--dc) 5%,#fff) 70%)}
+/* boutons, filtres, sous-barre */
+body[data-pg]:not([data-pg=home]) button.b{background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 88%,#fff),var(--pc));box-shadow:0 8px 18px -8px var(--pc)}
+body[data-pg]:not([data-pg=home]) .filters .btn.on,body[data-pg]:not([data-pg=home]) .btn.on{background:var(--pc)!important;border-color:var(--pc)!important;color:#fff!important}
+body[data-pg]:not([data-pg=home]) .sbar button.on{background:var(--pc)!important;color:#fff!important;border-color:var(--pc)!important}
+body[data-pg]:not([data-pg=home]) table th{color:color-mix(in srgb,var(--pc) 75%,#2a1d14);border-bottom:2px solid color-mix(in srgb,var(--pc) 45%,transparent)}
+body[data-pg]:not([data-pg=home]) .htl{--dc:var(--pc)}
+body[data-pg]:not([data-pg=home]) .hero.pgh{background:linear-gradient(90deg,var(--pc),color-mix(in srgb,var(--pc) 55%,#fff)) bottom/100% 4px no-repeat,radial-gradient(70% 100% at 100% 0%,color-mix(in srgb,var(--pc) 45%,transparent),transparent 65%),linear-gradient(135deg,#2a1d14,#45301f)!important}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <header><h1 class="brand" onclick="go('home')"><i></i><span id="bt"></span></h1><span id="tabs"></span><span class="sp"></span>
@@ -2261,7 +2296,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){}return _al(m)}}
-const BUILD='20261120zzj';
+const BUILD='20261120zzk';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -4194,7 +4229,7 @@ function legalView(){if(!me||!DIRSET.includes(me.who))return `<div class="card">
  const bd={'AR':LX('Arabe','Arabic','عربي'),'EN':LX('Anglais','English','إنجليزي'),'AR+EN':LX('Arabe + anglais','Arabic + English','عربي + إنجليزي')};
  return `<div class="card"><h2>${LX('Légal','Legal','القانونية')}</h2><p class="hint">${LX('Documents officiels de l’entreprise. Cliquer sur « Télécharger » pour obtenir le PDF (réservé à la Direction, Sayed et Ahmed).','Official company documents. Click “Download” to get the PDF (Management, Sayed and Ahmed only).','المستندات الرسمية للشركة. اضغط «تحميل» للحصول على ملف PDF (للإدارة وسيد وأحمد فقط).')}</p>
  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-top:12px">${LGD.map(d=>`<div style="border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="font-size:26px;line-height:1">✉️</div><div><b>${LX(d[1],d[2],d[3])}</b><div class="hint" style="margin:6px 0 0">${d[4]}</div></div></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto"><span class="pill" style="font-size:12px;padding:3px 10px;border-radius:99px;background:#f3ece2;color:#5a3a1a;font-weight:600">${bd[d[5]]}</span><button class="btn" onclick="lgGet('${d[0]}',this)">⬇ ${LX('Télécharger','Download','تحميل')}</button></div></div>`).join('')}</div></div>`}
-function render(){document.body.classList.toggle('cvr',!me);head();const m=document.getElementById('m');const pl=document.getElementById('pl');
+function render(){document.body.classList.toggle('cvr',!me);try{document.body.setAttribute('data-pg',tab||'')}catch(_){}head();const m=document.getElementById('m');const pl=document.getElementById('pl');
  let sb=document.getElementById('sb');if(!sb){sb=document.createElement('div');sb.id='sb';m.parentNode.insertBefore(sb,m)}
  {const gs=me?groupSubs():{proj:[],dep:[],ag:[]},g=Object.keys(gs).find(x=>gs[x].includes(tab)),ne=canSeeAll()?COH().filter(i=>i.sev==='e').length:0;
   evStamp(tab);sb.innerHTML=NAV2()&&['me','meet','day'].includes(tab)?tkBar():g&&gs[g].length>1?`<div class="mgsub sbar">${NAV2()&&(g==='ops'||g==='adm')?`<button onclick="go('${g==='ops'?'hubo':'huba'}')">⊞</button>`:''}${gs[g].map((k,ix,ar)=>`${g==='dep'&&ix&&DEPG[k]!==DEPG[ar[ix-1]]?'<i class="sbsep"></i>':''}<button class="${tab===k?'on':''}${g==='dep'&&DEPG[k]!=null?' g'+DEPG[k]:''}" onclick="go('${k}')">${subL(k)}${k==='coh'&&ne?`<span class="badge">${ne}</span>`:''}${k==='mnt'&&mtLateN()?`<span class="badge">${mtLateN()}</span>`:''}${k==='eqp'&&eqOpenN()?`<span class="badge">${eqOpenN()}</span>`:''}${(k==='eqp'&&eqOpenN())||(k==='mnt'&&mtLateN())||k==='coh'?'':evB(k)}${k==='eqp'?'':opB(k)}</button>`).join('')}</div>`:''}
