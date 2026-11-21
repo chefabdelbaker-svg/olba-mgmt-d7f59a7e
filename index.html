@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261121l"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261121m"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -2382,7 +2382,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){report(e)}return _showAlert(m)}}
-const BUILD='20261121l';
+const BUILD='20261121m';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){report(_)}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -3478,8 +3478,8 @@ function homeTiles(){if(!isApv())return '';
  return `<div class="htiles">${t(n?'<span class="hg">⏳</span>':'✅',LX('À approuver','To approve','للموافقة'),n,n,"go('appr')")}${t('📅',LX('Prochaine réunion','Next meeting','الاجتماع القادم'),m?esc(agDateL(m.mdate)).slice(0,14):'—',0,"go('meet')")}${t('🔴',LX('En retard','Late','متأخرة'),late,late,"goTasks({late:true})")}${t('🔔',LX('Alertes du jour','Daily alerts','تنبيهات اليوم'),al||'—',al,"go('alr')")}</div>`}
 function nowCard(){if(!me||me.pv||isApv())return '';const R=new Date(Date.now()+3*36e5),H=R.getUTCHours(),D=R.getUTCDate(),w=me.who,it=[];
  const A=(k,fr,en,ar)=>it.push([k,LX(fr,en,ar)]);
- if(w==='Chef Omar'){if(H<11){A('qty','Quantités du jour','Today\'s quantities','كميات اليوم');A('kit','Production','Production','الإنتاج')}else{A('kit','Pertes du jour','Today\'s waste','هدر اليوم');A('dfs','Food Safety','Food Safety','سلامة الغذاء')}}
- else if(w==='Hamza'){A('qty','Quantités','Quantities','الكميات');A('dfs','Food Safety','Food Safety','سلامة الغذاء')}
+ if(w==='Chef Omar'){if(H<17)A('kit','Production du jour','Today\'s production','إنتاج اليوم');else A('kit','Pertes du jour','Today\'s waste','هدر اليوم');A('qty','Production à prévoir (demain)','Production to plan (tomorrow)','الإنتاج المطلوب (غداً)')}
+ else if(w==='Hamza'){A('qty','Production prévue demain','Tomorrow\'s planned production','الإنتاج المقرر غداً');A('dfs','Food Safety','Food Safety','سلامة الغذاء')}
  else if(w==='Manar'){A('hrm',D>=25?'Paie du mois':'Gestion RH',D>=25?'This month\'s payroll':'HR management',D>=25?'رواتب الشهر':'الموارد البشرية')}
  else if(w==='Ossama'){A('b2b','Relances B2B','B2B follow-ups','متابعات B2B')}
  if(!it.length)return '';
