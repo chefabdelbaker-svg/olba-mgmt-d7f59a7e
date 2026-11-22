@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261122bb"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261122bc"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -2503,7 +2503,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){report(e)}return _showAlert(m)}}
-const BUILD='20261122bb';
+const BUILD='20261122bc';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){report(_)}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2527,23 +2527,25 @@ function frxDom(){if(lang!=='en')return;const w=document.createTreeWalker(docume
 {const _r3=render;render=function(){const x=_r3.apply(this,arguments);try{frxDom()}catch(_){report(_)}return x}}
 /* auto-translation of free text (DB content, comments) FR->EN: shared cache (tr_cache) + machine fallback */
 const TRC={};try{Object.assign(TRC,JSON.parse(localStorage.getItem('olba-tr3')||'{}'))}catch(e){}
-const TRQ=new Set(),TRBAD=new Set();let _trT=0,_trBusy=0;
+let _trFail=0;const TRQ=new Set(),TRBAD=new Set();let _trT=0,_trBusy=0;
 const FRSW=/\b(le|la|les|des|du|une|pour|avec|dans|sur|est|pas|et|de|au|aux|en|ou|par|qui|que|ce|se|sont|non|sans|plus|chez|vers)\b/gi;
 function frLike(t){if(t.length<4||t.length>600||hasAr(t)||/^[\d\s.,:;%/\-–+()×x€$]+$/.test(t))return 0;if(/[àâçéèêëîïôûùüœÀÂÇÉÈÊËÎÏÔÛÙÜŒ]/.test(t))return 1;const m=t.match(FRSW);return m&&m.length>=1&&t.split(/\s+/).length>=2?1:0}
 function trSave(){try{const k=Object.keys(TRC);if(k.length>600)k.slice(0,k.length-500).forEach(x=>delete TRC[x]);localStorage.setItem('olba-tr3',JSON.stringify(TRC))}catch(e){}}
-async function trFlush(){if(_trBusy||lang!=='en'||!me||me.pv&&!me.pin){return}_trBusy=1;
+const TRNO=['fin','budget','dfin','dhr','hrm','b2b','dlg','lgm','docs','sls'];
+function trDec(x){const d=document.createElement('textarea');d.innerHTML=x;return d.value}
+async function trFlush(){if(_trBusy||lang!=='en'||!me||!navigator.onLine||document.hidden){return}_trBusy=1;
  try{const q=[...TRQ].slice(0,60);if(!q.length){return}
   let got={};try{got=await rpc('tr_get',{p_who:me.who,p_pin:me.pin,p_lang:'en',p_src:q})||{}}catch(e){got={}}
   let n=0;q.forEach(t=>{TRQ.delete(t);if(got[t]){TRC[t]=got[t];n++}});
-  const mt=q.filter(t=>!got[t]&&t.split(/\s+/).length>=3&&FRSW.test(t)&&(FRSW.lastIndex=0,1)).slice(0,6),put={};
-  for(const t of mt){try{const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(t.slice(0,450))+'&langpair=fr|en');const j=await r.json();const x=j&&j.responseData&&j.responseData.translatedText;if(x&&!/MYMEMORY WARNING|INVALID|QUERY LENGTH/i.test(x)&&x!==t){TRC[t]=x;put[t]=x;n++}else TRBAD.add(t)}catch(e){TRBAD.add(t)}}
-  q.forEach(t=>{if(!TRC[t])TRBAD.add(t)});
-  if(Object.keys(put).length){try{await rpc('tr_put',{p_who:me.who,p_pin:me.pin,p_lang:'en',p_items:put})}catch(e){}}
+  const okMT=!TRNO.includes(tab)&&!me.pv&&!isRO()&&!(me.as),mt=okMT?q.filter(t=>!got[t]&&t.length<=450&&t.split(/\s+/).length>=3&&FRSW.test(t)&&(FRSW.lastIndex=0,1)).slice(0,6):[],put={};
+  for(const t of mt){try{const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(t.slice(0,450))+'&langpair=fr|en');const j=await r.json();let x=j&&j.responseData&&j.responseData.translatedText;if(x)x=trDec(x);if(x&&!/MYMEMORY WARNING|INVALID|QUERY LENGTH|[<>]/i.test(x)&&x!==t){TRC[t]=x;put[t]=x;n++}else TRBAD.add(t)}catch(e){_trFail=Date.now()}}
+  q.forEach(t=>{if(!TRC[t]&&!mt.includes(t)){if(!okMT||t.length>450||t.split(/\s+/).length<3||!(t.match(FRSW)||[]).length)TRBAD.add(t);else TRQ.add(t)}});
+  if(Object.keys(put).length&&!isRO()&&!me.pv){try{await rpc('tr_put',{p_who:me.who,p_pin:me.pin,p_lang:'en',p_items:put})}catch(e){}}
   if(n){trSave();trDom()}
- }catch(e){report(e)}finally{_trBusy=0;if(TRQ.size)trKick()}}
+ }catch(e){report(e)}finally{_trBusy=0;if(TRQ.size)setTimeout(trKick,Date.now()-_trFail<60000?60000:0)}}
 function trKick(){clearTimeout(_trT);_trT=setTimeout(trFlush,350)}
 function trDom(){if(lang!=='en')return;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentNode;if(!p)return NodeFilter.FILTER_REJECT;const N=p.nodeName;if(N==='SCRIPT'||N==='STYLE'||N==='TEXTAREA'||N==='OPTION'&&0)return NodeFilter.FILTER_REJECT;if(p.closest&&p.closest('[data-notr],.tl'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT}});const L=[];while(w.nextNode())L.push(w.currentNode);
- L.forEach(n=>{const v=n.nodeValue,t=v.trim();if(!t||!frLike(t))return;if(TRC[t]){n.nodeValue=v.replace(t,TRC[t]);if(n.parentNode&&n.parentNode.setAttribute&&!n.parentNode.title)n.parentNode.setAttribute('title',t);return}if(!TRBAD.has(t)&&!TRQ.has(t)){TRQ.add(t)}});if(TRQ.size)trKick()}
+ L.forEach(n=>{const v=n.nodeValue,t=v.trim();if(!t||!frLike(t))return;if(TRC[t]){n.nodeValue=v.replace(t,()=>TRC[t]);if(n.parentNode&&n.parentNode.setAttribute&&!n.parentNode.title)n.parentNode.setAttribute('title',t);return}if(!TRBAD.has(t)&&!TRQ.has(t)){TRQ.add(t)}});if(TRQ.size)trKick()}
 {const _r7=render;render=function(){const x=_r7.apply(this,arguments);try{trDom()}catch(_){report(_)}return x}}
 /* ===== visual pass 2 : breadcrumb, alert dots, quick-add, consistent pills ===== */
 {const _r4=render;render=function(){const x=_r4.apply(this,arguments);try{
@@ -2564,7 +2566,7 @@ function qaGo(k){document.getElementById('qmen').style.display='none';if(k==='in
 function fx(){const m=document.getElementById('m');if(!m)return;m.classList.remove('fx');void m.offsetWidth;m.classList.add('fx');clearTimeout(fx.t);fx.t=setTimeout(()=>m.classList.remove('fx'),900)}
 {const _r3=render;render=function(){const x=_r3.apply(this,arguments);try{const U={stm:'#6F7F3A',mys:'#6F7F3A',hrm:'#6F7F3A',dhr:'#6F7F3A',fin:'#B3701C',budget:'#B3701C',kit:'#B5532F',stk:'#B5532F',pur:'#B5532F',chk:'#B5532F',dfoh:'#7A3F66',dshop:'#7A3F66',dmkt:'#7A3F66',dfs:'#7A3F66',all:'#C4924A',gantt:'#C4924A',coh:'#C4924A',b2b:'#9A6A3A',dfin:'#1F5B4A',fin:'#1F5B4A',budget:'#23406B',pur:'#B5532F',dlg:'#5B4A8A',mnt:'#4B5A63',emg:'#B3261E',day:'#C4924A'};let c=U[tab]||'';if(tab==='me'&&typeof EMBS!=='undefined'&&EMBS.me==='stm')c=U.stm;if(c)document.body.style.setProperty('--u',c);else document.body.style.removeProperty('--u')}catch(_){report(_)}return x}}
 function pvClr(){try{['olba-pv','olba-pvw','olba-pvt','olba-pvtab'].forEach(k=>sessionStorage.removeItem(k))}catch(_){}}
-function out(){pvClr();try{if(savedMe&&savedMe.pin&&String(savedMe.pin).length===40)fetch(URL_+'/rest/v1/rpc/mgmt_logout',{method:'POST',headers:H,body:JSON.stringify({p_who:savedMe.who,p_pin:savedMe.pin}),keepalive:true}).catch(()=>{})}catch(_){report(_)}try{sessionStorage.removeItem('olba-tab');localStorage.removeItem('olba-tab2');localStorage.removeItem('olba-wel2')}catch(_){report(_)}try{if(AMB.a)AMB.a.pause()}catch(e){report(e)}OWN.ok=false;OWN.d=null;FR.ok=false;FR.d=null;MYS.ok=false;MYS.staff=[];MYS.sc={};CK.ok=false;CK.runs=[];CK.t=null;KC.ok=false;KC.acc='none';KC.dr=null;KC.rec=[];KC.ing=[];KC.wst=[];AG.ok=false;AG.fo=null;AG.fd=null;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';try{location.reload()}catch(_){render()}}
+function out(){pvClr();try{localStorage.removeItem('olba-tr3')}catch(_){}try{if(savedMe&&savedMe.pin&&String(savedMe.pin).length===40)fetch(URL_+'/rest/v1/rpc/mgmt_logout',{method:'POST',headers:H,body:JSON.stringify({p_who:savedMe.who,p_pin:savedMe.pin}),keepalive:true}).catch(()=>{})}catch(_){report(_)}try{sessionStorage.removeItem('olba-tab');localStorage.removeItem('olba-tab2');localStorage.removeItem('olba-wel2')}catch(_){report(_)}try{if(AMB.a)AMB.a.pause()}catch(e){report(e)}OWN.ok=false;OWN.d=null;FR.ok=false;FR.d=null;MYS.ok=false;MYS.staff=[];MYS.sc={};CK.ok=false;CK.runs=[];CK.t=null;KC.ok=false;KC.acc='none';KC.dr=null;KC.rec=[];KC.ing=[];KC.wst=[];AG.ok=false;AG.fo=null;AG.fd=null;AG.ed=null;AG.day=null;lsx=false;tmv=true;GP={};HR.ok=false;HR.s=[];HR.ed=null;PU.ok=false;PU.acc='none';PU.ed=null;SK.ok=false;SK.acc='none';SK.ed=null;SK.se=null;SK.so=null;MG.s='vis';b2bAcc='none';B2.ok=false;B2.p=[];B2.c=[];B2.r=[];B2.t=[];grp=false;selP='';localStorage.removeItem('olba-mgmt-me');me=null;savedMe=null;vas='';cov=true;tab='home';planLoaded=false;document.getElementById('pl').innerHTML='';try{location.reload()}catch(_){render()}}
 function setLang(l){lang=l;try{localStorage.setItem('olba-lang',l)}catch(e){report(e)}render()}
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
 /* ===== B2B module (data lives in the protected DB; access checked server-side) ===== */
