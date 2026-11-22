@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261122az"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261122ba"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -2503,7 +2503,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){report(e)}return _showAlert(m)}}
-const BUILD='20261122az';
+const BUILD='20261122ba';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){report(_)}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
@@ -2749,6 +2749,7 @@ function hrView(m){if(!HRW())return '';if(m==='org')return orgView();
  const rows=order.map((x,n)=>HR.ed===x.id?hrForm(x,nc):`<tr><td>${n+1}</td><td><b>${esc(x.name)}</b>${x.note?` <span class="b2z">· ${esc(x.note)}</span>`:''}</td>${HR.cols.map(k=>`<td>${cell(x,k)}</td>`).join('')}<td><button class="b2o" onclick="HR.ed=${x.id};render()">${ht('edit')}</button> <button class="b2o" id="hd${x.id}" onclick="hrDel(${x.id})">${ht('del')}</button></td></tr>`).join('');
  const blocks=HR.s.length?`<div class="b2tw"><table class="b2t" style="min-width:420px"><thead><tr><th>#</th><th>${ht('name')}</th>${HR.cols.map(k=>`<th>${(HCOL.find(c=>c[0]===k)||[])[1]}</th>`).join('')}<th></th></tr></thead><tbody>${rows}</tbody></table></div>`:'';
  const team=`<div class="card"><h2>${ht('team')} (${HR.s.length})</h2><p class="b2z">${ht('priv')}</p><div class="hchips">${chips}</div><button class="b2o" onclick="HR.ed='new';render()">${ht('add')}</button>
+  <div class="hchips" style="margin:8px 0"><button class="b2o" onclick="hrXlExport(1)">⬇ ${LX('Excel complet','Full Excel','Excel كامل')}</button><button class="b2o" onclick="hrXlExport(0)">⬇ ${LX('Excel sans salaires (à envoyer)','Excel without salaries (to send)','Excel بدون رواتب (للإرسال)')}</button>${isRO()?'':`<button class="b2o" onclick="document.getElementById('hxf').click()">⬆ ${LX('Importer l’Excel rempli','Import filled Excel','استيراد Excel بعد التعبئة')}</button><input type="file" id="hxf" accept=".xlsx,.xls" style="display:none" onchange="hrXlImport(this)">`}</div>${hrPvView()}
   <div class="hchips" style="margin:8px 0">${colChips}</div>${HR.ed==='new'?`<div class="b2tw"><table class="b2t" style="min-width:560px"><tbody>${hrForm({},nc)}</tbody></table></div>`:''}${blocks||`<p class="empty">${ht('empty')}</p>`}
   ${HR.s.length?`<p><b>${ht('tot')} : ${HR.s.length} · ${hn(sum)} SAR</b></p><p class="b2z">${ht('gap')} : ${hn(sum)} / ${hn(last.payroll)} SAR</p>`:''}</div>`;
  if(m==='hr')return team;if(m==='acc')return accView();
@@ -2767,6 +2768,46 @@ function orgView(){
  const leg=[[D,'Direction'],[O,'Operations'],[P,'Production'],[S,'Support'],[F,'Procurement · Marketing']].map(([c,l])=>`<span class="hchip" style="background:${c}">${l}</span>`).join('');
  return `<div class="card ochart"><div class="oband"><span class="odia">◆</span> OLBA Bakehouse <em>· ${ot('h')}</em></div><p class="b2z">${ot('sub')}</p><div class="hchips">${leg}</div>
  <div class="owrap"><ul class="otree"><li><div class="on root"><b>${ot('par')}</b></div><ul>${ceo}${coo}</ul></li></ul></div></div>`}
+
+/* staff : export / import Excel */
+const HXL=[['id','ID'],['name','Nom / Name'],['dept','Département / Department'],['position','Poste / Position'],['salary','Salaire SAR par mois / Salary'],['iqama','N° Iqama / Iqama no.'],['iqama_exp','Expiration Iqama AAAA-MM-JJ / Iqama expiry'],['start_date','Avec nous depuis AAAA-MM-JJ / Since']];
+const hxK=h=>{const t=String(h||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();if(/^id$/.test(t))return 'id';if(/iqama/.test(t)&&/(exp|fin|end)/.test(t))return 'iqama_exp';if(/iqama/.test(t))return 'iqama';if(/^(nom|name)/.test(t))return 'name';if(/^(dep|dept)/.test(t))return 'dept';if(/^(poste|position)/.test(t))return 'position';if(/^(salaire|salary)/.test(t))return 'salary';if(/(avec nous|since|depuis|start)/.test(t))return 'start_date';return ''};
+const hxD=v=>{if(v==null||v==='')return '';if(typeof v==='number'&&v>20000&&v<80000){const d=new Date(Date.UTC(1899,11,30)+Math.round(v)*864e5);return d.toISOString().slice(0,10)}const t=String(v).trim();let m=t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');m=t.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);if(m)return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return t};
+async function hrXlExport(full){try{await xlLib()}catch(e){alert(LX('Excel indisponible (connexion).','Excel unavailable (connection).','Excel غير متاح (الاتصال).'));return}
+ const cols=HXL.filter(c=>full||c[0]!=='salary');
+ const S=HR.s.slice().sort((a,b)=>(a.dept||'').localeCompare(b.dept||'')||(a.name||'').localeCompare(b.name||''));
+ const rows=[cols.map(c=>c[1])].concat(S.map(x=>cols.map(c=>{const k=c[0];if(k==='salary')return x.salary==null?'':+x.salary;return x[k]==null?'':String(x[k])})));
+ const ws=XLSX.utils.aoa_to_sheet(rows);ws['!cols']=cols.map(c=>({wch:c[0]==='id'?6:c[0]==='name'?30:c[0]==='position'?26:c[0]==='dept'?18:16}));ws['!freeze']={xSplit:2,ySplit:1};
+ const H=[['OLBA · Staff — mode d’emploi / instructions'],[''],['FR'],['1. Remplis ou corrige les cellules. Ne change pas la colonne ID.'],['2. Pour ajouter une personne : nouvelle ligne, laisse ID vide, écris au moins le nom.'],['3. Une cellule laissée vide ne change rien. Pour effacer une valeur, écris-la dans l’app.'],['4. Dates au format AAAA-MM-JJ (ex. 2026-11-30).'],['5. Renvoie le fichier à Direction, qui l’importe dans l’app (Staff → Importer).'],[''],['EN'],['1. Fill in or fix the cells. Do not change the ID column.'],['2. To add a person: new row, leave ID empty, write at least the name.'],['3. An empty cell changes nothing. To erase a value, do it in the app.'],['4. Dates as YYYY-MM-DD (e.g. 2026-11-30).'],['5. Send the file back to Direction, who imports it in the app (Staff → Import).']];
+ const w2=XLSX.utils.aoa_to_sheet(H);w2['!cols']=[{wch:90}];const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Staff');XLSX.utils.book_append_sheet(wb,w2,'Mode d emploi');
+ XLSX.writeFile(wb,'OLBA-Staff-'+today()+(full?'':'-sans-salaires')+'.xlsx')}
+async function hrXlImport(inp){const f=inp.files&&inp.files[0];if(!f)return;
+ try{await xlLib();const wb=XLSX.read(await f.arrayBuffer(),{type:'array'}),ws=wb.Sheets[wb.SheetNames[0]],R=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''});
+  if(R.length<2)throw 0;const K=R[0].map(hxK);if(!K.includes('name'))throw 0;
+  const byId=new Map(HR.s.map(x=>[String(x.id),x])),byN=new Map(HR.s.map(x=>[String(x.name||'').trim().toLowerCase(),x]));
+  const upd=[],add=[],skip=[];let same=0;const seen=new Set();
+  R.slice(1).forEach((r,n)=>{const o={};K.forEach((k,i)=>{if(k&&r[i]!==''&&r[i]!=null)o[k]=r[i]});if(!Object.keys(o).length)return;
+   if(o.salary!=null){const v=+String(o.salary).replace(/[, ]/g,'');if(isNaN(v)||v<0){skip.push(LX('ligne '+(n+2)+' : salaire invalide','row '+(n+2)+': invalid salary','سطر '+(n+2)+': راتب غير صالح'));return}o.salary=v}
+   ['dept','position','iqama','name'].forEach(k=>{if(o[k]!=null)o[k]=String(o[k]).trim()});['iqama_exp','start_date'].forEach(k=>{if(o[k]!=null)o[k]=hxD(o[k])});
+   const bd=['iqama_exp','start_date'].find(k=>o[k]!=null&&!/^\d{4}-\d{2}-\d{2}$/.test(o[k])||o[k]!=null&&isNaN(new Date(o[k])));if(bd){skip.push(LX('ligne '+(n+2)+' : date invalide ('+o[bd]+')','row '+(n+2)+': invalid date ('+o[bd]+')','سطر '+(n+2)+': تاريخ غير صالح'));return}
+   let x=o.id!=null?byId.get(String(o.id).trim()):null;
+   if(o.id!=null&&!x){skip.push(LX('ligne '+(n+2)+' : ID '+o.id+' inconnu','row '+(n+2)+': unknown ID '+o.id,'سطر '+(n+2)+': ID غير معروف'));return}
+   if(!x&&o.name)x=byN.get(String(o.name).toLowerCase())||null;
+   if(x){if(seen.has(x.id)){skip.push(LX('ligne '+(n+2)+' : doublon '+x.name,'row '+(n+2)+': duplicate '+x.name,'سطر '+(n+2)+': مكرر'));return}seen.add(x.id);
+    const ch=[];['name','dept','position','salary','iqama','iqama_exp','start_date'].forEach(k=>{if(o[k]==null)return;const a=x[k]==null?'':String(x[k]),b=String(o[k]);if(k==='salary'?(+a!==+b):(a!==b))ch.push([k,a,b])});
+    if(ch.length)upd.push({x,o,ch});else same++}
+   else if(o.name)add.push(o);else skip.push(LX('ligne '+(n+2)+' : nom manquant','row '+(n+2)+': name missing','سطر '+(n+2)+': الاسم مفقود'))});
+  HR.pv={upd,add,same,skip,file:f.name};render()}catch(e){alert(LX('Fichier illisible ou colonne « Nom » absente.','Unreadable file or “Name” column missing.','الملف غير قابل للقراءة أو عمود الاسم مفقود.'))}inp.value=''}
+function hrPvView(){const v=HR.pv;if(!v)return '';const L={name:LX('Nom','Name','الاسم'),dept:LX('Département','Department','القسم'),position:LX('Poste','Position','المنصب'),salary:LX('Salaire','Salary','الراتب'),iqama:LX('N° Iqama','Iqama no.','رقم الإقامة'),iqama_exp:LX('Expiration Iqama','Iqama expiry','انتهاء الإقامة'),start_date:LX('Depuis','Since','منذ')};
+ const u=v.upd.map(({x,ch})=>`<li><b>${esc(x.name)}</b> : ${ch.map(([k,a,b])=>`${esc(L[k])} <s>${esc(a||'—')}</s> → <b>${esc(b)}</b>`).join(' · ')}</li>`).join('');
+ const a=v.add.map(o=>`<li><b>${esc(o.name)}</b> ${[o.dept,o.position].filter(Boolean).map(esc).join(' · ')}</li>`).join('');
+ const sk=v.skip.map(t=>`<li>${esc(t)}</li>`).join('');const n=v.upd.length+v.add.length;
+ return `<div class="card" style="border-inline-start:4px solid #b9770e;margin:8px 0"><h3 style="margin:0 0 6px">⬆ ${LX('Aperçu de l’import','Import preview','معاينة الاستيراد')} · ${esc(v.file)}</h3><p class="b2z">${LX(v.upd.length+' modifié(s) · '+v.add.length+' nouveau(x) · '+v.same+' inchangé(s) · '+v.skip.length+' ignoré(s). Rien n’est enregistré tant que tu n’as pas appliqué.',v.upd.length+' changed · '+v.add.length+' new · '+v.same+' unchanged · '+v.skip.length+' skipped. Nothing is saved until you apply.',v.upd.length+' معدّل · '+v.add.length+' جديد · '+v.same+' دون تغيير · '+v.skip.length+' متجاهل. لا يُحفظ شيء قبل التطبيق.')}</p>${u?`<ul style="margin:6px 0;padding-inline-start:18px">${u}</ul>`:''}${a?`<p class="b2z"><b>${LX('Nouveaux','New','جدد')}</b></p><ul style="margin:6px 0;padding-inline-start:18px">${a}</ul>`:''}${sk?`<p class="b2z"><b>${LX('Ignorées','Skipped','متجاهلة')}</b></p><ul style="margin:6px 0;padding-inline-start:18px">${sk}</ul>`:''}<div style="display:flex;gap:8px;flex-wrap:wrap">${n?`<button class="b" id="hxa" onclick="hrPvApply()">${LX('Appliquer ('+n+')','Apply ('+n+')','تطبيق ('+n+')')}</button>`:''}<button class="b2o" onclick="HR.pv=null;render()">${LX('Annuler','Cancel','إلغاء')}</button></div></div>`}
+async function hrPvApply(){const v=HR.pv;if(!v||HR.xb)return;HR.xb=1;const b=document.getElementById('hxa');if(b){b.disabled=true;b.textContent='…'}let ok=0,ko=0;
+ const send=async(id,m)=>{try{await rpc('hr_save',{p_who:me.who,p_pin:me.pin,p:{id:id,name:m.name,position:m.position||'',dept:m.dept||'',salary:m.salary==null?'':String(m.salary),start_date:m.start_date||'',iqama:m.iqama||'',iqama_exp:m.iqama_exp||'',note:m.note||''}});ok++}catch(e){ko++}};
+ for(const {x,o} of v.upd)await send(x.id,Object.assign({},x,o));
+ for(const o of v.add)await send(null,o);
+ HR.xb=0;HR.pv=null;HR.ok=false;render();alert(LX(ok+' ligne(s) enregistrée(s)'+(ko?' · '+ko+' en échec (réessaie).':'.'),ok+' row(s) saved'+(ko?' · '+ko+' failed (retry).':'.'),ok+' سطر تم حفظه'+(ko?' · '+ko+' فشل':'')))}
 function HCOL_ALL(){return['dept','position','salary','iqama','iqama_exp','start_date']}
 function hrCol(k){HR.cols=HR.cols.includes(k)?HR.cols.filter(c=>c!==k):HR.cols.concat(k);render()}
 function hrForm(x,nc){const v=k=>esc(x[k]==null?'':x[k]);const f=(k,l,t)=>`<label style="display:flex;flex-direction:column;font-size:12px">${l}<input id="hf-${k}" ${t||''} value="${v(k)}"></label>`;
