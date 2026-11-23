@@ -13,53 +13,49 @@ header{text-align:center;padding:max(56px,calc(env(safe-area-inset-top) + 48px))
 .lg{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;display:flex;gap:6px;z-index:5}
 .lg button{background:#0003;border:1px solid #c9a24e55;color:#f8dab8;border-radius:14px;padding:5px 9px;font:12px system-ui;cursor:pointer}
 .lg .on{background:var(--g2);color:#2b1610}
-/* centre: profil actif */
-.hero{margin-top:3vh;text-align:center;z-index:3;min-height:150px;padding:0 20px}
-.hero .role{font:12px system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--g2)}
-.hero h2{font-weight:400;font-size:clamp(30px,8vw,46px);margin:6px 0 2px;letter-spacing:.06em;color:#fff3df;transition:opacity .25s}
-.hero p{margin:0;font:14px system-ui,sans-serif;opacity:.7}
-.enter{margin-top:14px;background:linear-gradient(180deg,#f0d38d,#c9a24e);color:#2b1610;border:0;border-radius:26px;padding:13px 44px;font:600 14px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 28px #c9a24e44}
+/* roue complète */
+main{flex:1;display:flex;align-items:center;justify-content:center;width:100%;z-index:2;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+.rw{position:relative;width:var(--W);height:var(--W);touch-action:none}
+.ring{position:absolute;inset:0;border-radius:50%;transform:rotate(var(--a,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.ring.drag{transition:none}
+.rw::before{content:"";position:absolute;inset:calc(var(--S)/2);border-radius:50%;border:1px solid #c9a24e55;box-shadow:0 0 60px #c9a24e18,inset 0 0 60px #0007}
+.rw::after{content:"";position:absolute;inset:calc(var(--S)*1.15);border-radius:50%;border:1px dashed #c9a24e33}
+.it{position:absolute;left:50%;top:50%;width:var(--S);height:var(--S);margin:calc(var(--S)/-2);transform:rotate(var(--r)) translateY(calc(var(--R)*-1)) rotate(calc(var(--r)*-1 - var(--a,0deg)));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.ring.drag .it{transition:none}
+.it button{all:unset;display:block;width:100%;height:100%;border-radius:50%;cursor:pointer}
+.it img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #c9a24e66;filter:saturate(.75) brightness(.72);transition:all .4s;background:#3a2018}
+.it.on img{border:3px solid var(--g);filter:none;transform:scale(1.28);box-shadow:0 0 0 5px #e6c47722,0 0 34px #e6c477aa}
+.pointer{position:absolute;left:50%;top:calc(var(--S)*-.62);width:0;height:0;margin-left:-6px;border:6px solid transparent;border-top:9px solid var(--g);z-index:4}
+.ctr{position:absolute;left:50%;top:50%;width:calc(var(--W) - var(--S)*2.7);height:calc(var(--W) - var(--S)*2.7);transform:translate(-50%,-50%);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#3a2018cc,#1b0d09ee 75%);border:1px solid #c9a24e66;box-shadow:0 0 50px #c9a24e22;z-index:3;padding:10px}
+.ctr img{width:34%;aspect-ratio:1;border-radius:50%;object-fit:cover;border:2px solid var(--g);box-shadow:0 0 28px #e6c47766;margin-bottom:8px;transition:opacity .25s}
+.ctr .role{font:10px system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--g2);max-width:90%}
+.ctr h2{font-weight:400;font-size:clamp(22px,6.4vw,34px);margin:4px 0 8px;letter-spacing:.05em;color:#fff3df;transition:opacity .25s}
+.enter{background:linear-gradient(180deg,#f0d38d,#c9a24e);color:#2b1610;border:0;border-radius:24px;padding:11px 32px;font:600 12px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 22px #c9a24e44}
 .enter:active{transform:scale(.97)}
-/* roue */
-.wheelw{position:fixed;left:0;right:0;bottom:0;height:min(52vh,470px);overflow:hidden;z-index:2}
-.wheel{position:absolute;left:50%;top:0;width:var(--D);height:var(--D);margin-left:calc(var(--D)/-2);border-radius:50%;transform:rotate(var(--a,0deg));transition:transform .55s cubic-bezier(.2,.8,.2,1)}
-.wheel.drag{transition:none}
-.wheel::before{content:"";position:absolute;inset:calc(var(--R)*.0);border-radius:50%;border:1px solid #c9a24e44;box-shadow:inset 0 0 80px #0006,0 0 80px #c9a24e12}
-.wheel::after{content:"";position:absolute;inset:calc(var(--D)*.16);border-radius:50%;border:1px dashed #c9a24e33}
-.it{position:absolute;left:50%;top:50%;width:var(--S);height:var(--S);margin:calc(var(--S)/-2);transform:rotate(var(--r)) translateY(calc(var(--R)*-1)) rotate(calc(var(--r)*-1 - var(--a,0deg)));transition:transform .55s cubic-bezier(.2,.8,.2,1)}
-.wheel.drag .it{transition:none}
-.it button{all:unset;display:block;width:100%;height:100%;border-radius:50%;cursor:pointer;position:relative}
-.it img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #c9a24e66;filter:saturate(.8) brightness(.8);transition:all .4s;background:#3a2018}
-.it span{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:6px;font:11px system-ui,sans-serif;letter-spacing:.12em;opacity:.55;white-space:nowrap}
-.it.on img{border:3px solid var(--g);filter:none;transform:scale(1.22);box-shadow:0 0 0 6px #e6c47722,0 0 40px #e6c477aa}
-.it.on span{opacity:1;color:var(--g)}
-.hint{position:fixed;bottom:max(10px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:11px system-ui;letter-spacing:.2em;text-transform:uppercase;opacity:.45;z-index:4;pointer-events:none}
-.arrow{position:fixed;z-index:4;top:50%;width:44px;height:44px;border-radius:50%;background:#0004;border:1px solid #c9a24e55;color:var(--g);font-size:20px;cursor:pointer;display:none}
-@media(min-width:760px){.arrow{display:block}}
+.hint{position:fixed;bottom:max(8px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:10px system-ui;letter-spacing:.22em;text-transform:uppercase;opacity:.45;z-index:4;pointer-events:none}
 #toast{position:fixed;left:50%;top:40%;transform:translate(-50%,0);background:#000c;border:1px solid var(--g2);padding:16px 26px;border-radius:14px;font:14px system-ui;opacity:0;pointer-events:none;transition:opacity .3s;z-index:9;text-align:center}
-@media(prefers-reduced-motion:reduce){.wheel,.it,.stars i{transition:none;animation:none}}
+@media(prefers-reduced-motion:reduce){.ring,.it,.stars i{transition:none;animation:none}}
 </style></head><body>
 <div class="stars" id="st"></div>
 <div class="lg"><button class="on">FR</button><button>EN</button><button>عربي</button></div>
 <header><h1 class="logo">OLBA</h1><p class="sub">Baked en Harmonie</p><div class="rule"></div></header>
-<div class="hero"><div class="role" id="r">—</div><h2 id="n">—</h2><p id="d">Choisis ton profil · fais tourner la roue</p><button class="enter" id="go">Entrer</button></div>
-<div class="wheelw"><div class="wheel" id="w"></div></div>
-<button class="arrow" id="pv" style="left:6vw;top:62%">‹</button><button class="arrow" id="nx" style="right:6vw;top:62%">›</button>
-<div class="hint">Glisse · touche un visage</div><div id="toast"></div>
+<main><div class="rw" id="rw"><div class="pointer"></div><div class="ring" id="w"></div>
+<div class="ctr"><img id="ci" src="" alt=""><div class="role" id="r">—</div><h2 id="n">—</h2><button class="enter" id="go">Entrer</button></div></div></main>
+<div class="hint">Tourne la roue · touche un visage</div><div id="toast"></div>
 <script>
 const P=[['Direction','Direction','COO · Co-fondateur',4],['Ahmed','Ahmed','CEO · Co-fondateur',5],['Sayed','Sayed','Shop Manager',2],['Hafiz','Hafiz','Achats & Stock principal',3],['Chef Omar','Chef Omar','Cuisine · Production',1],['Hamza','Hamza','Bar & Front of House',8],['Kyrt','Kyrt','HACCP · Food Safety',7],['Manar','Manar','Ressources humaines',9],['Ossama','Ossama','B2B & Administration',6],['Rima','Rima','Marketing',0],['Finance','Finance','Finance & Comptabilité',10]];
-const N=P.length,STEP=360/N,w=document.getElementById('w');let cur=0,ang=0,drag=null;
+const N=P.length,STEP=360/N,w=document.getElementById('w'),rw=document.getElementById('rw');let cur=0,ang=0,drag=null,moved=false;
 const stars=document.getElementById('st');for(let i=0;i<22;i++){const e=document.createElement('i');e.style.cssText=`--x:${(i*37+11)%100}%;--d:${8+(i*7)%9}s;--s:${2+(i*5)%4}px;--l:${(i*13)%11}s`;stars.appendChild(e)}
-function size(){const W=innerWidth,H=Math.min(innerHeight*.58,520);const S=Math.max(60,Math.min(96,W*.23));const R=Math.max(W*.46,Math.min(W*.5,430));document.documentElement.style.setProperty('--S',S+'px');document.documentElement.style.setProperty('--R',R+'px');document.documentElement.style.setProperty('--D',(R*2+S*2)+'px');w.style.top=(S*.9+30)+'px';w.style.height=w.style.width=(R*2+S*2)+'px'}
-P.forEach((p,i)=>{const d=document.createElement('div');d.className='it';d.style.setProperty('--r',(i*STEP)+'deg');d.innerHTML=`<button aria-label="${p[1]}"><img src="avatars/a${p[3]}.jpg" alt="" draggable="false"><span>${p[1]}</span></button>`;d.querySelector('button').onclick=()=>{if(!moved)sel(i)};w.appendChild(d)});
-const items=[...w.children];let moved=false;
-function sel(i,instant){cur=((i%N)+N)%N;const base=-cur*STEP;ang=base;w.style.setProperty('--a',base+'deg');items.forEach(e=>e.style.setProperty('--a',base+'deg'));items.forEach((e,k)=>e.classList.toggle('on',k===cur));const p=P[cur];const n=document.getElementById('n');n.style.opacity=0;setTimeout(()=>{document.getElementById('r').textContent=p[2];n.textContent=p[1];document.getElementById('d').textContent='Touche « Entrer » pour saisir ton code';n.style.opacity=1},160)}
-function nearest(a){return Math.round(-a/STEP)}
-w.addEventListener('pointerdown',e=>{drag={x:e.clientX,a:ang};moved=false;w.classList.add('drag');w.setPointerCapture(e.pointerId)});
-w.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>6)moved=true;ang=drag.a+dx*.22;w.style.setProperty('--a',ang+'deg');items.forEach(x=>x.style.setProperty('--a',ang+'deg'))});
-const end=()=>{if(!drag)return;drag=null;w.classList.remove('drag');sel(nearest(ang));setTimeout(()=>moved=false,50)};
-w.addEventListener('pointerup',end);w.addEventListener('pointercancel',end);
-document.getElementById('pv').onclick=()=>sel(cur-1);document.getElementById('nx').onclick=()=>sel(cur+1);
+function size(){const hh=document.querySelector('header').offsetHeight;const W=Math.max(280,Math.min(innerWidth-20,innerHeight-hh-40,620));const S=Math.max(46,Math.min(76,W*.15));const r=document.documentElement.style;r.setProperty('--W',W+'px');r.setProperty('--S',S+'px');r.setProperty('--R',(W/2-S*.62)+'px')}
+P.forEach((p,i)=>{const d=document.createElement('div');d.className='it';d.style.setProperty('--r',(i*STEP)+'deg');d.innerHTML=`<button aria-label="${p[1]}"><img src="avatars/a${p[3]}.jpg" alt="" draggable="false"></button>`;d.querySelector('button').onclick=()=>{if(!moved)sel(i)};w.appendChild(d)});
+const items=[...w.children];
+function setA(a){w.style.setProperty('--a',a+'deg');items.forEach(x=>x.style.setProperty('--a',a+'deg'))}
+function sel(i){cur=((i%N)+N)%N;let t=-cur*STEP;ang=t+Math.round((ang-t)/360)*360;setA(ang);items.forEach((e,k)=>e.classList.toggle('on',k===cur));const p=P[cur],n=document.getElementById('n'),im=document.getElementById('ci');n.style.opacity=0;im.style.opacity=0;setTimeout(()=>{document.getElementById('r').textContent=p[2];n.textContent=p[1];im.src='avatars/a'+p[3]+'.jpg';n.style.opacity=1;im.style.opacity=1},180)}
+function pa(e){const b=rw.getBoundingClientRect();return Math.atan2(e.clientY-(b.top+b.height/2),e.clientX-(b.left+b.width/2))*180/Math.PI}
+rw.addEventListener('pointerdown',e=>{if(e.target.closest('.enter'))return;const b=rw.getBoundingClientRect(),dx=e.clientX-(b.left+b.width/2),dy=e.clientY-(b.top+b.height/2);if(Math.hypot(dx,dy)<b.width*.3)return;drag={a0:pa(e),a:ang};moved=false;w.classList.add('drag');rw.setPointerCapture(e.pointerId)});
+rw.addEventListener('pointermove',e=>{if(!drag)return;let d=pa(e)-drag.a0;if(d>180)d-=360;if(d<-180)d+=360;if(Math.abs(d)>3)moved=true;ang=drag.a+d;setA(ang)});
+const end=()=>{if(!drag)return;drag=null;w.classList.remove('drag');sel(Math.round(-ang/STEP));setTimeout(()=>moved=false,60)};
+rw.addEventListener('pointerup',end);rw.addEventListener('pointercancel',end);
 addEventListener('keydown',e=>{if(e.key==='ArrowLeft')sel(cur-1);if(e.key==='ArrowRight')sel(cur+1);if(e.key==='Enter')document.getElementById('go').click()});
 document.getElementById('go').onclick=()=>{const t=document.getElementById('toast');t.textContent='Aperçu seulement — ici s’ouvrirait le code d’accès de '+P[cur][1];t.style.opacity=1;setTimeout(()=>t.style.opacity=0,2200)};
 addEventListener('resize',()=>{size();sel(cur)});size();sel(0);
