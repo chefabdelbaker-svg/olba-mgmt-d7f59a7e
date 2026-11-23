@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261123h"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr" dir="ltr"><head><meta name="olba-build" content="20261123i"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>OLBA Management</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#2b2118"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="OLBA"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
@@ -765,6 +765,11 @@ h3{font-family:Georgia,serif;font-weight:400;font-size:13px;letter-spacing:.16em
 .vW .whh2 span{opacity:.85}.vW .whh2{white-space:normal;padding:0 12px}.vW .cn small{color:#8F3F1C}.vW .whh2 a{color:#8F3F1C}.vW .wht button[data-k=m]{color:#5A6830;border-color:#5A6830}.vW .wht button[data-k=m].on{background:#5A6830;color:#fff}
 .vW .whs{display:flex;justify-content:center;gap:6px;margin:0 0 6px;flex-wrap:wrap}.vW .whs button{background:#fff9;border:1px solid #5D281A44;color:#5D281A;border-radius:14px;padding:6px 12px;min-height:34px;font:600 11px system-ui,sans-serif;cursor:pointer}.vW .whs button.on{background:#5D281A;color:#FAF1E2}
 .vW .epi{bottom:84px!important}.vW .whm{padding-bottom:max(100px,env(safe-area-inset-bottom))!important}
+@media(max-height:720px){.cover.c0{overflow-y:auto}}
+.cv-vars{max-width:calc(100% - 12px)}.cv-vars button{min-height:34px}.cv-back{min-height:34px}.cvl button{min-height:34px}
+@media(max-width:380px){.cv-vars{gap:4px;padding:3px 6px}.cv-vars small{display:none}.cv-vars button{padding:0 8px}}
+.cover.c1.vD .cv-s{margin-top:68px!important}.cover.c1{padding-bottom:70px}@media(max-height:700px){.cover.c1 .lgd{display:none}}
+.apprdec .b[style*="b23a2a"]{background:#b23a2a!important}
 .apprdec summary{min-height:44px;display:inline-flex!important;align-items:center}
 </style><style id="vis2">
 .fgs{display:flex;flex-direction:column;gap:8px;margin:0 0 12px}.fg{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.fgl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--u,#b07a3c);font-weight:700;min-width:92px}
@@ -2620,7 +2625,7 @@ function psBar(){if(1)return '';const mt=myT(),ps=[...new Set(mt.map(t=>t.p))].f
 
 /* Aperçu « Voir comme » = lecture seule : message clair au lieu de « Could not save » */
 {const _al=window.alert.bind(window);window.alert=function(m){try{if(me&&me.pv&&/Could not save|Enregistrement impossible|تعذر الحفظ/.test(String(m)))m=LX('Tu es en mode « Voir comme » : c\'est en lecture seule. Clique « ✕ Quitter », puis refais l\'action avec ton propre profil.','You are in "View as" mode, which is read-only. Click "✕ Exit", then redo the action with your own profile.','وضع المعاينة للقراءة فقط. اضغط خروج ثم أعد المحاولة.')}catch(e){report(e)}return _showAlert(m)}}
-const BUILD='20261123h';
+const BUILD='20261123i';
 let _bchk=0;async function buildCheck(){if(document.hidden||Date.now()-_bchk<120000)return;_bchk=Date.now();try{const r=await fetch(location.pathname+'?b='+Date.now(),{cache:'no-store',headers:{Range:'bytes=0-2047'}});if(!r.ok)return;const t=await r.text(),m=t.match(/name="olba-build" content="([^"]+)"/)||t.match(/const BUILD='([^']+)'/);if(m&&m[1]!==BUILD){const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName))return;if(_bfresh){location.reload();return}if(!document.getElementById('nvb')){const d=document.createElement('div');d.id='nvb';d.style.cssText='position:fixed;bottom:14px;inset-inline:14px;z-index:99999;background:#3E211B;color:#fff;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0005';d.innerHTML='<span>🔄 '+(lang==='ar'?'إصدار جديد متاح':lang==='en'?'New version available':'Nouvelle version disponible')+'</span><button class="b" onclick="location.reload()">'+(lang==='ar'?'تحديث':lang==='en'?'Refresh':'Actualiser')+'</button>';document.body.appendChild(d)}}}catch(_){report(_)}}
 setInterval(buildCheck,180000);let _bfresh=false;document.addEventListener('visibilitychange',()=>{if(document.hidden){_hid=Date.now()}else{_bfresh=Date.now()-(_hid||Date.now())>60000;buildCheck();_bfresh=false}});let _hid=0;
 function goDep(t,k){EMBS[t]=k;go(t)}
