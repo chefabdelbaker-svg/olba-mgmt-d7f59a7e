@@ -3,7 +3,7 @@
 :root{--g:#B4562B;--g2:#B4562B;--bg:#FAF1E2;--ink:#3E211B}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
-body{background:radial-gradient(circle at 50% 0%,rgba(232,147,46,.16),transparent 55%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cpath d='M45 8l6 14 15-4-6 14 14 6-14 6 6 14-15-4-6 14-6-14-15 4 6-14-14-6 14-6-6-14 15 4z' fill='none' stroke='%23E8932E' stroke-opacity='.12'/%3E%3C/svg%3E"),#FAF1E2;display:flex;flex-direction:column;align-items:center;user-select:none;touch-action:pan-y}
+body{background:radial-gradient(circle at 50% 0%,rgba(232,147,46,.16),transparent 55%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110' viewBox='0 0 90 90'%3E%3Cpath d='M45 8l6 14 15-4-6 14 14 6-14 6 6 14-15-4-6 14-6-14-15 4 6-14-14-6 14-6-6-14 15 4z' fill='none' stroke='%23E8932E' stroke-opacity='.2'/%3E%3C/svg%3E"),#FAF1E2;display:flex;flex-direction:column;align-items:center;user-select:none;touch-action:pan-y}
 .stars i{position:fixed;top:-10px;width:var(--s);height:var(--s);border-radius:50%;background:#E8932E;opacity:0;left:var(--x);animation:fl var(--d) linear var(--l) infinite}
 @keyframes fl{0%{transform:translateY(0);opacity:0}15%{opacity:.5}100%{transform:translateY(105vh);opacity:0}}
 header{text-align:center;padding:max(56px,calc(env(safe-area-inset-top) + 48px)) 16px 0;z-index:3}
@@ -14,17 +14,29 @@ header{text-align:center;padding:max(56px,calc(env(safe-area-inset-top) + 48px))
 .lg button{background:#fff9;border:1px solid #5D281A44;color:#5D281A;border-radius:14px;padding:5px 9px;font:12px system-ui;cursor:pointer}
 .lg .on{background:#5D281A;color:#FAF1E2}
 .cp{display:flex;flex-direction:column;align-items:center;width:100%}.cn{text-align:center;opacity:.9}.cn .mk{font:700 clamp(22px,7vw,32px) Georgia,serif;letter-spacing:.34em;color:#5D281A;padding-left:.34em}.cn p{margin:8px 0 2px;font:600 15px system-ui,sans-serif;color:#3E211B}.cn small{font:11px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#B4562B;opacity:.85}.ctr.neutral{border-color:#5D281A55}.ctr.neutral .cp{display:none}.ctr:not(.neutral) .cn{display:none}
+.logoi{height:66px;width:auto;display:block;margin:0 auto;filter:brightness(0) sepia(1) saturate(2.6) hue-rotate(-12deg) brightness(.42);opacity:.95}
+.halo{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:0}
+.h1{width:calc(var(--W)*1.14);height:calc(var(--W)*1.14);border:1px dashed #B4562B55;animation:spin 90s linear infinite}
+.h2{width:calc(var(--W)*1.42);height:calc(var(--W)*1.42);border:1px solid #E8932E33;box-shadow:0 0 90px #E8932E26 inset}
+.h3{width:calc(var(--W)*1.9);height:calc(var(--W)*1.9);border:1px dashed #5D281A22;animation:spin 140s linear infinite reverse}
+.h1::after,.h3::after{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#E8932E}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(circle at 10% 92%,rgba(232,147,46,.22),transparent 40%),radial-gradient(circle at 95% 55%,rgba(180,86,43,.14),transparent 38%),radial-gradient(circle at 50% 50%,transparent 55%,rgba(93,40,26,.12) 100%)}
+.epi{position:fixed;left:0;right:0;bottom:46px;z-index:2;display:flex;justify-content:center;align-items:center;gap:14px;pointer-events:none;opacity:.8}
+.epi i{height:1px;width:22vw;max-width:120px;background:linear-gradient(90deg,transparent,#B4562B)}.epi i:last-child{background:linear-gradient(90deg,#B4562B,transparent)}
+.epi span{font:italic 13px Georgia,serif;color:#5D281A;letter-spacing:.12em}
+@media(prefers-reduced-motion:reduce){.h1,.h3{animation:none}}
 /* roue complète */
 .tabs{display:flex;justify-content:center;gap:5px;margin:12px auto 0;flex-wrap:nowrap;max-width:100%;padding:0 6px}
 .tabs button{all:unset;cursor:pointer;font:700 10px system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:9px 9px;white-space:nowrap;border-radius:20px;border:2px solid var(--c);color:var(--c);background:#fff8;transition:all .35s;min-height:20px}
 .tabs button.on{background:var(--c);color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--c) 50%,transparent)}
 .it.dim img{opacity:.32;filter:grayscale(.7);transform:scale(.92)}
 .it.gon:not(.on) img{box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 30%,transparent),0 0 20px color-mix(in srgb,var(--c) 60%,transparent)}
-main{touch-action:none}
+main{touch-action:none;overflow:hidden}
 
 main{flex:1;display:flex;align-items:center;justify-content:center;width:100%;z-index:2;padding-bottom:max(14px,env(safe-area-inset-bottom))}
 .rw{position:relative;width:var(--W);height:var(--W);touch-action:none}
-.ring{position:absolute;inset:0;border-radius:50%;transform:rotate(var(--a,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.ring{z-index:2;position:absolute;inset:0;border-radius:50%;transform:rotate(var(--a,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .ring.drag{transition:none}
 .rw::before{content:"";position:absolute;inset:calc(var(--S)/2);border-radius:50%;border:2px solid #5D281A33;background:radial-gradient(circle,#fff8,#f6e3c8aa);box-shadow:0 10px 40px #5D281A22}
 .rw::after{content:"";position:absolute;inset:calc(var(--S)*1.15);border-radius:50%;border:1px dashed #5D281A33}
@@ -46,10 +58,10 @@ main{flex:1;display:flex;align-items:center;justify-content:center;width:100%;z-
 </style></head><body>
 <div class="stars" id="st"></div>
 <div class="lg"><button class="on">FR</button><button>EN</button><button>عربي</button></div>
-<header><h1 class="logo">OLBA</h1><p class="sub">Baked en Harmonie</p><div class="rule"></div><nav class="tabs" id="tb"></nav></header>
-<main><div class="rw" id="rw"><div class="pointer"></div><div class="ring" id="w"></div>
+<header><img class="logoi" src="olba-logo.png" alt="OLBA"><div class="rule"></div><nav class="tabs" id="tb"></nav></header>
+<div class="glow"></div><main><div class="rw" id="rw"><div class="halo h3"></div><div class="halo h2"></div><div class="halo h1"></div><div class="pointer"></div><div class="ring" id="w"></div>
 <div class="ctr neutral" id="ctr"><div class="cn"><div class="mk">OLBA</div><p>Choisis ton profil</p><small>touche un visage</small></div><div class="cp"><img id="ci" src="" alt=""><div class="grp" id="g">—</div><div class="role" id="r">—</div><h2 id="n">—</h2><button class="enter" id="go">Entrer</button></div></div></div></main>
-<div class="hint">Glisse · touche un visage ou un onglet</div><div id="toast"></div>
+<div class="epi"><i></i><span>Baked en Harmonie</span><i></i></div><div class="hint">Glisse · touche un visage ou un onglet</div><div id="toast"></div>
 <script>
 const GR={d:['Direction','#5D281A'],m:['Management','#6B7A3A'],t:["Responsables d'équipe",'#B4562B']};
 const P=[['Direction','Direction','COO','d','#5D281A',4],['Ahmed','Ahmed Alruwaithi','CEO','d','#5D281A',5],['Sayed','Syed Ibrahim','Shop Manager','m','#6B7A3A',2],['Manar','Manar','HR & Payroll','m','#2F6F73',9],['Finance','Finance','Finance','m','#2F6F73',10],['Rima','Reema Aljohani','Marketing','t','#B4562B',0],['Chef Omar','Omar Farouk','Kitchen','t','#B4562B',1],['Hafiz','Hafiz','Purchasing','t','#B4562B',3],['Hamza','Hamza Hammama','Bar & FOH','t','#B4562B',8],['Ossama','Asmah Adil Naji','B2B & Admin Support','t','#B4562B',6],['Kyrt','Kyrt Ryxl Llarenas','Food Safety','t','#B4562B',7]];
